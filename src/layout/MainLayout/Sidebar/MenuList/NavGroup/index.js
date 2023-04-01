@@ -6,8 +6,6 @@ import { Divider, List, Typography } from '@mui/material';
 
 // project imports
 import NavItem from '../NavItem';
-import NavCollapse from '../NavCollapse';
-
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
 const NavGroup = ({ item }) => {
@@ -16,8 +14,6 @@ const NavGroup = ({ item }) => {
     // menu list collapse & items
     const items = item.children?.map((menu) => {
         switch (menu.type) {
-            case 'collapse':
-                return <NavCollapse key={menu.id} menu={menu} level={1} />;
             case 'item':
                 return <NavItem key={menu.id} item={menu} level={1} />;
             default:
@@ -47,9 +43,6 @@ const NavGroup = ({ item }) => {
             >
                 {items}
             </List>
-
-            {/* group divider */}
-            <Divider sx={{ mt: 0.25, mb: 1.25 }} />
         </>
     );
 };

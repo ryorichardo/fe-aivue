@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
+import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
 
 // project imports
 import { MENU_OPEN, SET_MENU } from 'store/actions';
@@ -42,9 +42,6 @@ const NavItem = ({ item, level }) => {
     let listItemProps = {
         component: forwardRef((props, ref) => <Link ref={ref} {...props} to={item.url} target={itemTarget} />)
     };
-    if (item?.external) {
-        listItemProps = { component: 'a', href: item.url, target: itemTarget };
-    }
 
     const itemHandler = (id) => {
         dispatch({ type: MENU_OPEN, id });
@@ -60,7 +57,6 @@ const NavItem = ({ item, level }) => {
         if (currentIndex > -1) {
             dispatch({ type: MENU_OPEN, id: item.id });
         }
-        // eslint-disable-next-line
     }, []);
 
     return (
@@ -93,15 +89,6 @@ const NavItem = ({ item, level }) => {
                     )
                 }
             />
-            {item.chip && (
-                <Chip
-                    color={item.chip.color}
-                    variant={item.chip.variant}
-                    size={item.chip.size}
-                    label={item.chip.label}
-                    avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
-                />
-            )}
         </ListItemButton>
     );
 };

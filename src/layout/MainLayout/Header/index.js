@@ -2,37 +2,34 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Box, ButtonBase } from '@mui/material';
+import { Avatar, Box, ButtonBase, Link, Stack, Typography } from '@mui/material';
 
-// project imports
 import LogoSection from '../LogoSection';
-import SearchSection from './SearchSection';
 import ProfileSection from './ProfileSection';
-import NotificationSection from './NotificationSection';
+import navigation from 'layout/MainLayout/Sidebar/MenuItems';
 
-// assets
-import { IconMenu2 } from '@tabler/icons';
+import { IconChevronRight, IconMenu2 } from '@tabler/icons';
+import { drawerWidth } from 'store/constant';
+import { useSelector } from 'react-redux';
+import menuItems from 'layout/MainLayout/Sidebar/MenuItems';
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
-const Header = ({ handleLeftDrawerToggle }) => {
+const Header = ({ handleLeftDrawerToggle, leftDrawerOpened }) => {
     const theme = useTheme();
+    const customization = useSelector((state) => state.customization);
 
     return (
         <>
-            {/* logo & toggler button */}
             <Box
                 sx={{
-                    width: 228,
+                    width: leftDrawerOpened ? drawerWidth : 'auto',
                     display: 'flex',
                     [theme.breakpoints.down('md')]: {
                         width: 'auto'
                     }
                 }}
             >
-                <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-                    <LogoSection />
-                </Box>
                 <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
                     <Avatar
                         variant="rounded"
@@ -54,21 +51,18 @@ const Header = ({ handleLeftDrawerToggle }) => {
                     </Avatar>
                 </ButtonBase>
             </Box>
-
-            {/* header search */}
-            <SearchSection />
+            <Stack sx={{ p: 2 }}>
+                <Typography variant="h2">{customization.isOpen[0] ?? menuItems.items[0].id}</Typography>
+            </Stack>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ flexGrow: 1 }} />
-
-            {/* notification & profile */}
-            <NotificationSection />
             <ProfileSection />
         </>
     );
 };
 
 Header.propTypes = {
-    handleLeftDrawerToggle: PropTypes.func
+    handleLeftDrawerToggle: PropTypes.func,
+    leftDrawerOpened: PropTypes.bool
 };
 
 export default Header;

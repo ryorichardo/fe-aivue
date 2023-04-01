@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Drawer, useMediaQuery } from '@mui/material';
+import { Avatar, Box, Drawer, ButtonBase, useMediaQuery } from '@mui/material';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -13,6 +13,7 @@ import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
 import MenuCard from './MenuCard';
 import { drawerWidth } from 'store/constant';
+import { IconMenu2 } from '@tabler/icons';
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -22,28 +23,30 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
 
     const drawer = (
         <>
-            <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-                <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
-                    <LogoSection />
-                </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    p: 4
+                }}
+            >
+                <LogoSection />
             </Box>
+
             <BrowserView>
                 <PerfectScrollbar
                     component="div"
                     style={{
-                        height: !matchUpMd ? 'calc(100vh - 56px)' : 'calc(100vh - 88px)',
+                        height: !matchUpMd ? 'calc(100vh - 56px)' : 'calc(100vh - 112px)',
                         paddingLeft: '16px',
                         paddingRight: '16px'
                     }}
                 >
                     <MenuList />
-                    <MenuCard />
                 </PerfectScrollbar>
             </BrowserView>
             <MobileView>
                 <Box sx={{ px: 2 }}>
                     <MenuList />
-                    <MenuCard />
                 </Box>
             </MobileView>
         </>
@@ -62,12 +65,9 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                 sx={{
                     '& .MuiDrawer-paper': {
                         width: drawerWidth,
-                        background: theme.palette.background.default,
+                        background: theme.palette.background.paper,
                         color: theme.palette.text.primary,
-                        borderRight: 'none',
-                        [theme.breakpoints.up('md')]: {
-                            top: '88px'
-                        }
+                        borderRight: 'none'
                     }
                 }}
                 ModalProps={{ keepMounted: true }}

@@ -12,7 +12,7 @@ $primary800: #1565c0;
 $secondaryLight: #ede7f6;
 $secondaryMain: #673ab7;
 $secondaryDark: #5e35b1;
-$secondary200: #b39ddb;
+// $secondary200: #b39ddb;
 $secondary800: #4527a0;
 
 // success Colors
@@ -37,12 +37,12 @@ $warningMain: #ffe57f;
 $warningDark: #ffc107;
 
 // grey
-$grey50: #F8FAFC;
-$grey100: #EEF2F6;
-$grey200: #E3E8EF;
-$grey300: #CDD5DF;
+$grey50: #f8fafc;
+$grey100: #eef2f6;
+$grey200: #e3e8ef;
+$grey300: #cdd5df;
 $grey500: #697586;
-$grey600: #4B5565;
+$grey600: #4b5565;
 $grey700: #364152;
 $grey900: #121926;
 
@@ -74,6 +74,26 @@ $darkSecondary800: #6200ea;
 $darkTextTitle: #d7dcec;
 $darkTextPrimary: #bdc8f0;
 $darkTextSecondary: #8492c4;
+
+// AIVue color theme
+$primary500: #546fff;
+$primary400: #7e95ff;
+$primary300: #98abff;
+$primary200: #bac8ff;
+$primary100: #dce4ff;
+
+// AIVue background
+$greyBackground: #f5f5f7;
+
+// AIVue secondary
+$secondary500: #141522;
+$secondary400: #54577a;
+$secondary300: #8e92bc;
+$secondary200: #c2c6e8;
+$secondary100: #dfe1f3;
+
+// AIVue selected/disabled
+$greyDisabled: #f5f5f7;
 
 // ==============================|| JAVASCRIPT ||============================== //
 
@@ -154,4 +174,20 @@ $darkTextSecondary: #8492c4;
     darkSecondaryDark: $darkSecondaryDark;
     darkSecondary200: $darkSecondary200;
     darkSecondary800: $darkSecondary800;
+
+    // AIVue
+    primary500: $primary500;
+    primary400: $primary400;
+    primary300: $primary300;
+    primary200: $primary200;
+    primary100: $primary100;
+
+    secondary500: $secondary500;
+    secondary400: $secondary400;
+    secondary300: $secondary300;
+    secondary200: $secondary200;
+    secondary100: $secondary100;
+
+    greyBackground: $greyBackground;
+    greyDisabled: $greyDisabled;
 }

@@ -94,7 +94,7 @@ export default function themeTypography(theme) {
             padding: '20px',
             marginTop: '88px',
             marginRight: '20px',
-            borderRadius: `${theme?.customization?.borderRadius}px`
+            borderRadius: `8px`
         },
         menuCaption: {
             fontSize: '0.875rem',

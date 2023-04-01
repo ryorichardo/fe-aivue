@@ -2,8 +2,8 @@
 import { Typography } from '@mui/material';
 
 // project imports
+import menuItem from 'layout/MainLayout/Sidebar/MenuItems';
 import NavGroup from './NavGroup';
-import menuItem from 'menu-items';
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
