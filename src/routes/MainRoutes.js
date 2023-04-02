@@ -39,21 +39,8 @@ const MainRoutes = {
             path: 'dashboard',
             children: [
                 {
-                    path: 'default',
-                    element: <DashboardDefault />
-                }
-            ]
-        },
-        {
-            path: 'interview-kit',
-            children: [
-                {
                     path: '',
-                    element: <InterviewKitPage />
-                },
-                {
-                    path: 'new',
-                    element: <AddInterviewKitPage />
+                    element: <DashboardDefault />
                 }
             ]
         },
@@ -67,6 +54,19 @@ const MainRoutes = {
                 {
                     path: 'new',
                     element: <AddCandidatePage />
+                }
+            ]
+        },
+        {
+            path: 'interview-kit',
+            children: [
+                {
+                    path: '',
+                    element: <InterviewKitPage />
+                },
+                {
+                    path: 'new',
+                    element: <AddInterviewKitPage />
                 }
             ]
         },

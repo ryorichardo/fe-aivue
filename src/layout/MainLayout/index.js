@@ -6,7 +6,6 @@ import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
 
 // project imports
-import Breadcrumbs from 'components/extended/Breadcrumbs';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import navigation from 'layout/MainLayout/Sidebar/MenuItems';
@@ -73,12 +72,12 @@ const MainLayout = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <>
             <CssBaseline />
             {/* header */}
             <AppBar
                 enableColorOnDark
-                position="fixed"
+                position="relative"
                 color="transparent"
                 elevation={0}
                 sx={{
@@ -90,17 +89,16 @@ const MainLayout = () => {
                     <Header handleLeftDrawerToggle={handleLeftDrawerToggle} leftDrawerOpened={leftDrawerOpened} />
                 </Toolbar>
             </AppBar>
+            <Box sx={{ display: 'flex' }}>
+                {/* drawer */}
+                <Sidebar drawerOpen={!matchDownMd ? leftDrawerOpened : !leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
 
-            {/* drawer */}
-            <Sidebar drawerOpen={!matchDownMd ? leftDrawerOpened : !leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
-
-            {/* main content */}
-            <Main theme={theme} open={leftDrawerOpened}>
-                {/* breadcrumb */}
-                <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
-                <Outlet />
-            </Main>
-        </Box>
+                {/* main content */}
+                <Main theme={theme} open={leftDrawerOpened}>
+                    <Outlet />
+                </Main>
+            </Box>
+        </>
     );
 };
 

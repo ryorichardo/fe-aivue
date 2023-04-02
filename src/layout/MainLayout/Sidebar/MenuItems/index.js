@@ -13,7 +13,7 @@ export const dashboard = {
             id: 'Dashboard',
             title: 'Dashboard',
             type: 'item',
-            url: '/dashboard/default',
+            url: '/dashboard',
             icon: icons.IconLayoutDashboard,
             breadcrumbs: false
         }
