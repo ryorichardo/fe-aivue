@@ -7,6 +7,9 @@ import Loadable from 'components/Loadable';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
+// candidates routing
+const CandidatePage = Loadable(lazy(() => import('views/candidates')));
+
 // interview-kit routing
 const InterviewKitPage = Loadable(lazy(() => import('views/interview')));
 
@@ -45,6 +48,15 @@ const MainRoutes = {
                 {
                     path: '',
                     element: <InterviewKitPage />
+                }
+            ]
+        },
+        {
+            path: 'kandidat',
+            children: [
+                {
+                    path: '',
+                    element: <CandidatePage />
                 }
             ]
         },

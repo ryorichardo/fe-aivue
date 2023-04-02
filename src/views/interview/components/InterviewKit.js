@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-
-import { Card, Grid, IconButton, Stack, Typography } from '@mui/material';
-import { gridSpacing } from 'config/constant';
+import { Card, Grid, IconButton, Typography } from '@mui/material';
 import { IconPencil, IconTrash } from '@tabler/icons';
 
 function InterviewKit({ title, numOfQuestions, duration, createdAt, updatedAt }) {
@@ -15,10 +12,10 @@ function InterviewKit({ title, numOfQuestions, duration, createdAt, updatedAt })
                             <Typography variant="h4">{title}</Typography>
                         </Grid>
                         <Grid item xs={'auto'}>
-                            <IconButton size="small" color="error" sx={{ marginRight: '8px' }}>
+                            <IconButton size="small" color="warning" sx={{ marginRight: '8px' }}>
                                 <IconPencil size={18} />
                             </IconButton>
-                            <IconButton size="small" color="warning">
+                            <IconButton size="small" color="error">
                                 <IconTrash size={18} />
                             </IconButton>
                         </Grid>
