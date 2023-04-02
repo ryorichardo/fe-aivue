@@ -55,7 +55,6 @@ const Header = ({ handleLeftDrawerToggle, leftDrawerOpened }) => {
             </Box>
             <Stack sx={{ p: 2 }}>
                 <Breadcrumbs />
-                <Typography variant="h2">{customization.isOpen[0] ?? menuItems.items[0].id}</Typography>
             </Stack>
             <Box sx={{ flexGrow: 1 }} />
             <ProfileSection />
