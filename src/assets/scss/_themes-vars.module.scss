@@ -95,6 +95,14 @@ $secondary100: #dfe1f3;
 // AIVue selected/disabled
 $greyDisabled: #f5f5f7;
 
+// AIVue error
+$error100: #ffe7d3;
+$error600: #db2719;
+
+// AIVue warning
+$warning100: #fff8d7;
+$warning600: #dba32a;
+
 // ==============================|| JAVASCRIPT ||============================== //
 
 :export {
@@ -190,4 +198,10 @@ $greyDisabled: #f5f5f7;
 
     greyBackground: $greyBackground;
     greyDisabled: $greyDisabled;
+
+    error100: $error100;
+    error600: $error600;
+
+    warning100: $warning100;
+    warning600: $warning600;
 }

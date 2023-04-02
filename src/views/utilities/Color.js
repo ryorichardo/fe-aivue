@@ -7,7 +7,7 @@ import { Box, Card, Grid, Typography } from '@mui/material';
 import SubCard from 'components/cards/SubCard';
 import MainCard from 'components/cards/MainCard';
 import SecondaryAction from 'components/cards/CardSecondaryAction';
-import { gridSpacing } from 'store/constant';
+import { gridSpacing } from 'config/constant';
 
 // ===============================|| COLOR BOX ||=============================== //
 

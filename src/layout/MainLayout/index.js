@@ -10,7 +10,7 @@ import Breadcrumbs from 'components/extended/Breadcrumbs';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import navigation from 'layout/MainLayout/Sidebar/MenuItems';
-import { drawerWidth } from 'store/constant';
+import { drawerWidth } from 'config/constant';
 import { SET_MENU } from 'store/actions';
 
 // assets

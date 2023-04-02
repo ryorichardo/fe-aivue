@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // material-ui
@@ -8,22 +6,14 @@ import { useTheme } from '@mui/material/styles';
 import {
     Avatar,
     Box,
-    Card,
-    CardContent,
     Chip,
     ClickAwayListener,
-    Divider,
-    Grid,
-    InputAdornment,
     List,
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    OutlinedInput,
     Paper,
     Popper,
-    Stack,
-    Switch,
     Typography
 } from '@mui/material';
 
@@ -31,7 +21,7 @@ import {
 import User1 from 'assets/images/users/user-round.svg';
 
 // assets
-import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
+import { IconLogout, IconSettings } from '@tabler/icons';
 import Transitions from 'components/extended/Transitions';
 import MainCard from 'components/cards/MainCard';
 
@@ -40,9 +30,7 @@ import MainCard from 'components/cards/MainCard';
 const ProfileSection = () => {
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
-    const navigate = useNavigate();
 
-    const [selectedIndex, setSelectedIndex] = useState(-1);
     const [open, setOpen] = useState(false);
 
     const anchorRef = useRef(null);
@@ -154,11 +142,7 @@ const ProfileSection = () => {
                                                 }
                                             }}
                                         >
-                                            <ListItemButton
-                                                sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                selected={selectedIndex === 4}
-                                                onClick={handleLogout}
-                                            >
+                                            <ListItemButton sx={{ borderRadius: `${customization.borderRadius}px` }} onClick={handleLogout}>
                                                 <ListItemIcon>
                                                     <IconLogout stroke={1.5} size="1.3rem" />
                                                 </ListItemIcon>

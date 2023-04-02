@@ -45,7 +45,7 @@ export const interviewKit = {
             id: 'Interview Kit',
             title: 'Interview Kit',
             type: 'item',
-            url: '/dashboard/default',
+            url: '/interview-kit',
             icon: icons.IconBooks,
             breadcrumbs: false
         }

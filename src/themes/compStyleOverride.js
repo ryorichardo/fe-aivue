@@ -6,6 +6,26 @@ export default function componentStyleOverrides(theme) {
                 root: {
                     fontWeight: 500,
                     borderRadius: '4px'
+                },
+                containedPrimary: {
+                    '&:hover': {
+                        backgroundColor: theme.colors?.primary400
+                    }
+                }
+            }
+        },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '4px'
+                },
+                colorError: {
+                    backgroundColor: theme.colors?.error100,
+                    color: theme.colors?.error600
+                },
+                colorWarning: {
+                    backgroundColor: theme.colors?.warning100,
+                    color: theme.colors?.warning600
                 }
             }
         },
@@ -19,6 +39,13 @@ export default function componentStyleOverrides(theme) {
                 },
                 rounded: {
                     borderRadius: `${theme?.customization?.borderRadius}px`
+                }
+            }
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    padding: '24px'
                 }
             }
         },

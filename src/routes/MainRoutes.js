@@ -7,6 +7,9 @@ import Loadable from 'components/Loadable';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
+// interview-kit routing
+const InterviewKitPage = Loadable(lazy(() => import('views/interview')));
+
 // utilities routing
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
 const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
@@ -37,11 +40,11 @@ const MainRoutes = {
             ]
         },
         {
-            path: 'utils',
+            path: 'interview-kit',
             children: [
                 {
-                    path: 'util-typography',
-                    element: <UtilsTypography />
+                    path: '',
+                    element: <InterviewKitPage />
                 }
             ]
         },

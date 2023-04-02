@@ -2,14 +2,12 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Box, ButtonBase, Link, Stack, Typography } from '@mui/material';
+import { Avatar, Box, ButtonBase, Stack, Typography } from '@mui/material';
 
-import LogoSection from '../LogoSection';
 import ProfileSection from './ProfileSection';
-import navigation from 'layout/MainLayout/Sidebar/MenuItems';
 
-import { IconChevronRight, IconMenu2 } from '@tabler/icons';
-import { drawerWidth } from 'store/constant';
+import { IconMenu2 } from '@tabler/icons';
+import { drawerWidth } from 'config/constant';
 import { useSelector } from 'react-redux';
 import menuItems from 'layout/MainLayout/Sidebar/MenuItems';
 

@@ -29,7 +29,7 @@ export default function themeTypography(theme) {
         h2: {
             fontSize: '1.5rem',
             color: theme.heading,
-            fontWeight: 700
+            fontWeight: 600
         },
         h1: {
             fontSize: '2.125rem',
@@ -57,9 +57,8 @@ export default function themeTypography(theme) {
             lineHeight: '1.334em'
         },
         body2: {
-            letterSpacing: '0em',
+            fontSize: '0.75rem',
             fontWeight: 400,
-            lineHeight: '1.5em',
             color: theme.darkTextPrimary
         },
         button: {
