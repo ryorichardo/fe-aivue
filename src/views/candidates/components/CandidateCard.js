@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Button, Card, Chip, Grid, IconButton, Stack, Typography } from '@mui/material';
 import { IconPencil, IconTrash, IconPhotoStar } from '@tabler/icons';
 import StarIcon from '@mui/icons-material/Star';
+import CandidateStatusLabel from './CandidateStatusLabel';
 
 function CandidateCard({ name, email, position, status, expiredDate, completedDate, pic, rating }) {
     const isInterviewCompleted = !!completedDate;
@@ -43,7 +44,7 @@ function CandidateCard({ name, email, position, status, expiredDate, completedDa
                                     <Typography variant="caption">Status</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Chip variant="contained" label={status} color="primary" size="small" />
+                                    <CandidateStatusLabel label={status} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -83,7 +84,7 @@ function CandidateCard({ name, email, position, status, expiredDate, completedDa
                     <Grid item xs={12}>
                         <Grid container justifyContent="space-between" alignItems="center" spacing={1.5}>
                             <Grid item xs>
-                                <Button size="small" variant="contained" sx={{ width: '100%' }}>
+                                <Button size="small" variant="contained" color="secondary" sx={{ width: '100%' }}>
                                     Review
                                 </Button>
                             </Grid>

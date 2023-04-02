@@ -6,7 +6,7 @@ $primaryLight: #eef2f6;
 $primaryMain: #2196f3;
 $primaryDark: #1e88e5;
 $primary200: #90caf9;
-$primary800: #1565c0;
+//$primary800: #1565c0;
 
 // secondary
 $secondaryLight: #ede7f6;
@@ -76,6 +76,9 @@ $darkTextPrimary: #bdc8f0;
 $darkTextSecondary: #8492c4;
 
 // AIVue color theme
+$primary800: #1a2793;
+$primary700: #2a3bb7;
+$primary600: #3d53db;
 $primary500: #546fff;
 $primary400: #7e95ff;
 $primary300: #98abff;
@@ -102,6 +105,19 @@ $error600: #db2719;
 // AIVue warning
 $warning100: #fff8d7;
 $warning600: #dba32a;
+
+// AIVue interview status
+$success100: #def8ee;
+$success600: #4aa785;
+
+$expired100: rgba(0, 0, 0, 0.05);
+$expired600: rgba(0, 0, 0, 0.4);
+
+$onhold600: #ffc555;
+$onhold100: #fffbd4;
+
+$sent100: #bae5ff;
+$sent600: #54a6ff;
 
 // ==============================|| JAVASCRIPT ||============================== //
 
@@ -184,6 +200,9 @@ $warning600: #dba32a;
     darkSecondary800: $darkSecondary800;
 
     // AIVue
+    primary800: $primary800;
+    primary700: $primary700;
+    primary600: $primary600;
     primary500: $primary500;
     primary400: $primary400;
     primary300: $primary300;
@@ -204,4 +223,16 @@ $warning600: #dba32a;
 
     warning100: $warning100;
     warning600: $warning600;
+
+    success100: $success100;
+    success600: $success600;
+
+    expired100: $expired100;
+    expired600: $expired600;
+
+    onhold600: $onhold600;
+    onhold100: $onhold100;
+
+    sent100: $sent100;
+    sent600: $sent600;
 }

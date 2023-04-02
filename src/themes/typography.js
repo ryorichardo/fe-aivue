@@ -86,6 +86,7 @@ export default function themeTypography(theme) {
             }
         },
         mainContent: {
+            zIndex: 1,
             backgroundColor: theme.background,
             width: '100%',
             minHeight: 'calc(100vh)',

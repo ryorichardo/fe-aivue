@@ -119,40 +119,41 @@ const ProfileSection = () => {
                         }
                     ]
                 }}
+                sx={{
+                    zIndex: 999
+                }}
             >
                 {({ TransitionProps }) => (
                     <Transitions in={open} {...TransitionProps}>
-                        <Paper>
-                            <ClickAwayListener onClickAway={handleClose}>
-                                <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
-                                    <Box sx={{ p: 2 }}>
-                                        <List
-                                            component="nav"
-                                            sx={{
-                                                width: '100%',
-                                                maxWidth: 350,
-                                                minWidth: 300,
-                                                backgroundColor: theme.palette.background.paper,
-                                                borderRadius: '10px',
-                                                [theme.breakpoints.down('md')]: {
-                                                    minWidth: '100%'
-                                                },
-                                                '& .MuiListItemButton-root': {
-                                                    mt: 0.5
-                                                }
-                                            }}
-                                        >
-                                            <ListItemButton sx={{ borderRadius: `${customization.borderRadius}px` }} onClick={handleLogout}>
-                                                <ListItemIcon>
-                                                    <IconLogout stroke={1.5} size="1.3rem" />
-                                                </ListItemIcon>
-                                                <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
-                                            </ListItemButton>
-                                        </List>
-                                    </Box>
-                                </MainCard>
-                            </ClickAwayListener>
-                        </Paper>
+                        <ClickAwayListener onClickAway={handleClose}>
+                            <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
+                                <Box>
+                                    <List
+                                        component="nav"
+                                        sx={{
+                                            width: '100%',
+                                            maxWidth: 350,
+                                            minWidth: 300,
+                                            backgroundColor: theme.palette.background.paper,
+                                            borderRadius: '10px',
+                                            [theme.breakpoints.down('md')]: {
+                                                minWidth: '100%'
+                                            },
+                                            '& .MuiListItemButton-root': {
+                                                mt: 0.5
+                                            }
+                                        }}
+                                    >
+                                        <ListItemButton sx={{ borderRadius: `${customization.borderRadius}px` }} onClick={handleLogout}>
+                                            <ListItemIcon>
+                                                <IconLogout stroke={1.5} size="1.3rem" />
+                                            </ListItemIcon>
+                                            <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
+                                        </ListItemButton>
+                                    </List>
+                                </Box>
+                            </MainCard>
+                        </ClickAwayListener>
                     </Transitions>
                 )}
             </Popper>

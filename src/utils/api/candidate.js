@@ -22,7 +22,7 @@ export const getAllCandidates = () => {
             name: 'Andrew Tate',
             email: 'tate@topg.com',
             position: 'Software Engineer I',
-            status: 'SELECTED',
+            status: 'WAITING',
             expiredDate: new Date(),
             completedDate: new Date(),
             pic: { name: 'Rafidika Samekto', email: 'rafidika@gmail.com' }

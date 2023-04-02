@@ -7,10 +7,8 @@ export default function componentStyleOverrides(theme) {
                     fontWeight: 500,
                     borderRadius: '4px'
                 },
-                containedPrimary: {
-                    '&:hover': {
-                        backgroundColor: theme.colors?.primary400
-                    }
+                containedSecondary: {
+                    color: theme.colors?.paper
                 }
             }
         },
@@ -119,6 +117,7 @@ export default function componentStyleOverrides(theme) {
         MuiInputBase: {
             styleOverrides: {
                 input: {
+                    background: `${theme.colors?.paper} !important`,
                     color: theme.textDark,
                     '&::placeholder': {
                         color: theme.darkTextSecondary,

@@ -10,18 +10,18 @@ export default function themePalette(theme) {
             black: theme.colors?.darkPaper
         },
         primary: {
-            light: theme.colors?.primaryLight,
+            light: theme.colors?.primary100,
             main: theme.colors?.primary500,
-            dark: theme.colors?.primaryDark,
+            dark: theme.colors?.primary600,
             200: theme.colors?.primary200,
-            800: theme.colors?.primary500
+            800: theme.colors?.primary800
         },
         secondary: {
-            light: theme.colors?.secondaryLight,
-            main: theme.colors?.secondaryMain,
-            dark: theme.colors?.secondaryDark,
-            200: theme.colors?.secondary200,
-            800: theme.colors?.secondary800
+            light: theme.colors?.primary100,
+            main: theme.colors?.primary300,
+            dark: theme.colors?.primary500,
+            200: theme.colors?.primary200,
+            800: theme.colors?.primary800
         },
         error: {
             light: theme.colors?.errorLight,
@@ -68,6 +68,20 @@ export default function themePalette(theme) {
         background: {
             paper: theme.paper,
             default: theme.backgroundDefault
+        },
+        status: {
+            selected: theme.colors?.success600,
+            rejected: theme.colors?.error600,
+            expired: theme.colors?.expired600,
+            sent: theme.colors?.sent600,
+            onhold: theme.colors?.onhold600,
+            waiting: theme.colors?.primary500,
+            bgSelected: theme.colors?.success100,
+            bgRejected: theme.colors?.error100,
+            bgExpired: theme.colors?.expired100,
+            bgSent: theme.colors?.sent100,
+            bgOnhold: theme.colors.onhold100,
+            bgWaiting: theme.colors?.primary100
         }
     };
 }
