@@ -1,16 +1,22 @@
 import { Button, Grid, Pagination, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { gridSpacing } from 'config/constant';
 import CandidateList from './components/CandidateList';
 import { getAllCandidates } from 'utils/api/candidate';
 
 function CandidatePage() {
+    const navigate = useNavigate();
     const candidates = getAllCandidates();
+
+    const handleClickNavigate = () => {
+        navigate('/candidate/new');
+    };
 
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container justifyContent="flex-end">
-                    <Button size="large" variant="contained">
+                    <Button size="large" variant="contained" onClick={handleClickNavigate}>
                         Tambah Kandidat
                     </Button>
                 </Grid>

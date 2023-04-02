@@ -29,7 +29,7 @@ export const kandidat = {
             id: 'Kandidat',
             title: 'Kandidat',
             type: 'item',
-            url: '/kandidat',
+            url: '/candidate',
             icon: icons.IconUsers,
             breadcrumbs: false
         }

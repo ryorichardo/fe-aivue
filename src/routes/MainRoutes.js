@@ -9,9 +9,11 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 
 // candidates routing
 const CandidatePage = Loadable(lazy(() => import('views/candidates')));
+const AddCandidatePage = Loadable(lazy(() => import('views/candidates/AddCandidatePage')));
 
 // interview-kit routing
 const InterviewKitPage = Loadable(lazy(() => import('views/interview')));
+const AddInterviewKitPage = Loadable(lazy(() => import('views/interview/AddInterviewKitPage')));
 
 // utilities routing
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
@@ -48,15 +50,23 @@ const MainRoutes = {
                 {
                     path: '',
                     element: <InterviewKitPage />
+                },
+                {
+                    path: 'new',
+                    element: <AddInterviewKitPage />
                 }
             ]
         },
         {
-            path: 'kandidat',
+            path: 'candidate',
             children: [
                 {
                     path: '',
                     element: <CandidatePage />
+                },
+                {
+                    path: 'new',
+                    element: <AddCandidatePage />
                 }
             ]
         },

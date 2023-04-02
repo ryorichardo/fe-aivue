@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button, Card, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Button, Card, Chip, Grid, IconButton, Stack, Typography } from '@mui/material';
 import { IconPencil, IconTrash, IconPhotoStar } from '@tabler/icons';
 import StarIcon from '@mui/icons-material/Star';
 
@@ -43,7 +43,7 @@ function CandidateCard({ name, email, position, status, expiredDate, completedDa
                                     <Typography variant="caption">Status</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{status}</Typography>
+                                    <Chip variant="contained" label={status} color="primary" size="small" />
                                 </Grid>
                             </Grid>
                         </Grid>

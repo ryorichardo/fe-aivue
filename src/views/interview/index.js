@@ -1,16 +1,21 @@
 import { Button, Grid, Pagination, Typography } from '@mui/material';
+import { useNavigate } from 'react-router';
 import { gridSpacing } from 'config/constant';
 import InterviewKitList from './components/InterviewKitList';
 import { getInterviewKits } from 'utils/api/interview';
 
 function InterviewKitPage() {
+    const navigate = useNavigate();
     const interviewKits = getInterviewKits();
 
+    const handleClickNavigate = () => {
+        navigate('/interview-kit/new');
+    };
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container justifyContent="flex-end">
-                    <Button size="large" variant="contained">
+                    <Button size="large" variant="contained" onClick={handleClickNavigate}>
                         Tambah Interview Kit
                     </Button>
                 </Grid>
