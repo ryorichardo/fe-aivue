@@ -7,8 +7,9 @@ function CandidateList({ data }) {
     return (
         <Grid container spacing={gridSpacing}>
             {data.map((candidate) => (
-                <Grid item xl={3} lg={4} md={6} xs={12} key={candidate.name}>
+                <Grid item xl={3} lg={4} md={6} xs={12} key={candidate.id}>
                     <CandidateCard
+                        id={candidate.id}
                         name={candidate.name}
                         position={candidate.position}
                         email={candidate.email}

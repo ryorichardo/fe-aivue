@@ -38,8 +38,6 @@ function CandidateStatusLabel({ label }) {
             color = theme.palette.success.main;
     }
 
-    console.log(color);
-
     return (
         <Chip
             variant="contained"

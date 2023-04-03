@@ -34,7 +34,7 @@ function Breadcrumbs() {
                     return (
                         <Link underline="hover" color="inherit" href={currentLink}>
                             <Typography variant="body1" sx={{ fontWeight: i === crumbs.length - 1 ? 600 : 400 }}>
-                                {pathToBahasa[crumb].charAt(0).toUpperCase() + pathToBahasa[crumb].slice(1)}
+                                {pathToBahasa[crumb]?.charAt(0).toUpperCase() + pathToBahasa[crumb]?.slice(1) || crumb}
                             </Typography>
                         </Link>
                     );

@@ -4,10 +4,15 @@ import { IconTrash } from '@tabler/icons';
 import StarIcon from '@mui/icons-material/Star';
 import CandidateStatusLabel from './CandidateStatusLabel';
 import { INTERVIEW_STATUS } from 'config/constant';
+import { useNavigate } from 'react-router';
 
-function CandidateCard({ name, email, position, status, expiredDate, completedDate, pic, rating }) {
+function CandidateCard({ id, name, email, position, status, expiredDate, completedDate, pic, rating }) {
+    const navigate = useNavigate();
     const isInterviewCompleted = !!completedDate;
 
+    const onClickReview = () => {
+        navigate(`${id}/review`);
+    };
     return (
         <Card>
             <Grid container spacing={2}>
@@ -91,7 +96,7 @@ function CandidateCard({ name, email, position, status, expiredDate, completedDa
                     <Grid item xs={12}>
                         <Grid container justifyContent="space-between" alignItems="center" spacing={1.5}>
                             <Grid item xs>
-                                <Button size="small" variant="contained" color="secondary" sx={{ width: '100%' }}>
+                                <Button size="small" variant="contained" color="secondary" sx={{ width: '100%' }} onClick={onClickReview}>
                                     Review
                                 </Button>
                             </Grid>
@@ -109,6 +114,7 @@ function CandidateCard({ name, email, position, status, expiredDate, completedDa
 }
 
 CandidateCard.propTypes = {
+    id: PropTypes.string,
     name: PropTypes.string,
     email: PropTypes.string,
     rating: PropTypes.number,

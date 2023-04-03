@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Button, Grid, Pagination, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { gridSpacing } from 'config/constant';
@@ -6,7 +7,21 @@ import { getAllCandidates } from 'utils/api/candidate';
 
 function CandidatePage() {
     const navigate = useNavigate();
-    const candidates = getAllCandidates();
+    const [candidates, setCandidates] = useState([]);
+
+    const getCandidates = async () => {
+        try {
+            // TODO - add loading mechanism
+            const { data } = await getAllCandidates();
+            setCandidates(data);
+        } catch (error) {
+            // TODO - add error handling
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        getCandidates();
+    }, []);
 
     const handleClickNavigate = () => {
         navigate('/candidate/new');
