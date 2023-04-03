@@ -2,24 +2,16 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Box, ButtonBase, Stack, Typography } from '@mui/material';
-
-import LogoSection from '../LogoSection';
-import ProfileSection from './ProfileSection';
-import navigation from 'layout/MainLayout/Sidebar/MenuItems';
-
-import { IconChevronRight, IconMenu2 } from '@tabler/icons';
-
-import { useSelector } from 'react-redux';
-import menuItems from 'layout/MainLayout/Sidebar/MenuItems';
+import { Avatar, Box, ButtonBase, Stack } from '@mui/material';
+import { IconMenu2 } from '@tabler/icons';
 import { drawerWidth } from 'config/constant';
 import Breadcrumbs from 'components/extended/Breadcrumbs';
+import ProfileSection from './ProfileSection';
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = ({ handleLeftDrawerToggle, leftDrawerOpened }) => {
     const theme = useTheme();
-    const customization = useSelector((state) => state.customization);
 
     return (
         <>

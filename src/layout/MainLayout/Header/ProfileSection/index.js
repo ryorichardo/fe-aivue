@@ -3,19 +3,7 @@ import { useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import {
-    Avatar,
-    Box,
-    Chip,
-    ClickAwayListener,
-    List,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Paper,
-    Popper,
-    Typography
-} from '@mui/material';
+import { Avatar, Box, Chip, ClickAwayListener, List, ListItemButton, ListItemIcon, ListItemText, Popper, Typography } from '@mui/material';
 
 // project imports
 import User1 from 'assets/images/users/user-round.svg';

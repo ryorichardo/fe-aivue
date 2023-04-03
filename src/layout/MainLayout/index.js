@@ -8,12 +8,8 @@ import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material'
 // project imports
 import Header from './Header';
 import Sidebar from './Sidebar';
-import navigation from 'layout/MainLayout/Sidebar/MenuItems';
 import { drawerWidth } from 'config/constant';
 import { SET_MENU } from 'store/actions';
-
-// assets
-import { IconChevronRight } from '@tabler/icons';
 
 // styles
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({

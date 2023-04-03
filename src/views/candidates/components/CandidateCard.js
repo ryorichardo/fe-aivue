@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { Button, Card, Chip, Grid, IconButton, Stack, Typography } from '@mui/material';
-import { IconPencil, IconTrash, IconPhotoStar } from '@tabler/icons';
+import { Button, Card, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { IconTrash } from '@tabler/icons';
 import StarIcon from '@mui/icons-material/Star';
 import CandidateStatusLabel from './CandidateStatusLabel';
+import { INTERVIEW_STATUS } from 'config/constant';
 
 function CandidateCard({ name, email, position, status, expiredDate, completedDate, pic, rating }) {
     const isInterviewCompleted = !!completedDate;
@@ -19,10 +20,16 @@ function CandidateCard({ name, email, position, status, expiredDate, completedDa
                             </Stack>
                         </Grid>
                         <Grid item xs={'auto'}>
-                            <Stack direction="row" spacing={1} alignItems="center">
-                                <StarIcon size={24} sx={{ color: '#FFB054' }} />
-                                <Typography variant="body1">{rating || 0}</Typography>
-                            </Stack>
+                            {status === INTERVIEW_STATUS.EXPIRED ? (
+                                <IconButton size="small" color="error">
+                                    <IconTrash size={18} />
+                                </IconButton>
+                            ) : (
+                                <Stack direction="row" spacing={1} alignItems="center">
+                                    <StarIcon size={24} sx={{ color: '#FFB054' }} />
+                                    <Typography variant="body1">{rating || 0}</Typography>
+                                </Stack>
+                            )}
                         </Grid>
                     </Grid>
                 </Grid>

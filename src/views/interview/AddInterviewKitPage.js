@@ -1,4 +1,4 @@
-import { Button, Card, Grid, Stack, TextField, Typography, Box } from '@mui/material';
+import { Button, Card, Grid, Stack, TextField, Typography } from '@mui/material';
 import { gridSpacing } from 'config/constant';
 
 function AddInterviewKitPage() {
