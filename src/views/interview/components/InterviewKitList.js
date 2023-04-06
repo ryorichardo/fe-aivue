@@ -9,7 +9,8 @@ function InterviewKitList({ data }) {
             {data.map((kit) => (
                 <Grid item xl={3} lg={4} md={6} xs={12}>
                     <InterviewKit
-                        title={kit.title}
+                        id={kit.id}
+                        title={kit.position}
                         numOfQuestions={kit.numOfQuestions}
                         duration={kit.duration}
                         createdAt={kit.createdAt}

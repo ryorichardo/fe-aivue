@@ -3,10 +3,26 @@ import { useNavigate } from 'react-router';
 import { gridSpacing } from 'config/constant';
 import InterviewKitList from './components/InterviewKitList';
 import { getInterviewKits } from 'utils/api/interview';
+import { useState, useEffect } from 'react';
 
 function InterviewKitPage() {
     const navigate = useNavigate();
-    const interviewKits = getInterviewKits();
+    const [interviewKits, setInterviewKits] = useState([]);
+
+    const getAllInterviewKits = async () => {
+        try {
+            // TODO - add loading mechanism
+            const { data } = await getInterviewKits();
+            setInterviewKits(data);
+        } catch (error) {
+            // TODO - add error handling
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getAllInterviewKits();
+    }, []);
 
     const handleClickNavigate = () => {
         navigate('/interview-kit/new');

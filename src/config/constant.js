@@ -11,3 +11,5 @@ export const INTERVIEW_STATUS = {
     SENT: 'SENT',
     EXPIRED: 'EXPIRED'
 };
+
+export const LEVEL_OPTIONS = ['Entry Level', 'Mid/Senior', 'Manager'];

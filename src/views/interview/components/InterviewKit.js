@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types';
 import { Card, Grid, IconButton, Typography } from '@mui/material';
 import { IconPencil, IconTrash } from '@tabler/icons';
+import { useNavigate } from 'react-router';
 
-function InterviewKit({ title, numOfQuestions, duration, createdAt, updatedAt }) {
+function InterviewKit({ id, title, numOfQuestions, duration, createdAt, updatedAt }) {
+    const navigate = useNavigate();
+    const handleClickNavigateEdit = () => {
+        navigate(`${id}/edit`);
+    };
     return (
         <Card>
             <Grid container spacing={2}>
@@ -12,7 +17,7 @@ function InterviewKit({ title, numOfQuestions, duration, createdAt, updatedAt })
                             <Typography variant="h4">{title}</Typography>
                         </Grid>
                         <Grid item xs={'auto'}>
-                            <IconButton size="small" color="warning" sx={{ marginRight: '8px' }}>
+                            <IconButton size="small" color="warning" sx={{ marginRight: '8px' }} onClick={handleClickNavigateEdit}>
                                 <IconPencil size={18} />
                             </IconButton>
                             <IconButton size="small" color="error">
@@ -71,6 +76,7 @@ function InterviewKit({ title, numOfQuestions, duration, createdAt, updatedAt })
 }
 
 InterviewKit.propTypes = {
+    id: PropTypes.string,
     title: PropTypes.string,
     numOfQuestions: PropTypes.number,
     duration: PropTypes.number,

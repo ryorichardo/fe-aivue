@@ -14,7 +14,7 @@ const CandidateReviewPage = Loadable(lazy(() => import('views/candidates/Candida
 
 // interview-kit routing
 const InterviewKitPage = Loadable(lazy(() => import('views/interview')));
-const AddInterviewKitPage = Loadable(lazy(() => import('views/interview/AddInterviewKitPage')));
+const FormInterviewKitPage = Loadable(lazy(() => import('views/interview/FormInterviewKitPage')));
 
 // utilities routing
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
@@ -71,7 +71,11 @@ const MainRoutes = {
                 },
                 {
                     path: 'new',
-                    element: <AddInterviewKitPage />
+                    element: <FormInterviewKitPage />
+                },
+                {
+                    path: ':id/edit',
+                    element: <FormInterviewKitPage />
                 }
             ]
         },
