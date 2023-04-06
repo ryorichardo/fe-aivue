@@ -16,17 +16,9 @@ const CandidateReviewPage = Loadable(lazy(() => import('views/candidates/Candida
 const InterviewKitPage = Loadable(lazy(() => import('views/interview')));
 const FormInterviewKitPage = Loadable(lazy(() => import('views/interview/FormInterviewKitPage')));
 
-// utilities routing
-const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
-const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
-const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
-const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
-const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
-
-// sample page routing
-const SamplePage = Loadable(lazy(() => import('views/sample-page')));
-
-// ==============================|| MAIN ROUTING ||============================== //
+// position routing
+const PositionPage = Loadable(lazy(() => import('views/position')));
+const FormPositionPage = Loadable(lazy(() => import('views/position/FormPositionPage')));
 
 const MainRoutes = {
     path: '/',
@@ -80,44 +72,21 @@ const MainRoutes = {
             ]
         },
         {
-            path: 'utils',
+            path: 'position',
             children: [
                 {
-                    path: 'util-color',
-                    element: <UtilsColor />
-                }
-            ]
-        },
-        {
-            path: 'utils',
-            children: [
+                    path: '',
+                    element: <PositionPage />
+                },
                 {
-                    path: 'util-shadow',
-                    element: <UtilsShadow />
-                }
-            ]
-        },
-        {
-            path: 'icons',
-            children: [
+                    path: 'new',
+                    element: <FormPositionPage />
+                },
                 {
-                    path: 'tabler-icons',
-                    element: <UtilsTablerIcons />
+                    path: ':id/edit',
+                    element: <FormPositionPage />
                 }
             ]
-        },
-        {
-            path: 'icons',
-            children: [
-                {
-                    path: 'material-icons',
-                    element: <UtilsMaterialIcons />
-                }
-            ]
-        },
-        {
-            path: 'sample-page',
-            element: <SamplePage />
         }
     ]
 };

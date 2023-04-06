@@ -6,6 +6,7 @@ function Breadcrumbs() {
     const pathToBahasa = {
         dashboard: 'Dashboard',
         candidate: 'Kandidat',
+        position: 'Posisi',
         new: 'Tambah',
         edit: 'Edit',
         'interview-kit': 'Interview Kit'

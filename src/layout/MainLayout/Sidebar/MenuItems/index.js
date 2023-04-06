@@ -1,8 +1,8 @@
 // assets
-import { IconLayoutDashboard, IconUsers, IconBooks } from '@tabler/icons';
+import { IconLayoutDashboard, IconUsers, IconBooks, IconBriefcase } from '@tabler/icons';
 
 // constant
-const icons = { IconLayoutDashboard, IconUsers, IconBooks };
+const icons = { IconLayoutDashboard, IconUsers, IconBooks, IconBriefcase };
 
 export const dashboard = {
     id: 'Dashboard',
@@ -52,8 +52,24 @@ export const interviewKit = {
     ]
 };
 
+export const position = {
+    id: 'Posisi',
+    type: 'group',
+    desc: 'Kelola posisi pekerjaan untuk perusahaanmu',
+    children: [
+        {
+            id: 'Posisi',
+            title: 'Posisi',
+            type: 'item',
+            url: '/position',
+            icon: icons.IconBriefcase,
+            breadcrumbs: false
+        }
+    ]
+};
+
 const menuItems = {
-    items: [dashboard, kandidat, interviewKit]
+    items: [dashboard, kandidat, position, interviewKit]
 };
 
 export default menuItems;

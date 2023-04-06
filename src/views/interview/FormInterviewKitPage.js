@@ -151,7 +151,7 @@ function FormInterviewKitPage() {
                                                 <InputLabel>
                                                     <Typography variant="h4">Level</Typography>
                                                 </InputLabel>
-                                                <TextField
+                                                <Select
                                                     {...field}
                                                     variant="outlined"
                                                     margin="normal"
@@ -173,7 +173,7 @@ function FormInterviewKitPage() {
                                                             {option}
                                                         </MenuItem>
                                                     ))}
-                                                </TextField>
+                                                </Select>
                                             </Stack>
                                         )}
                                     />

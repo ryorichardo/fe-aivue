@@ -1,7 +1,37 @@
 const INTERVIEW_KITS = [
     {
         id: '1',
-        position: 'Software Engineer I',
+        title: 'General HR Interview',
+        level: 'Entry Level',
+        desc: 'Posisi software enginer nih bos senggol dong',
+        numOfQuestions: 3,
+        duration: 15,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        questions: [
+            { question: 'Siapa Tuhanmu?', duration: 5 },
+            { question: 'Siapa Nabimu?', duration: 5 },
+            { question: 'Apa Kitabmu?', duration: 5 }
+        ]
+    },
+    {
+        id: '2',
+        title: 'General SE I Interview',
+        level: 'Entry Level',
+        desc: 'Posisi software enginer nih bos senggol dong',
+        numOfQuestions: 3,
+        duration: 15,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        questions: [
+            { question: 'Siapa Tuhanmu?', duration: 5 },
+            { question: 'Siapa Nabimu?', duration: 5 },
+            { question: 'Apa Kitabmu?', duration: 5 }
+        ]
+    },
+    {
+        id: '3',
+        title: 'Additional Algorithm SE I Interview',
         level: 'Entry Level',
         desc: 'Posisi software enginer nih bos senggol dong',
         numOfQuestions: 3,

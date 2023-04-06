@@ -116,6 +116,9 @@ export default function componentStyleOverrides(theme) {
         },
         MuiInputBase: {
             styleOverrides: {
+                root: {
+                    background: `${theme.colors?.paper} !important`
+                },
                 input: {
                     background: `${theme.colors?.paper} !important`,
                     color: theme.textDark,
