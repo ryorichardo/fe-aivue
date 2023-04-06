@@ -287,7 +287,6 @@ function FormInterviewKitPage() {
                                                                                     setNewQuestion((prev) => {
                                                                                         return { ...prev, duration: value || 0 };
                                                                                     });
-                                                                                    console.log('AOOOO', value);
                                                                                 }}
                                                                             >
                                                                                 <ToggleButton value={-1} sx={{ border: 'none' }}>
