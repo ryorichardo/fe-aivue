@@ -7,15 +7,8 @@ function InterviewKitList({ data }) {
     return (
         <Grid container spacing={gridSpacing}>
             {data.map((kit) => (
-                <Grid item xl={3} lg={4} md={6} xs={12}>
-                    <InterviewKit
-                        id={kit.id}
-                        title={kit.position}
-                        numOfQuestions={kit.numOfQuestions}
-                        duration={kit.duration}
-                        createdAt={kit.createdAt}
-                        updatedAt={kit.updatedAt}
-                    />
+                <Grid item xl={3} lg={4} md={6} xs={12} key={kit.id}>
+                    <InterviewKit kit={kit} />
                 </Grid>
             ))}
         </Grid>

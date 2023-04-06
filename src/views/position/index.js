@@ -25,7 +25,7 @@ function PositionPage() {
     }, []);
 
     const handleClickNavigate = () => {
-        navigate('/jobs/new');
+        navigate('/position/new');
     };
     return (
         <Grid container spacing={gridSpacing}>

@@ -9,7 +9,7 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 
 // candidates routing
 const CandidatePage = Loadable(lazy(() => import('views/candidates')));
-const AddCandidatePage = Loadable(lazy(() => import('views/candidates/AddCandidatePage')));
+const FormCandidatePage = Loadable(lazy(() => import('views/candidates/FormCandidatePage')));
 const CandidateReviewPage = Loadable(lazy(() => import('views/candidates/CandidateReviewPage')));
 
 // interview-kit routing
@@ -46,7 +46,7 @@ const MainRoutes = {
                 },
                 {
                     path: 'new',
-                    element: <AddCandidatePage />
+                    element: <FormCandidatePage />
                 },
                 {
                     path: ':id/review',

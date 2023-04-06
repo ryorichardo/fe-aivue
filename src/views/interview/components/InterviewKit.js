@@ -3,7 +3,8 @@ import { Card, Grid, IconButton, Typography } from '@mui/material';
 import { IconPencil, IconTrash } from '@tabler/icons';
 import { useNavigate } from 'react-router';
 
-function InterviewKit({ id, title, numOfQuestions, duration, createdAt, updatedAt }) {
+function InterviewKit({ kit }) {
+    const { id, title, desc, numOfQuestions, duration, createdAt, updatedAt } = kit;
     const navigate = useNavigate();
     const handleClickNavigateEdit = () => {
         navigate(`${id}/edit`);
@@ -76,12 +77,7 @@ function InterviewKit({ id, title, numOfQuestions, duration, createdAt, updatedA
 }
 
 InterviewKit.propTypes = {
-    id: PropTypes.string,
-    title: PropTypes.string,
-    numOfQuestions: PropTypes.number,
-    duration: PropTypes.number,
-    createdAt: PropTypes.any,
-    updatedAt: PropTypes.any
+    kit: PropTypes.object
 };
 
 export default InterviewKit;

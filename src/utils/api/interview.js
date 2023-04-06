@@ -2,7 +2,6 @@ const INTERVIEW_KITS = [
     {
         id: '1',
         title: 'General HR Interview',
-        level: 'Entry Level',
         desc: 'Posisi software enginer nih bos senggol dong',
         numOfQuestions: 3,
         duration: 15,

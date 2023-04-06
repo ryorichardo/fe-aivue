@@ -80,17 +80,17 @@ function FormInterviewKitPage() {
 
     useEffect(() => {
         if (currentData !== null) {
-            setValue('position', currentData.position);
+            setValue('title', currentData.title);
             setValue('level', currentData.level);
             setValue('desc', currentData.desc);
             setValue('questions', currentData.questions);
         }
     }, [currentData, setValue]);
 
-    const onSubmit = handleSubmit(async ({ position, level, desc, questions }) => {
+    const onSubmit = handleSubmit(async ({ title, level, desc, questions }) => {
         try {
             const payload = {
-                position,
+                title,
                 level,
                 desc,
                 questions
@@ -108,72 +108,34 @@ function FormInterviewKitPage() {
         }
     });
 
-    console.log(fields);
     console.log(watch());
-    console.log(errors);
 
     return (
         <form id="interviewKitForm" noValidate onSubmit={onSubmit}>
             <Grid container spacing={gridSpacing} justifyContent="flex-start">
                 <Grid item sm={10}>
                     <Stack spacing={2}>
-                        <Typography variant="h3">Informasi Pekerjaan</Typography>
+                        <Typography variant="h3">Informasi Interview Kit</Typography>
                         <Card>
                             <Grid container spacing={gridSpacing}>
                                 <Grid item xs={12}>
                                     <Controller
-                                        name="position"
+                                        name="title"
                                         control={control}
                                         render={({ field }) => (
                                             <Stack spacing={1}>
                                                 <InputLabel>
-                                                    <Typography variant="h4">Posisi</Typography>
+                                                    <Typography variant="h4">Judul</Typography>
                                                 </InputLabel>
                                                 <TextField
                                                     {...field}
                                                     margin="normal"
                                                     required
                                                     fullWidth
-                                                    placeholder="Software Engineer"
-                                                    error={errors.position !== undefined}
-                                                    helperText={errors.position?.message}
+                                                    placeholder="Judul interview kit"
+                                                    error={errors.title !== undefined}
+                                                    helperText={errors.title?.message}
                                                 />
-                                            </Stack>
-                                        )}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        name="level"
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Stack spacing={1}>
-                                                <InputLabel>
-                                                    <Typography variant="h4">Level</Typography>
-                                                </InputLabel>
-                                                <Select
-                                                    {...field}
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    select
-                                                    renderValue={(selected) => {
-                                                        if (!selected.length) {
-                                                            return 'Select';
-                                                        }
-
-                                                        return selected;
-                                                    }}
-                                                    error={errors.level !== undefined}
-                                                    helperText={errors.level?.message}
-                                                >
-                                                    {LEVEL_OPTIONS.map((option) => (
-                                                        <MenuItem key={option} value={option}>
-                                                            {option}
-                                                        </MenuItem>
-                                                    ))}
-                                                </Select>
                                             </Stack>
                                         )}
                                     />
@@ -313,7 +275,7 @@ function FormInterviewKitPage() {
                                 <Grid container spacing={gridSpacing}>
                                     <Grid item xs={12}>
                                         {fields?.map((question, index) => (
-                                            <Stack spacing={1.5}>
+                                            <Stack spacing={1.5} key={question.id}>
                                                 <Controller
                                                     name={`questions[${index}].question`}
                                                     control={control}
@@ -334,33 +296,27 @@ function FormInterviewKitPage() {
                                                                 ),
                                                                 endAdornment: (
                                                                     <InputAdornment position="end">
-                                                                        <Controller
-                                                                            name={`questions.${index}.duration`}
-                                                                            control={control}
-                                                                            render={({ field }) => (
-                                                                                <Stack direction="row" spacing={1}>
-                                                                                    <IconButton size="small" color="secondary">
-                                                                                        {question.duration === -1 ? (
-                                                                                            <IconAlarmOff size={18} />
-                                                                                        ) : (
-                                                                                            <>
-                                                                                                <IconClock size={18} />
-                                                                                                <Typography variant="body1" mx={1.5}>
-                                                                                                    {question.duration}
-                                                                                                </Typography>
-                                                                                            </>
-                                                                                        )}
-                                                                                    </IconButton>
-                                                                                    <IconButton
-                                                                                        size="small"
-                                                                                        color="secondary"
-                                                                                        onClick={() => remove(index)}
-                                                                                    >
-                                                                                        <IconTrash size={18} />
-                                                                                    </IconButton>
-                                                                                </Stack>
-                                                                            )}
-                                                                        />
+                                                                        <Stack direction="row" spacing={1}>
+                                                                            <IconButton size="small" color="secondary">
+                                                                                {question.duration === -1 ? (
+                                                                                    <IconAlarmOff size={18} />
+                                                                                ) : (
+                                                                                    <>
+                                                                                        <IconClock size={18} />
+                                                                                        <Typography variant="body1" mx={1.5}>
+                                                                                            {question.duration}
+                                                                                        </Typography>
+                                                                                    </>
+                                                                                )}
+                                                                            </IconButton>
+                                                                            <IconButton
+                                                                                size="small"
+                                                                                color="secondary"
+                                                                                onClick={() => remove(index)}
+                                                                            >
+                                                                                <IconTrash size={18} />
+                                                                            </IconButton>
+                                                                        </Stack>
                                                                     </InputAdornment>
                                                                 )
                                                             }}
