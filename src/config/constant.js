@@ -13,3 +13,8 @@ export const INTERVIEW_STATUS = {
 };
 
 export const LEVEL_OPTIONS = ['Entry Level', 'Mid/Senior', 'Manager'];
+
+export const ROLE = {
+    ADMIN: 'ADMIN',
+    SUPERADMIN: 'SUPERADMIN'
+};

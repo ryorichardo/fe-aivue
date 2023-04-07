@@ -1,153 +1,3 @@
-// import { Button, Card, Grid, Stack, TextField, Typography, Box } from '@mui/material';
-// import { gridSpacing } from 'config/constant';
-
-// function FormCandidatePage() {
-//     return (
-//         <Grid container spacing={gridSpacing} justifyContent="flex-end">
-//             <Grid item md={6} sm={12}>
-//                 <Stack spacing={2}>
-//                     <Typography variant="h3">Informasi Kandidat</Typography>
-//                     <Card>
-//                         <Grid container spacing={gridSpacing}>
-//                             <Grid item xs={12}>
-//                                 <Stack spacing={1}>
-//                                     <Typography variant="h4">Nama Kandidat</Typography>
-//                                     <TextField
-//                                         variant="outlined"
-//                                         margin="normal"
-//                                         required
-//                                         fullWidth
-//                                         id="name"
-//                                         name="name"
-//                                         autoComplete="name"
-//                                         placeholder="John Doe"
-//                                         // value={watchName}
-//                                         // onChange={handleNameChange}
-//                                         // error={errors.name !== undefined}
-//                                         // helperText={errors.name?.message}
-//                                     />
-//                                 </Stack>
-//                             </Grid>
-//                             <Grid item xs={12}>
-//                                 <Stack spacing={1}>
-//                                     <Typography variant="h4">Nama Kandidat</Typography>
-//                                     <TextField
-//                                         variant="outlined"
-//                                         margin="normal"
-//                                         required
-//                                         fullWidth
-//                                         id="name"
-//                                         name="name"
-//                                         autoComplete="name"
-//                                         placeholder="John Doe"
-//                                         // value={watchName}
-//                                         // onChange={handleNameChange}
-//                                         // error={errors.name !== undefined}
-//                                         // helperText={errors.name?.message}
-//                                     />
-//                                 </Stack>
-//                             </Grid>
-//                             <Grid item xs={12}>
-//                                 <Stack spacing={1}>
-//                                     <Typography variant="h4">Nama Kandidat</Typography>
-//                                     <TextField
-//                                         variant="outlined"
-//                                         margin="normal"
-//                                         required
-//                                         fullWidth
-//                                         id="name"
-//                                         name="name"
-//                                         autoComplete="name"
-//                                         placeholder="John Doe"
-//                                         // value={watchName}
-//                                         // onChange={handleNameChange}
-//                                         // error={errors.name !== undefined}
-//                                         // helperText={errors.name?.message}
-//                                     />
-//                                 </Stack>
-//                             </Grid>
-//                         </Grid>
-//                     </Card>
-//                 </Stack>
-//             </Grid>
-//             <Grid item md={6} sm={12}>
-//                 <Stack spacing={2}>
-//                     <Typography variant="h3">Pengaturan Interview</Typography>
-//                     <Card>
-//                         <Grid container spacing={gridSpacing}>
-//                             <Grid item xs={12}>
-//                                 <Stack spacing={1}>
-//                                     <Typography variant="h4">Nama Interviewer</Typography>
-//                                     <TextField
-//                                         variant="outlined"
-//                                         margin="normal"
-//                                         required
-//                                         fullWidth
-//                                         id="name"
-//                                         name="name"
-//                                         autoComplete="name"
-//                                         placeholder="John Doe"
-//                                         // value={watchName}
-//                                         // onChange={handleNameChange}
-//                                         // error={errors.name !== undefined}
-//                                         // helperText={errors.name?.message}
-//                                     />
-//                                 </Stack>
-//                             </Grid>
-//                             <Grid item xs={12}>
-//                                 <Stack spacing={1}>
-//                                     <Typography variant="h4">Interview Kit</Typography>
-//                                     <TextField
-//                                         variant="outlined"
-//                                         margin="normal"
-//                                         required
-//                                         fullWidth
-//                                         id="name"
-//                                         name="name"
-//                                         autoComplete="name"
-//                                         placeholder="John Doe"
-//                                         // value={watchName}
-//                                         // onChange={handleNameChange}
-//                                         // error={errors.name !== undefined}
-//                                         // helperText={errors.name?.message}
-//                                     />
-//                                 </Stack>
-//                             </Grid>
-//                             <Grid item xs={12}>
-//                                 <Stack spacing={1}>
-//                                     <Typography variant="h4">Tanggal Berlaku</Typography>
-//                                     <TextField
-//                                         variant="outlined"
-//                                         margin="normal"
-//                                         required
-//                                         fullWidth
-//                                         id="name"
-//                                         name="name"
-//                                         autoComplete="name"
-//                                         placeholder="John Doe"
-//                                         // value={watchName}
-//                                         // onChange={handleNameChange}
-//                                         // error={errors.name !== undefined}
-//                                         // helperText={errors.name?.message}
-//                                     />
-//                                 </Stack>
-//                             </Grid>
-//                         </Grid>
-//                     </Card>
-//                 </Stack>
-//             </Grid>
-
-//             <Grid item xs={3}>
-//                 <Button size="large" fullWidth variant="contained">
-//                     Kirim Undangan
-//                 </Button>
-//             </Grid>
-//         </Grid>
-//     );
-// }
-
-// export default FormCandidatePage;
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import {
@@ -180,45 +30,44 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { LEVEL_OPTIONS, gridSpacing } from 'config/constant';
 import { getInterviewKitById, getInterviewKits } from 'utils/api/interview';
-import { IconAlarmOff, IconClock, IconPlus, IconTrash } from '@tabler/icons';
+import { IconAlarmOff, IconClock, IconInfoCircle, IconPlus, IconTrash } from '@tabler/icons';
 import { useRef } from 'react';
 import MainCard from 'components/cards/MainCard';
-import { defaultValues, positionSchema } from 'utils/schema/position';
-import { getPositionById } from 'utils/api/position';
+import { defaultValues, candidateSchema } from 'utils/schema/candidate';
+import { getAllPositions } from 'utils/api/position';
+import { getAllUsers } from 'utils/api/user';
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-function FormPositionPage() {
-    const { id } = useParams();
-    const [currentData, setCurrentData] = useState(null);
-    const [interviewKitList, setInterviewKitList] = useState([]);
+function FormCandidatePage() {
+    const [positionList, setPositionList] = useState([]);
+    const [userList, setUserList] = useState([]);
 
     const {
-        register,
         handleSubmit,
-        setValue,
-        watch,
         control,
         formState: { errors }
     } = useForm({
-        resolver: yupResolver(positionSchema),
+        resolver: yupResolver(candidateSchema),
         defaultValues
     });
 
-    const getPositionDetail = async (id) => {
+    const getPositionList = async () => {
         try {
             // TODO - add loading mechanism
-            const { data } = await getPositionById(id);
-            setCurrentData(data);
+            const { data } = await getAllPositions();
+            setPositionList(data);
         } catch (error) {
             // TODO: error handling here
             console.log(error);
         }
     };
 
-    const getInterviewKitList = async () => {
+    const getUserList = async () => {
         try {
             // TODO - add loading mechanism
-            const { data } = await getInterviewKits();
-            setInterviewKitList(data);
+            const { data } = await getAllUsers();
+            setUserList(data);
         } catch (error) {
             // TODO: error handling here
             console.log(error);
@@ -226,29 +75,20 @@ function FormPositionPage() {
     };
 
     useEffect(() => {
-        getInterviewKitList();
+        getPositionList();
+        getUserList();
+    }, []);
 
-        if (id) {
-            getPositionDetail(id);
-        }
-    }, [id, register]);
-
-    useEffect(() => {
-        if (currentData !== null) {
-            setValue('title', currentData.title);
-            setValue('level', currentData.level);
-            setValue('desc', currentData.desc);
-            setValue('interviewKits', currentData.interviewKits);
-        }
-    }, [currentData, setValue]);
-
-    const onSubmit = async ({ title, level, desc, interviewKits }) => {
+    const onSubmit = async ({ name, email, cv, position, pic, expiredDuration, startDateTime }) => {
         try {
             const payload = {
-                title,
-                level,
-                desc,
-                interviewKits
+                name,
+                email,
+                cv,
+                position,
+                pic,
+                expiredDuration,
+                startDateTime
             };
 
             console.log(payload);
@@ -261,28 +101,28 @@ function FormPositionPage() {
     return (
         <form id="positionForm" noValidate onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={gridSpacing} justifyContent="flex-start">
-                <Grid item sm={10}>
+                <Grid item md={6} sm={12}>
                     <Stack spacing={2}>
-                        <Typography variant="h3">Informasi Pekerjaan</Typography>
+                        <Typography variant="h3">Informasi Kandidat</Typography>
                         <Card>
                             <Grid container spacing={gridSpacing}>
                                 <Grid item xs={12}>
                                     <Controller
-                                        name="title"
+                                        name="name"
                                         control={control}
                                         render={({ field }) => (
                                             <Stack spacing={1}>
                                                 <InputLabel>
-                                                    <Typography variant="h4">Nama posisi</Typography>
+                                                    <Typography variant="h4">Nama</Typography>
                                                 </InputLabel>
                                                 <TextField
                                                     {...field}
                                                     margin="normal"
                                                     required
                                                     fullWidth
-                                                    placeholder="Software Engineer"
-                                                    error={errors.title !== undefined}
-                                                    helperText={errors.title?.message}
+                                                    placeholder="John Doe"
+                                                    error={errors.name !== undefined}
+                                                    helperText={errors.name?.message}
                                                 />
                                             </Stack>
                                         )}
@@ -290,81 +130,170 @@ function FormPositionPage() {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Controller
-                                        name="level"
+                                        name="email"
                                         control={control}
                                         render={({ field }) => (
                                             <Stack spacing={1}>
                                                 <InputLabel>
-                                                    <Typography variant="h4">Level</Typography>
+                                                    <Typography variant="h4">Email</Typography>
                                                 </InputLabel>
                                                 <TextField
                                                     {...field}
                                                     variant="outlined"
                                                     margin="normal"
+                                                    placeholder="johndoe@email.com"
                                                     required
                                                     fullWidth
-                                                    error={errors.level !== undefined}
-                                                    helperText={errors.level?.message}
-                                                >
-                                                    {LEVEL_OPTIONS.map((option) => (
-                                                        <MenuItem key={option} value={option}>
-                                                            {option}
-                                                        </MenuItem>
-                                                    ))}
-                                                </TextField>
+                                                    error={errors.email !== undefined}
+                                                    helperText={errors.email?.message}
+                                                />
                                             </Stack>
                                         )}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Controller
-                                        name="desc"
+                                        name="cv"
                                         control={control}
                                         render={({ field }) => (
                                             <Stack spacing={1}>
                                                 <InputLabel>
-                                                    <Typography variant="h4">Deskripsi</Typography>
+                                                    <Typography variant="h4">CV</Typography>
                                                 </InputLabel>
                                                 <TextField
                                                     {...field}
                                                     margin="normal"
                                                     required
                                                     fullWidth
-                                                    placeholder="Deskripsi"
+                                                    placeholder="CV"
                                                     multiline
                                                     minRows={3}
-                                                    error={errors.desc !== undefined}
-                                                    helperText={errors.desc?.message}
+                                                    error={errors.cv !== undefined}
+                                                    helperText={errors.cv?.message}
+                                                />
+                                            </Stack>
+                                        )}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </Card>
+                    </Stack>
+                </Grid>
+                <Grid item md={6} sm={12}>
+                    <Stack spacing={2}>
+                        <Typography variant="h3">Pengaturan Interview</Typography>
+                        <Card>
+                            <Grid container spacing={gridSpacing} justifyContent="flex-end">
+                                <Grid item xs={12}>
+                                    <Stack spacing={1}>
+                                        <Typography variant="h4">Posisi</Typography>
+                                        <FormControl fullWidth error={errors.position !== undefined}>
+                                            <Controller
+                                                name="position"
+                                                control={control}
+                                                render={({ field: { onChange, value } }) => (
+                                                    <Autocomplete
+                                                        value={value || null}
+                                                        options={positionList.map((pos) => pos.title)}
+                                                        getOptionLabel={(option) => option}
+                                                        disablePortal
+                                                        renderInput={(params) => (
+                                                            <TextField {...params} fullWidth placeholder="Software Engineer I" />
+                                                        )}
+                                                        onChange={(_, value) => {
+                                                            onChange(value);
+                                                            return value;
+                                                        }}
+                                                    />
+                                                )}
+                                            />
+                                            {errors.position && errors.position.message && (
+                                                <FormHelperText>{errors.position?.message}</FormHelperText>
+                                            )}
+                                        </FormControl>
+                                    </Stack>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Stack spacing={1}>
+                                        <Typography variant="h4">PIC</Typography>
+                                        <FormControl fullWidth error={errors.pic !== undefined}>
+                                            <Controller
+                                                name="pic"
+                                                control={control}
+                                                render={({ field: { onChange, value } }) => (
+                                                    <Autocomplete
+                                                        value={value || null}
+                                                        options={userList.map((usr) => usr.name)}
+                                                        getOptionLabel={(option) => option}
+                                                        disablePortal
+                                                        renderInput={(params) => (
+                                                            <TextField {...params} fullWidth placeholder="Nama PIC/Interviewe" />
+                                                        )}
+                                                        onChange={(_, value) => {
+                                                            onChange(value);
+                                                            return value;
+                                                        }}
+                                                    />
+                                                )}
+                                            />
+                                            {errors.pic && errors.position.pic && <FormHelperText>{errors.position?.pic}</FormHelperText>}
+                                        </FormControl>
+                                    </Stack>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Controller
+                                        name="expiredDuration"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Stack spacing={1}>
+                                                <InputLabel sx={{ display: 'flex', alignItems: 'center' }}>
+                                                    <Typography variant="h4">Durasi submisi</Typography>
+                                                    <Tooltip title="Durasi submisi sebelum interview kedaluwarsa berlaku untuk setiap tahapan interview untuk posisi ini">
+                                                        <IconButton sx={{ marginLeft: 1 }}>
+                                                            <IconInfoCircle size={16} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </InputLabel>
+                                                <TextField
+                                                    {...field}
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    placeholder="3"
+                                                    type="number"
+                                                    error={errors.expiredDuration !== undefined}
+                                                    helperText={errors.expiredDuration?.message}
+                                                    InputProps={{ endAdornment: <InputAdornment position="end">hari</InputAdornment> }}
                                                 />
                                             </Stack>
                                         )}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Controller
-                                        name="interviewKits"
-                                        control={control}
-                                        render={({ field: { onChange, value } }) => (
-                                            <Stack spacing={1}>
-                                                <InputLabel>
-                                                    <Typography variant="h4">Tahapan Interview</Typography>
-                                                </InputLabel>
-                                                <Autocomplete
-                                                    isOptionEqualToValue={(option, value) => option.title === value.title}
-                                                    value={value}
-                                                    multiple
-                                                    options={interviewKitList}
-                                                    getOptionLabel={(option) => option.title}
-                                                    filterSelectedOptions
-                                                    renderInput={(params) => <TextField {...params} fullWidth placeholder="Tahapan" />}
-                                                    onChange={(_, value) => {
-                                                        onChange(value);
-                                                        return value;
-                                                    }}
-                                                />
-                                            </Stack>
-                                        )}
-                                    />
+                                    <Stack spacing={1}>
+                                        <Typography variant="h4">Berlaku dari</Typography>
+                                        <FormControl fullWidth error={errors.startDateTime !== undefined}>
+                                            <Controller
+                                                name="startDateTime"
+                                                control={control}
+                                                render={({ field: { value, onChange } }) => (
+                                                    <Stack spacing={1}>
+                                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                            <DateTimePicker
+                                                                value={value}
+                                                                onChange={(value) => {
+                                                                    onChange(value);
+                                                                }}
+                                                            />
+                                                        </LocalizationProvider>
+                                                    </Stack>
+                                                )}
+                                            />
+                                            {errors.startDateTime && errors.startDateTime.message && (
+                                                <FormHelperText>{errors.startDateTime?.message}</FormHelperText>
+                                            )}
+                                        </FormControl>
+                                    </Stack>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -380,4 +309,4 @@ function FormPositionPage() {
     );
 }
 
-export default FormPositionPage;
+export default FormCandidatePage;

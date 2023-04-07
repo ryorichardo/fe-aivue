@@ -30,7 +30,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { LEVEL_OPTIONS, gridSpacing } from 'config/constant';
 import { getInterviewKitById, getInterviewKits } from 'utils/api/interview';
-import { IconAlarmOff, IconClock, IconPlus, IconTrash } from '@tabler/icons';
+import { IconAlarmOff, IconClock, IconInfoCircle, IconPlus, IconTrash } from '@tabler/icons';
 import { useRef } from 'react';
 import MainCard from 'components/cards/MainCard';
 import { defaultValues, positionSchema } from 'utils/schema/position';
@@ -154,6 +154,7 @@ function FormPositionPage() {
                                                     required
                                                     fullWidth
                                                     error={errors.level !== undefined}
+                                                    select
                                                     helperText={errors.level?.message}
                                                 >
                                                     {LEVEL_OPTIONS.map((option) => (
@@ -191,30 +192,41 @@ function FormPositionPage() {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Controller
-                                        name="interviewKits"
-                                        control={control}
-                                        render={({ field: { onChange, value } }) => (
-                                            <Stack spacing={1}>
-                                                <InputLabel>
-                                                    <Typography variant="h4">Tahapan Interview</Typography>
-                                                </InputLabel>
-                                                <Autocomplete
-                                                    isOptionEqualToValue={(option, value) => option.title === value.title}
-                                                    value={value}
-                                                    multiple
-                                                    options={interviewKitList}
-                                                    getOptionLabel={(option) => option.title}
-                                                    filterSelectedOptions
-                                                    renderInput={(params) => <TextField {...params} fullWidth placeholder="Tahapan" />}
-                                                    onChange={(_, value) => {
-                                                        onChange(value);
-                                                        return value;
-                                                    }}
-                                                />
-                                            </Stack>
-                                        )}
-                                    />
+                                    <Stack spacing={1}>
+                                        <Stack direction="row" spacing={1} alignItems="center">
+                                            <Typography variant="h4">Tahapan Interview</Typography>
+                                            <Tooltip title="Interview kit pertama yang dipilih akan menjadi tahap pertama dan seterusnya">
+                                                <IconButton sx={{ marginLeft: 1 }}>
+                                                    <IconInfoCircle size={16} />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Stack>
+
+                                        <FormControl fullWidth error={errors.interviewKits !== undefined}>
+                                            <Controller
+                                                name="interviewKits"
+                                                control={control}
+                                                render={({ field: { onChange, value } }) => (
+                                                    <Autocomplete
+                                                        isOptionEqualToValue={(option, value) => option.title === value.title}
+                                                        value={value}
+                                                        multiple
+                                                        options={interviewKitList}
+                                                        getOptionLabel={(option) => option.title}
+                                                        filterSelectedOptions
+                                                        renderInput={(params) => <TextField {...params} fullWidth placeholder="Tahapan" />}
+                                                        onChange={(_, value) => {
+                                                            onChange(value);
+                                                            return value;
+                                                        }}
+                                                    />
+                                                )}
+                                            />
+                                            {errors.interviewKits && errors.interviewKits.message && (
+                                                <FormHelperText>{errors.interviewKits?.message}</FormHelperText>
+                                            )}
+                                        </FormControl>
+                                    </Stack>
                                 </Grid>
                             </Grid>
                         </Card>

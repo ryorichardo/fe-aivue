@@ -48,9 +48,10 @@ function FormInterviewKitPage() {
         register,
         handleSubmit,
         setValue,
-        watch,
         control,
-        formState: { errors }
+        formState: { errors },
+        clearErrors,
+        setError
     } = useForm({
         resolver: yupResolver(interviewKitSchema),
         defaultValues
@@ -107,8 +108,6 @@ function FormInterviewKitPage() {
             console.log(error);
         }
     });
-
-    console.log(watch());
 
     return (
         <form id="interviewKitForm" noValidate onSubmit={onSubmit}>
@@ -171,14 +170,16 @@ function FormInterviewKitPage() {
                 <Grid item sm={10}>
                     <Stack spacing={2}>
                         <Typography variant="h3">Pertanyaan Interview</Typography>
-                        <FormControl>
+                        <FormControl error={errors.questions}>
                             <OutlinedInput
-                                margin="normal"
                                 fullWidth
                                 placeholder="Tulis pertanyaan"
                                 multiline
                                 value={newQuestion?.question}
                                 onChange={(e) => {
+                                    if (errors.questions !== undefined) {
+                                        clearErrors('questions');
+                                    }
                                     setNewQuestion((prev) => {
                                         return { ...prev, question: e.target.value };
                                     });
@@ -193,74 +194,67 @@ function FormInterviewKitPage() {
                                         >
                                             <IconClock />
                                         </IconButton>
-                                        <IconButton>
-                                            <IconPlus
-                                                onClick={() => {
+                                        <IconButton
+                                            onClick={() => {
+                                                if (newQuestion.question === '') {
+                                                    setError('questions', { message: 'Pertanyaan tidak boleh kosong' });
+                                                } else {
                                                     append(newQuestion);
                                                     setNewQuestion({
                                                         question: '',
                                                         duration: 0
                                                     });
                                                     setModalDurationOpen(false);
-                                                }}
-                                            />
+                                                }
+                                            }}
+                                        >
+                                            <IconPlus />
                                         </IconButton>
                                         <Popper anchorEl={anchorEl} placement="top-end" open={modalDurationOpen} disablePortal>
                                             <Card sx={{ boxShadow: theme.shadows[16], zIndex: 999 }}>
                                                 <FormControl>
-                                                    <Controller
-                                                        name="level"
-                                                        control={control}
-                                                        render={({ field }) => (
-                                                            <>
-                                                                <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                                                                    Durasi Menjawab
-                                                                </Typography>
-                                                                <Grid container spacing={1} direction="row" alignItems="center">
-                                                                    <Grid item>
-                                                                        <TextField
-                                                                            {...field}
-                                                                            variant="standard"
-                                                                            margin="normal"
-                                                                            type="number"
-                                                                            required
-                                                                            sx={{ width: '100px' }}
-                                                                            disabled={newQuestion?.duration === -1}
-                                                                            value={newQuestion.duration === -1 ? 0 : newQuestion.duration}
-                                                                            onChange={(e) =>
-                                                                                setNewQuestion((prev) => {
-                                                                                    return { ...prev, duration: e.target.value };
-                                                                                })
-                                                                            }
-                                                                            InputProps={{
-                                                                                endAdornment: (
-                                                                                    <InputAdornment position="end">Menit</InputAdornment>
-                                                                                )
-                                                                            }}
-                                                                        />
-                                                                    </Grid>
-                                                                    <Grid item>
-                                                                        <Tooltip title="Tanpa durasi">
-                                                                            <ToggleButtonGroup
-                                                                                color="secondary"
-                                                                                exclusive
-                                                                                value={newQuestion?.duration}
-                                                                                onChange={(_, value) => {
-                                                                                    setNewQuestion((prev) => {
-                                                                                        return { ...prev, duration: value || 0 };
-                                                                                    });
-                                                                                }}
-                                                                            >
-                                                                                <ToggleButton value={-1} sx={{ border: 'none' }}>
-                                                                                    <IconAlarmOff />
-                                                                                </ToggleButton>
-                                                                            </ToggleButtonGroup>
-                                                                        </Tooltip>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </>
-                                                        )}
-                                                    />
+                                                    <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                                                        Durasi Menjawab
+                                                    </Typography>
+                                                    <Grid container spacing={1} direction="row" alignItems="center">
+                                                        <Grid item>
+                                                            <TextField
+                                                                variant="standard"
+                                                                margin="normal"
+                                                                type="number"
+                                                                required
+                                                                sx={{ width: '100px' }}
+                                                                disabled={newQuestion?.duration === -1}
+                                                                value={newQuestion.duration === -1 ? 0 : newQuestion.duration}
+                                                                onChange={(e) =>
+                                                                    setNewQuestion((prev) => {
+                                                                        return { ...prev, duration: e.target.value };
+                                                                    })
+                                                                }
+                                                                InputProps={{
+                                                                    endAdornment: <InputAdornment position="end">Menit</InputAdornment>
+                                                                }}
+                                                            />
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <Tooltip title="Tanpa durasi">
+                                                                <ToggleButtonGroup
+                                                                    color="secondary"
+                                                                    exclusive
+                                                                    value={newQuestion?.duration}
+                                                                    onChange={(_, value) => {
+                                                                        setNewQuestion((prev) => {
+                                                                            return { ...prev, duration: value || 0 };
+                                                                        });
+                                                                    }}
+                                                                >
+                                                                    <ToggleButton value={-1} sx={{ border: 'none' }}>
+                                                                        <IconAlarmOff />
+                                                                    </ToggleButton>
+                                                                </ToggleButtonGroup>
+                                                            </Tooltip>
+                                                        </Grid>
+                                                    </Grid>
                                                 </FormControl>
                                             </Card>
                                         </Popper>
