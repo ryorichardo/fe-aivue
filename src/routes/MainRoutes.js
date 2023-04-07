@@ -20,6 +20,9 @@ const FormInterviewKitPage = Loadable(lazy(() => import('views/interview/FormInt
 const PositionPage = Loadable(lazy(() => import('views/position')));
 const FormPositionPage = Loadable(lazy(() => import('views/position/FormPositionPage')));
 
+// user routing
+const UserPage = Loadable(lazy(() => import('views/user')));
+
 const MainRoutes = {
     path: '/',
     element: <MainLayout />,
@@ -85,6 +88,15 @@ const MainRoutes = {
                 {
                     path: ':id/edit',
                     element: <FormPositionPage />
+                }
+            ]
+        },
+        {
+            path: 'user',
+            children: [
+                {
+                    path: '',
+                    element: <UserPage />
                 }
             ]
         }

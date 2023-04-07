@@ -227,7 +227,7 @@ function FormCandidatePage() {
                                                         getOptionLabel={(option) => option}
                                                         disablePortal
                                                         renderInput={(params) => (
-                                                            <TextField {...params} fullWidth placeholder="Nama PIC/Interviewe" />
+                                                            <TextField {...params} fullWidth placeholder="Nama PIC/Interviewer" />
                                                         )}
                                                         onChange={(_, value) => {
                                                             onChange(value);

@@ -1,8 +1,8 @@
 // assets
-import { IconLayoutDashboard, IconUsers, IconBooks, IconBriefcase } from '@tabler/icons';
+import { IconLayoutDashboard, IconUsers, IconBooks, IconBriefcase, IconUserPlus } from '@tabler/icons';
 
 // constant
-const icons = { IconLayoutDashboard, IconUsers, IconBooks, IconBriefcase };
+const icons = { IconLayoutDashboard, IconUsers, IconBooks, IconBriefcase, IconUserPlus };
 
 export const dashboard = {
     id: 'Dashboard',
@@ -68,8 +68,31 @@ export const position = {
     ]
 };
 
-const menuItems = {
+export const users = {
+    id: 'Pengguna',
+    type: 'group',
+    desc: 'Kelola pengguna AIVue di perusahaanmu',
+    children: [
+        {
+            id: 'Pengguna',
+            title: 'Pengguna',
+            type: 'item',
+            url: '/user',
+            icon: icons.IconUserPlus,
+            breadcrumbs: false
+        }
+    ]
+};
+
+const isSuperAdmin = true;
+// TODO - superadmin mechanism
+
+let menuItems = {
     items: [dashboard, kandidat, position, interviewKit]
 };
+
+if (isSuperAdmin) {
+    menuItems.items.push(users);
+}
 
 export default menuItems;

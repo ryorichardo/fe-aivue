@@ -6,7 +6,16 @@ const USERS = [
         name: 'Rafidika Samekto',
         username: 'rafdikcz',
         email: 'rafidika.samekto@aivue.com',
-        role: ROLE.ADMIN
+        role: ROLE.ADMIN,
+        isVerified: true
+    },
+    {
+        id: '2',
+        name: 'Rafidika Samekto',
+        username: 'rafdikcz',
+        email: 'rafidika.samekto@aivue.com',
+        role: ROLE.ADMIN,
+        isVerified: false
     }
 ];
 
