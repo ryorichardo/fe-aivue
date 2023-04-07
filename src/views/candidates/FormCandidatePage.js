@@ -152,6 +152,35 @@ function FormCandidatePage() {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
+                                    <Stack spacing={1}>
+                                        <Typography variant="h4">Posisi</Typography>
+                                        <FormControl fullWidth error={errors.position !== undefined}>
+                                            <Controller
+                                                name="position"
+                                                control={control}
+                                                render={({ field: { onChange, value } }) => (
+                                                    <Autocomplete
+                                                        value={value || null}
+                                                        options={positionList.map((pos) => pos.title)}
+                                                        getOptionLabel={(option) => option}
+                                                        disablePortal
+                                                        renderInput={(params) => (
+                                                            <TextField {...params} fullWidth placeholder="Software Engineer I" />
+                                                        )}
+                                                        onChange={(_, value) => {
+                                                            onChange(value);
+                                                            return value;
+                                                        }}
+                                                    />
+                                                )}
+                                            />
+                                            {errors.position && errors.position.message && (
+                                                <FormHelperText>{errors.position?.message}</FormHelperText>
+                                            )}
+                                        </FormControl>
+                                    </Stack>
+                                </Grid>
+                                <Grid item xs={12}>
                                     <Controller
                                         name="cv"
                                         control={control}
@@ -184,35 +213,6 @@ function FormCandidatePage() {
                         <Typography variant="h3">Pengaturan Interview</Typography>
                         <Card>
                             <Grid container spacing={gridSpacing} justifyContent="flex-end">
-                                <Grid item xs={12}>
-                                    <Stack spacing={1}>
-                                        <Typography variant="h4">Posisi</Typography>
-                                        <FormControl fullWidth error={errors.position !== undefined}>
-                                            <Controller
-                                                name="position"
-                                                control={control}
-                                                render={({ field: { onChange, value } }) => (
-                                                    <Autocomplete
-                                                        value={value || null}
-                                                        options={positionList.map((pos) => pos.title)}
-                                                        getOptionLabel={(option) => option}
-                                                        disablePortal
-                                                        renderInput={(params) => (
-                                                            <TextField {...params} fullWidth placeholder="Software Engineer I" />
-                                                        )}
-                                                        onChange={(_, value) => {
-                                                            onChange(value);
-                                                            return value;
-                                                        }}
-                                                    />
-                                                )}
-                                            />
-                                            {errors.position && errors.position.message && (
-                                                <FormHelperText>{errors.position?.message}</FormHelperText>
-                                            )}
-                                        </FormControl>
-                                    </Stack>
-                                </Grid>
                                 <Grid item xs={12}>
                                     <Stack spacing={1}>
                                         <Typography variant="h4">PIC</Typography>

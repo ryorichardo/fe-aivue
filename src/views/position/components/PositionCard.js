@@ -15,7 +15,7 @@ function PositionCard({ position }) {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Grid container justifyContent={'space-between'} alignItems="center">
-                        <Grid item>
+                        <Grid item xs={8}>
                             <Typography variant="h4">{title}</Typography>
                             <Typography variant="caption">{desc}</Typography>
                         </Grid>
