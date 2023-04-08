@@ -34,7 +34,7 @@ function CandidateNotes({ notes }) {
                                     >
                                         <ListItemAvatar>
                                             {/* TODO - handle profile picture */}
-                                            <Avatar>{note.sender.img ? <div></div> : <IconUser />}</Avatar>
+                                            <Avatar>{note.sender.img ? <div></div> : 'R'}</Avatar>
                                         </ListItemAvatar>
                                         <ListItemText
                                             primary={<Typography variant="body1">{note.text}</Typography>}

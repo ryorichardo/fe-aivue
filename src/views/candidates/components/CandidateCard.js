@@ -6,7 +6,8 @@ import CandidateStatusLabel from './CandidateStatusLabel';
 import { INTERVIEW_STATUS } from 'config/constant';
 import { useNavigate } from 'react-router';
 
-function CandidateCard({ id, name, email, position, status, expiredDate, completedDate, pic, rating }) {
+function CandidateCard({ candidate }) {
+    const { id, name, email, position, status, expiredDate, completedDate, pic, rating, result } = candidate;
     const navigate = useNavigate();
     const isInterviewCompleted = !!completedDate;
 
@@ -56,7 +57,9 @@ function CandidateCard({ id, name, email, position, status, expiredDate, complet
                                     <Typography variant="caption">Status</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <CandidateStatusLabel label={status} />
+                                    <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                                        {status}
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -91,6 +94,16 @@ function CandidateCard({ id, name, email, position, status, expiredDate, complet
                             </Grid>
                         </Grid>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Grid container justifyContent={'space-between'}>
+                            <Grid item xs={6}>
+                                <Typography variant="caption">Hasil interview</Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <CandidateStatusLabel label={result} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 {isInterviewCompleted && (
                     <Grid item xs={12}>
@@ -114,15 +127,7 @@ function CandidateCard({ id, name, email, position, status, expiredDate, complet
 }
 
 CandidateCard.propTypes = {
-    id: PropTypes.string,
-    name: PropTypes.string,
-    email: PropTypes.string,
-    rating: PropTypes.number,
-    status: PropTypes.string,
-    position: PropTypes.string,
-    expiredDate: PropTypes.any,
-    completedDate: PropTypes.any,
-    pic: PropTypes.object
+    candidate: PropTypes.object
 };
 
 export default CandidateCard;

@@ -1,12 +1,16 @@
+import { INTERVIEW_RESULT, INTERVIEW_STATUS } from 'config/constant';
+
 const CANDIDATES = [
     {
         id: '1',
         name: 'Andrew Tate',
         email: 'tate@topg.com',
         position: 'Software Engineer I',
-        status: 'SELECTED',
+        status: INTERVIEW_STATUS.COMPLETED,
+        result: INTERVIEW_RESULT.SELECTED,
         expiredDate: new Date(),
         completedDate: new Date(),
+        rating: 0,
         pic: { name: 'Rafidika Samekto', email: 'rafidika@gmail.com' },
         notes: [
             {

@@ -8,16 +8,7 @@ function CandidateList({ data }) {
         <Grid container spacing={gridSpacing}>
             {data.map((candidate) => (
                 <Grid item xl={3} lg={4} md={6} xs={12} key={candidate.id}>
-                    <CandidateCard
-                        id={candidate.id}
-                        name={candidate.name}
-                        position={candidate.position}
-                        email={candidate.email}
-                        status={candidate.status}
-                        expiredDate={candidate.expiredDate}
-                        completedDate={candidate.completedDate}
-                        pic={candidate.pic}
-                    />
+                    <CandidateCard candidate={candidate} />
                 </Grid>
             ))}
         </Grid>

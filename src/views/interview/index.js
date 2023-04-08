@@ -2,7 +2,7 @@ import { Button, Grid, Pagination, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { gridSpacing } from 'config/constant';
 import InterviewKitList from './components/InterviewKitList';
-import { getInterviewKits } from 'utils/api/interview';
+import { getInterviewKits } from 'utils/api/interview-kit';
 import { useState, useEffect } from 'react';
 
 function InterviewKitPage() {

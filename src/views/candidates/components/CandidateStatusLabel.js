@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
-import { INTERVIEW_STATUS } from 'config/constant';
+import { INTERVIEW_RESULT, INTERVIEW_STATUS } from 'config/constant';
 import { Chip } from '@mui/material';
 
 function CandidateStatusLabel({ label }) {
@@ -13,23 +13,23 @@ function CandidateStatusLabel({ label }) {
             bgColor = theme.palette.status.bgExpired;
             color = theme.palette.status.expired;
             break;
-        case INTERVIEW_STATUS.ONHOLD:
+        case INTERVIEW_RESULT.ONHOLD:
             bgColor = theme.palette.status.bgOnhold;
             color = theme.palette.status.onhold;
             break;
-        case INTERVIEW_STATUS.REJECTED:
+        case INTERVIEW_RESULT.REJECTED:
             bgColor = theme.palette.status.bgRejected;
             color = theme.palette.status.rejected;
             break;
-        case INTERVIEW_STATUS.SELECTED:
+        case INTERVIEW_RESULT.SELECTED:
             bgColor = theme.palette.status.bgSelected;
             color = theme.palette.status.selected;
             break;
-        case INTERVIEW_STATUS.SENT:
+        case INTERVIEW_STATUS.WAITING_SUBMISSION:
             bgColor = theme.palette.status.bgSent;
             color = theme.palette.status.sent;
             break;
-        case INTERVIEW_STATUS.WAITING:
+        case INTERVIEW_STATUS.WAITING_REVIEW:
             bgColor = theme.palette.status.bgWaiting;
             color = theme.palette.status.waiting;
             break;

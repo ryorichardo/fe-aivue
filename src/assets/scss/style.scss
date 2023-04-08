@@ -53,6 +53,20 @@
     }
 }
 
+// React Player
+
+.player-wrapper {
+    width: auto; // Reset width
+    height: auto; // Reset height
+    position: relative;
+    padding-top: 56.25%; // Percentage ratio for 16:9
+}
+.react-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 // ==============================|| ANIMATION KEYFRAMES ||============================== //
 
 @keyframes wings {

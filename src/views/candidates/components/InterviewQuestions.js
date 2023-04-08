@@ -1,6 +1,10 @@
+import PropTypes from 'prop-types';
 import { Card, List, ListItemButton, ListItemText, Stack, Typography } from '@mui/material';
 
-function InterviewQuestions() {
+function InterviewQuestions({ questions, selectedQuestionId, handleSelectQuestion }) {
+    const handleNavigateToAnswer = (event, id) => {
+        handleSelectQuestion(id);
+    };
     return (
         <Stack spacing={1.5}>
             <Typography variant="h4">Pertanyaan Interview</Typography>
@@ -8,25 +12,31 @@ function InterviewQuestions() {
                 <List
                     component="nav"
                     sx={{
-                        width: '100%',
-                        minWidth: 300
-                        // backgroundColor: theme.palette.background.paper,
-                        // borderRadius: '10px',
-                        // [theme.breakpoints.down('md')]: {
-                        //     minWidth: '100%'
-                        // },
-                        // '& .MuiListItemButton-root': {
-                        //     mt: 0.5
-                        // }
+                        width: '100%'
                     }}
                 >
-                    <ListItemButton sx={{ borderRadius: '8px' }}>
-                        <ListItemText primary={<Typography variant="body1">1. Siapa Tuhanmu?</Typography>} />
-                    </ListItemButton>
+                    {questions &&
+                        questions.length > 0 &&
+                        questions?.map((q, i) => (
+                            <ListItemButton
+                                sx={{ borderRadius: '8px' }}
+                                key={q.id}
+                                onClick={(event) => handleNavigateToAnswer(event, q.id)}
+                                selected={selectedQuestionId === q.id}
+                            >
+                                <ListItemText primary={<Typography variant="body1">{`${i + 1}. ${q.question}`}</Typography>} />
+                            </ListItemButton>
+                        ))}
                 </List>
             </Card>
         </Stack>
     );
 }
+
+InterviewQuestions.propTypes = {
+    questions: PropTypes.array,
+    selectedQuestionId: PropTypes.string,
+    handleSelectQuestion: PropTypes.any
+};
 
 export default InterviewQuestions;

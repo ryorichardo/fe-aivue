@@ -29,7 +29,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { LEVEL_OPTIONS, gridSpacing } from 'config/constant';
-import { getInterviewKitById, getInterviewKits } from 'utils/api/interview';
+import { getInterviewKitById, getInterviewKits } from 'utils/api/interview-kit';
 import { IconAlarmOff, IconClock, IconInfoCircle, IconPlus, IconTrash } from '@tabler/icons';
 import { useRef } from 'react';
 import MainCard from 'components/cards/MainCard';

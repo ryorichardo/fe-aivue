@@ -1,26 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import { Card, Grid, Tab, Tabs, Stack } from '@mui/material';
+import { Card, Grid, Tab, Tabs } from '@mui/material';
 
 import { getCandidateById } from 'utils/api/candidate';
-import { getInterviewDetail } from 'utils/api/interview';
-
 import { gridSpacing } from 'config/constant';
 
 import CandidateInfo from './components/CandidateInfo';
 import CandidateReviewAction from './components/CandidateReviewAction';
 import InterviewQuestions from './components/InterviewQuestions';
 import CandidateNotes from './components/CandidateNotes';
+import { Stack } from '@mui/system';
 import InterviewAnswer from './components/InterviewAnswer';
 import InterviewList from './components/InterviewList';
+import { getAllInterviews } from 'utils/api/interview';
 
-function CandidateReviewPage() {
-    const { id, interviewId } = useParams();
+function CandidateDetailPage() {
+    const { id } = useParams();
     const [candidate, setCandidate] = useState();
-    const [interview, setInterview] = useState();
-    const [currentQuestionId, setCurrentQuestionId] = useState();
-
+    const [interviews, setInterviews] = useState();
     const [notes, setNotes] = useState([]);
 
     const getCandidateDetail = async (id) => {
@@ -35,11 +33,10 @@ function CandidateReviewPage() {
         }
     };
 
-    const getInterview = async (candidateId, interviewId) => {
+    const getInterviewList = async (candidateId) => {
         try {
-            const { data } = await getInterviewDetail(candidateId, interviewId);
-            setInterview(data);
-            setCurrentQuestionId(data.interviewKit.questions[0].id);
+            const { data } = await getAllInterviews(candidateId);
+            setInterviews(data);
         } catch (error) {
             // TODO: error handling here
             console.log(error);
@@ -53,12 +50,12 @@ function CandidateReviewPage() {
     }, [id]);
 
     useEffect(() => {
-        if (candidate && interviewId) {
-            getInterview(candidate.id, interviewId);
+        if (candidate) {
+            getInterviewList(candidate.id);
         }
-    }, [candidate, interviewId]);
+    }, [candidate]);
 
-    if (!candidate && !interview) {
+    if (!candidate) {
         return;
     }
 
@@ -77,25 +74,17 @@ function CandidateReviewPage() {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <CandidateReviewAction rating={candidate.rating} isReviewPage />
+                            <CandidateReviewAction rating={candidate?.rating} isReviewPage={false} />
                         </Grid>
                     </Grid>
                 </Card>
             </Grid>
             <Grid item xs={12}>
                 <Grid container justifyContent="space-between" spacing={gridSpacing}>
-                    <Grid item xs={5}>
+                    <Grid item xs={6}>
                         <Stack spacing={4}>
-                            <InterviewQuestions
-                                questions={interview?.interviewKit?.questions}
-                                selectedQuestionId={currentQuestionId}
-                                handleSelectQuestion={setCurrentQuestionId}
-                            />
-                            <CandidateNotes notes={notes} />
+                            <InterviewList interviews={interviews} />
                         </Stack>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <InterviewAnswer interviewId={interviewId} currentQuestionId={currentQuestionId} />
                     </Grid>
                 </Grid>
             </Grid>
@@ -103,4 +92,4 @@ function CandidateReviewPage() {
     );
 }
 
-export default CandidateReviewPage;
+export default CandidateDetailPage;

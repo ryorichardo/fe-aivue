@@ -5,7 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { IconFile, IconPlus, IconShare } from '@tabler/icons';
 import { gridSpacing } from 'config/constant';
 
-function CandidateReviewAction({ rating }) {
+function CandidateReviewAction({ rating, isReviewPage }) {
     return (
         <Grid container justify="flex-end" spacing={gridSpacing}>
             <Grid item xs={12}>
@@ -28,19 +28,22 @@ function CandidateReviewAction({ rating }) {
                     </Button>
                 </Stack>
             </Grid>
-            <Grid item xs={12}>
-                <Stack spacing={0.5}>
-                    <Typography variant="h5">Status</Typography>
-                    <Button size="large" variant="contained">
-                        Wating To Review
-                    </Button>
-                </Stack>
-            </Grid>
+            {isReviewPage && (
+                <Grid item xs={12}>
+                    <Stack spacing={0.5}>
+                        <Typography variant="h5">Hasil Interview</Typography>
+                        <Button size="large" variant="contained">
+                            Lolos ke Interview Berikutnya
+                        </Button>
+                    </Stack>
+                </Grid>
+            )}
         </Grid>
     );
 }
 
 CandidateReviewAction.propTypes = {
+    isReviewPage: PropTypes.bool,
     rating: PropTypes.number
 };
 
