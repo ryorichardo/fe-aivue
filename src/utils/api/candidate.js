@@ -28,6 +28,7 @@ const CANDIDATES_v2 = [
         name: 'Andrew Tate',
         email: 'tate@topg.com',
         position: 'Software Engineer I',
+        result: INTERVIEW_RESULT.SELECTED,
         status: 'SELECTED',
         pic: { name: 'Rafidika Samekto', email: 'rafidika@gmail.com' },
         activeInterview: {
@@ -43,7 +44,8 @@ const CANDIDATES_v2 = [
                 }
             ]
         },
-        startDate: new Date(),
+        duration: 3,
+        startDateTime: new Date(),
         interviews: [
             {
                 interviewKitId: 'kit1',
@@ -67,14 +69,21 @@ const CANDIDATES_v2 = [
                 isActive: false,
                 notes: []
             }
+        ],
+        notes: [
+            {
+                sender: 'Rafidika Samekto',
+                text: 'Sumpah ini TOP G pasti layak jadi karyawan kita dia kan botak',
+                dateTime: '2 hours ago'
+            }
         ]
     }
 ];
 
 export const getAllCandidates = async () => {
-    return { data: CANDIDATES };
+    return { data: CANDIDATES_v2 };
 };
 
 export const getCandidateById = async (id) => {
-    return { data: CANDIDATES.filter((candidate) => candidate.id === id)[0] || undefined };
+    return { data: CANDIDATES_v2.filter((candidate) => candidate.id === id)[0] || undefined };
 };
