@@ -1,14 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, Chip, ClickAwayListener, List, ListItemButton, ListItemIcon, ListItemText, Popper, Typography } from '@mui/material';
 
-// project imports
 import User1 from 'assets/images/users/user-round.svg';
 
-// assets
 import { IconLogout, IconSettings } from '@tabler/icons';
 import Transitions from 'components/extended/Transitions';
 import MainCard from 'components/cards/MainCard';

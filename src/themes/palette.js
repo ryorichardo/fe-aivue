@@ -82,6 +82,9 @@ export default function themePalette(theme) {
             bgSent: theme.colors?.sent100,
             bgOnhold: theme.colors.onhold100,
             bgWaiting: theme.colors?.primary100
+        },
+        aivue: {
+            primary400: theme.colors?.primary400
         }
     };
 }

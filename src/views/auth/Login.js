@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 
@@ -9,15 +8,39 @@ import AuthLogin from './components/AuthLogin';
 import Logo from 'components/Logo';
 import AuthWrapper from './components/AuthWrapper';
 
+import VidcallIllustration from 'assets/images/vidcall-illustration.svg';
+
 const Login = () => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+    const matchDownLg = useMediaQuery(theme.breakpoints.down('lg'));
+    const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
 
     return (
         <AuthWrapper>
-            <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
-                <Grid item xs={12}>
-                    <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
+            <Grid container direction="row" justifyContent="center" sx={{ minHeight: '100vh' }}>
+                <Grid item lg={5} sx={{ display: { xs: 'none', md: 'none', lg: 'flex', xl: 'flex' } }}>
+                    <Grid
+                        container
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{ minHeight: 'calc(100vh)', background: theme.palette.aivue.primary400 }}
+                    >
+                        <Grid item xs={12} alignSelf="flex-end" sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
+                            <Typography variant={'h1'} textAlign="center" color={theme.palette.background.paper}>
+                                Selamat datang di AIVue!
+                            </Typography>
+                        </Grid>
+                        <img src={VidcallIllustration} alt="vidcall-illustration" width={matchDownXL ? '450px' : '600px'} />
+                        <Grid item xs={12} alignSelf="flex-start" sx={{ m: { xs: 1, sm: 3 }, mt: 0 }}>
+                            <Typography variant={'h2'} textAlign="center" color={theme.palette.background.paper}>
+                                Kelola interview kandidat dengan mudah dengan AIVue!
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={7}>
+                    <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh)' }}>
                         <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
                             <AuthCardWrapper>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
@@ -26,6 +49,7 @@ const Login = () => {
                                             <Logo />
                                         </Link>
                                     </Grid>
+
                                     <Grid item xs={12}>
                                         <Grid
                                             container
@@ -35,13 +59,16 @@ const Login = () => {
                                         >
                                             <Grid item>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
-                                                    <Typography
-                                                        color={theme.palette.secondary.main}
-                                                        gutterBottom
-                                                        variant={matchDownSM ? 'h3' : 'h2'}
-                                                    >
-                                                        Hi, Selamat Datang!
-                                                    </Typography>
+                                                    {matchDownLg && (
+                                                        <Typography
+                                                            color={theme.palette.secondary.main}
+                                                            gutterBottom
+                                                            variant={matchDownSM ? 'h3' : 'h2'}
+                                                        >
+                                                            Hi, Selamat Datang!
+                                                        </Typography>
+                                                    )}
+
                                                     <Typography
                                                         variant="caption"
                                                         fontSize="16px"
@@ -53,6 +80,7 @@ const Login = () => {
                                             </Grid>
                                         </Grid>
                                     </Grid>
+
                                     <Grid item xs={12}>
                                         <AuthLogin />
                                     </Grid>
@@ -60,9 +88,6 @@ const Login = () => {
                             </AuthCardWrapper>
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    {/* Footer */}
                 </Grid>
             </Grid>
         </AuthWrapper>
