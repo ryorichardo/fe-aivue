@@ -42,10 +42,8 @@ function FormPositionPage() {
     const [interviewKitList, setInterviewKitList] = useState([]);
 
     const {
-        register,
         handleSubmit,
         setValue,
-        watch,
         control,
         formState: { errors }
     } = useForm({
@@ -81,7 +79,7 @@ function FormPositionPage() {
         if (id) {
             getPositionDetail(id);
         }
-    }, [id, register]);
+    }, [id]);
 
     useEffect(() => {
         if (currentData !== null) {

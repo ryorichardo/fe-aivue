@@ -45,7 +45,6 @@ function FormInterviewKitPage() {
     const [newQuestion, setNewQuestion] = useState({ question: '', duration: -1 });
 
     const {
-        register,
         handleSubmit,
         setValue,
         control,
@@ -77,7 +76,7 @@ function FormInterviewKitPage() {
         if (id) {
             getInterviewKitDetail(id);
         }
-    }, [id, register]);
+    }, [id]);
 
     useEffect(() => {
         if (currentData !== null) {
