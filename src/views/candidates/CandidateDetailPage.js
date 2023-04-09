@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import { Card, Grid, Tab, Tabs } from '@mui/material';
+import { Card, Grid, Tab, Tabs, Stack } from '@mui/material';
 
 import { getCandidateById } from 'utils/api/candidate';
 import { gridSpacing } from 'config/constant';
@@ -10,7 +10,6 @@ import CandidateInfo from './components/CandidateInfo';
 import CandidateReviewAction from './components/CandidateReviewAction';
 import InterviewQuestions from './components/InterviewQuestions';
 import CandidateNotes from './components/CandidateNotes';
-import { Stack } from '@mui/system';
 import InterviewAnswer from './components/InterviewAnswer';
 import InterviewList from './components/InterviewList';
 import { getAllInterviews } from 'utils/api/interview';
