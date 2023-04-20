@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
-import { INTERVIEW_RESULT, INTERVIEW_STATUS } from 'config/constant';
+import { INTERVIEW_RESULT, INTERVIEW_STATUS } from 'configs/constant';
 import { Chip } from '@mui/material';
 
 function CandidateStatusLabel({ label }) {

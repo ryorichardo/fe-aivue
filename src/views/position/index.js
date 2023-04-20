@@ -1,6 +1,6 @@
 import { Button, Grid, Pagination, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
-import { gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 import { useState, useEffect } from 'react';
 import PositionList from './components/PositionList';
 import { getAllPositions } from 'utils/api/position';

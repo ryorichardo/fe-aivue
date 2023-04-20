@@ -2,11 +2,11 @@ import { combineReducers } from 'redux';
 
 // reducer import
 import customizationReducer from './customizationReducer';
-
-// ==============================|| COMBINE REDUCER ||============================== //
+import globalReducer from './globalReducer';
 
 const reducer = combineReducers({
-    customization: customizationReducer
+    customization: customizationReducer,
+    global: globalReducer
 });
 
 export default reducer;

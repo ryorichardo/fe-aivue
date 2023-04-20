@@ -11,7 +11,9 @@ import { store } from 'store';
 
 // style + assets
 import 'assets/scss/style.scss';
-import config from './config';
+import config from './configs';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistedStore } from 'store';
 
 // ==============================|| REACT DOM RENDER  ||============================== //
 
@@ -19,9 +21,11 @@ const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
     <Provider store={store}>
-        <BrowserRouter basename={config.basename}>
-            <App />
-        </BrowserRouter>
+        <PersistGate persistor={persistedStore}>
+            <BrowserRouter basename={config.basename}>
+                <App />
+            </BrowserRouter>
+        </PersistGate>
     </Provider>
 );
 

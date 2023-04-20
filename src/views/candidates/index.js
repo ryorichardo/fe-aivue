@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Grid, Pagination, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 import CandidateList from './components/CandidateList';
 import { getAllCandidates } from 'utils/api/candidate';
 

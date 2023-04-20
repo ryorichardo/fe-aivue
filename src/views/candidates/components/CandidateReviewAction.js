@@ -3,7 +3,7 @@ import { Grid, Stack, Typography, Button } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 
 import { IconFile, IconPlus, IconShare } from '@tabler/icons';
-import { gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 
 function CandidateReviewAction({ rating, isReviewPage }) {
     return (

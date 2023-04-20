@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useTheme } from '@mui/material/styles';
 import {
@@ -29,10 +29,16 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { login } from 'utils/api/auth';
+import { SET_USER } from 'store/actions';
+import { useNavigate } from 'react-router';
+import config from 'configs';
 
 const AuthLogin = ({ ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
+    const dispatch = useDispatch();
+    const nav = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
@@ -63,10 +69,18 @@ const AuthLogin = ({ ...others }) => {
     const onSubmit = async ({ email, password }) => {
         try {
             if (scriptedRef.current) {
-                console.log(email, password);
+                const payload = {
+                    email: 'vihagi6249@ippals.com',
+                    password: 'JNZNzIVwigUxvWCH'
+                };
+                const data = await login(payload);
+                if (data) {
+                    dispatch({ type: SET_USER, user: data.data });
+                    nav(config.defaultPath);
+                }
             }
         } catch (err) {
-            console.error(err);
+            console.error(err.response);
         }
     };
 

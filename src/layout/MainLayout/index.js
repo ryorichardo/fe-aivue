@@ -8,7 +8,7 @@ import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material'
 // project imports
 import Header from './Header';
 import Sidebar from './Sidebar';
-import { drawerWidth } from 'config/constant';
+import { USER_ROLE, drawerWidth } from 'configs/constant';
 import { SET_MENU } from 'store/actions';
 
 // styles
@@ -62,6 +62,7 @@ const MainLayout = () => {
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
     // Handle left drawer
     const leftDrawerOpened = useSelector((state) => state.customization.opened);
+    const user = useSelector((state) => state.global.user);
     const dispatch = useDispatch();
     const handleLeftDrawerToggle = () => {
         dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
@@ -87,7 +88,11 @@ const MainLayout = () => {
             </AppBar>
             <Box sx={{ display: 'flex' }}>
                 {/* drawer */}
-                <Sidebar drawerOpen={!matchDownMd ? leftDrawerOpened : !leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
+                <Sidebar
+                    drawerOpen={!matchDownMd ? leftDrawerOpened : !leftDrawerOpened}
+                    drawerToggle={handleLeftDrawerToggle}
+                    isSuperAdmin={user.role == USER_ROLE.SUPERADMIN}
+                />
 
                 {/* main content */}
                 <Main theme={theme} open={leftDrawerOpened}>

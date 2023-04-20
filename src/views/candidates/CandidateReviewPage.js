@@ -6,7 +6,7 @@ import { Card, Grid, Tab, Tabs, Stack } from '@mui/material';
 import { getCandidateById } from 'utils/api/candidate';
 import { getInterviewDetail } from 'utils/api/interview';
 
-import { gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 
 import CandidateInfo from './components/CandidateInfo';
 import CandidateReviewAction from './components/CandidateReviewAction';
@@ -28,7 +28,6 @@ function CandidateReviewPage() {
             // TODO - add loading mechanism
             const { data } = await getCandidateById(id);
             setCandidate(data);
-            setNotes(data.notes);
         } catch (error) {
             // TODO: error handling here
             console.log(error);
@@ -39,6 +38,7 @@ function CandidateReviewPage() {
         try {
             const { data } = await getInterviewDetail(candidateId, interviewId);
             setInterview(data);
+            setNotes(data.notes);
             setCurrentQuestionId(data.interviewKit.questions[0].id);
         } catch (error) {
             // TODO: error handling here

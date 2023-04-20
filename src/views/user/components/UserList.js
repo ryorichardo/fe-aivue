@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 
 import { Card, Chip, Grid, IconButton, Typography } from '@mui/material';
-import { gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 import DataTable from 'react-data-table-component';
 import { IconPencil, IconTrash } from '@tabler/icons';
 

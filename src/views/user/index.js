@@ -1,11 +1,12 @@
 import { Box, Button, Grid, InputLabel, MenuItem, Modal, Pagination, Stack, TextField, Typography } from '@mui/material';
-import { ROLE, gridSpacing } from 'config/constant';
+import { USER_ROLE, gridSpacing } from 'configs/constant';
 import { useState, useEffect } from 'react';
 import { getAllUsers } from 'utils/api/user';
 import UserList from './components/UserList';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema, defaultValues } from 'utils/schema/user';
+import { register } from 'utils/api/auth';
 
 function UserPage() {
     const [users, setUsers] = useState([]);
@@ -42,7 +43,12 @@ function UserPage() {
             email,
             role
         };
-        console.log(payload);
+        try {
+            const res = await register(payload);
+            console.log(res);
+        } catch (error) {
+            console.error(error);
+        }
         setOpen(false);
         reset();
     };
@@ -163,7 +169,7 @@ function UserPage() {
                                             helperText={errors.role?.message}
                                             size="small"
                                         >
-                                            {Object.values(ROLE).map((option) => (
+                                            {Object.values(USER_ROLE).map((option) => (
                                                 <MenuItem key={option} value={option}>
                                                     {option}
                                                 </MenuItem>

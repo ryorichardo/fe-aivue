@@ -84,15 +84,10 @@ export const users = {
     ]
 };
 
-const isSuperAdmin = true;
-// TODO - superadmin mechanism
-
-let menuItems = {
+export const menuItems = {
     items: [dashboard, kandidat, position, interviewKit]
 };
 
-if (isSuperAdmin) {
-    menuItems.items.push(users);
-}
-
-export default menuItems;
+export const menuItemsAdmin = {
+    items: [dashboard, kandidat, position, interviewKit, users]
+};

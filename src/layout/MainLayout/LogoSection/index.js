@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ButtonBase } from '@mui/material';
 
-import config from 'config';
+import config from 'configs';
 import Logo from 'components/Logo';
 import { MENU_OPEN } from 'store/actions';
 

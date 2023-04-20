@@ -4,7 +4,7 @@ import { IconPencil, IconTrash } from '@tabler/icons';
 import { useNavigate } from 'react-router';
 
 function InterviewKit({ kit }) {
-    const { id, title, desc, numOfQuestions, duration, createdAt, updatedAt } = kit;
+    const { id, title, desc, numOfQuestions, totalDuration, createdAt, updatedAt } = kit;
     const navigate = useNavigate();
     const handleClickNavigateEdit = () => {
         navigate(`${id}/edit`);
@@ -45,7 +45,7 @@ function InterviewKit({ kit }) {
                                     <Typography variant="caption">Durasi</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{duration} menit</Typography>
+                                    <Typography variant="body2">{totalDuration} menit</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -1,10 +1,9 @@
-import { INTERVIEW_STATUS } from 'config/constant';
+import { INTERVIEW_STATUS } from 'configs/constant';
 
 const INTERVIEWS = [
     {
         id: '1',
         candidateId: '1',
-        interviewKitId: '1',
         interviewKit: {
             id: '1',
             title: 'General HR Interview',
@@ -42,93 +41,14 @@ const INTERVIEWS = [
         isCompleted: true,
         completedAt: new Date(),
         expiredAt: new Date(),
-        status: INTERVIEW_STATUS.WAITING_REVIEW
-    },
-    {
-        id: '2',
-        candidateId: '1',
-        interviewKitId: '1',
-        interviewKit: {
-            id: '1',
-            title: 'General HR Interview',
-            desc: 'Posisi software enginer nih bos senggol dong',
-            numOfQuestions: 3,
-            duration: 15,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            questions: [
-                { id: '1', question: 'Siapa Tuhanmu?', duration: 5 },
-                { id: '2', question: 'Siapa Nabimu?', duration: 5 },
-                { id: '3', question: 'Apa Kitabmu?', duration: 5 }
-            ]
-        },
-        answers: [
+        status: INTERVIEW_STATUS.WAITING_REVIEW,
+        notes: [
             {
-                id: '1',
-                questionId: '1',
-                videoUrl: 'https://www.youtube.com/watch?v=t2Xs6KF6LoI&ab_channel=CodeWithYousaf',
-                rating: 0
-            },
-            {
-                id: '2',
-                questionId: '2',
-                videoUrl: 'https://www.youtube.com/watch?v=t2Xs6KF6LoI&ab_channel=CodeWithYousaf',
-                rating: 0
-            },
-            {
-                id: '3',
-                questionId: '3',
-                videoUrl: 'https://www.youtube.com/watch?v=t2Xs6KF6LoI&ab_channel=CodeWithYousaf',
-                rating: 0
+                sender: 'Rafidika Samekto',
+                text: 'Sumpah ini TOP G pasti layak jadi karyawan kita dia kan botak',
+                dateTime: '2 hours ago'
             }
-        ],
-        isCompleted: true,
-        completedAt: new Date(),
-        expiredAt: new Date(),
-        status: INTERVIEW_STATUS.COMPLETED
-    },
-    {
-        id: '3',
-        candidateId: '1',
-        interviewKitId: '1',
-        interviewKit: {
-            id: '1',
-            title: 'General HR Interview',
-            desc: 'Posisi software enginer nih bos senggol dong',
-            numOfQuestions: 3,
-            duration: 15,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            questions: [
-                { id: '1', question: 'Siapa Tuhanmu?', duration: 5 },
-                { id: '2', question: 'Siapa Nabimu?', duration: 5 },
-                { id: '3', question: 'Apa Kitabmu?', duration: 5 }
-            ]
-        },
-        answers: [
-            {
-                id: '1',
-                questionId: '1',
-                videoUrl: 'https://www.youtube.com/watch?v=t2Xs6KF6LoI&ab_channel=CodeWithYousaf',
-                rating: 0
-            },
-            {
-                id: '2',
-                questionId: '2',
-                videoUrl: 'https://www.youtube.com/watch?v=t2Xs6KF6LoI&ab_channel=CodeWithYousaf',
-                rating: 0
-            },
-            {
-                id: '3',
-                questionId: '3',
-                videoUrl: 'https://www.youtube.com/watch?v=t2Xs6KF6LoI&ab_channel=CodeWithYousaf',
-                rating: 0
-            }
-        ],
-        isCompleted: false,
-        completedAt: new Date(),
-        expiredAt: new Date(),
-        status: INTERVIEW_STATUS.WAITING_SUBMISSION
+        ]
     }
 ];
 

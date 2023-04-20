@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
-import { gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 import InterviewKit from './InterviewKit';
 
 function InterviewKitList({ data }) {

@@ -27,7 +27,7 @@ import { useTheme } from '@mui/material/styles';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { LEVEL_OPTIONS, gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 import { defaultValues, interviewKitSchema } from 'utils/schema/interview-kit';
 import { getInterviewKitById } from 'utils/api/interview-kit';
 import { IconAlarmOff, IconClock, IconPlus, IconTrash } from '@tabler/icons';
@@ -81,17 +81,15 @@ function FormInterviewKitPage() {
     useEffect(() => {
         if (currentData !== null) {
             setValue('title', currentData.title);
-            setValue('level', currentData.level);
             setValue('desc', currentData.desc);
             setValue('questions', currentData.questions);
         }
     }, [currentData, setValue]);
 
-    const onSubmit = handleSubmit(async ({ title, level, desc, questions }) => {
+    const onSubmit = handleSubmit(async ({ title, desc, questions }) => {
         try {
             const payload = {
                 title,
-                level,
                 desc,
                 questions
             };

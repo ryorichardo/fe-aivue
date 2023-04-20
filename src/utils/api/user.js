@@ -1,4 +1,4 @@
-const { ROLE } = require('config/constant');
+import { USER_ROLE } from 'configs/constant';
 
 const USERS = [
     {
@@ -6,7 +6,7 @@ const USERS = [
         name: 'Rafidika Samekto',
         username: 'rafdikcz',
         email: 'rafidika.samekto@aivue.com',
-        role: ROLE.ADMIN,
+        role: USER_ROLE.ADMIN,
         isVerified: true
     },
     {
@@ -14,7 +14,7 @@ const USERS = [
         name: 'Rafidika Samekto',
         username: 'rafdikcz',
         email: 'rafidika.samekto@aivue.com',
-        role: ROLE.ADMIN,
+        role: USER_ROLE.ADMIN,
         isVerified: false
     }
 ];

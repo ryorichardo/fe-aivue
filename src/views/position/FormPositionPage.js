@@ -28,7 +28,7 @@ import { useTheme } from '@mui/material/styles';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { LEVEL_OPTIONS, gridSpacing } from 'config/constant';
+import { LEVEL_OPTIONS, gridSpacing } from 'configs/constant';
 import { getInterviewKitById, getInterviewKits } from 'utils/api/interview-kit';
 import { IconAlarmOff, IconClock, IconInfoCircle, IconPlus, IconTrash } from '@tabler/icons';
 import { useRef } from 'react';

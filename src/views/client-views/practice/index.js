@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import QuestionCard from './components/QuestionCard';
-import { gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 import AnswerRecorder from './components/AnswerRecorder';
 
 function PracticePage() {

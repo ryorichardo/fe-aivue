@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { Card, Grid, Tab, Tabs, Stack } from '@mui/material';
 
 import { getCandidateById } from 'utils/api/candidate';
-import { gridSpacing } from 'config/constant';
+import { gridSpacing } from 'configs/constant';
 
 import CandidateInfo from './components/CandidateInfo';
 import CandidateReviewAction from './components/CandidateReviewAction';

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, ButtonBase, Stack } from '@mui/material';
 import { IconMenu2 } from '@tabler/icons';
-import { drawerWidth } from 'config/constant';
+import { drawerWidth } from 'configs/constant';
 import LogoSection from 'layout/MainLayout/LogoSection';
-import config from 'config';
+import config from 'configs';
 
 const ClientHeader = ({ handleLeftDrawerToggle, leftDrawerOpened }) => {
     const theme = useTheme();

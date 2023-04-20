@@ -3,11 +3,12 @@ import { Button, Card, Grid, IconButton, Stack, Typography } from '@mui/material
 import { IconTrash } from '@tabler/icons';
 import StarIcon from '@mui/icons-material/Star';
 import CandidateStatusLabel from './CandidateStatusLabel';
-import { INTERVIEW_STATUS } from 'config/constant';
+import { INTERVIEW_STATUS } from 'configs/constant';
 import { useNavigate } from 'react-router';
 
 function CandidateCard({ candidate }) {
-    const { id, name, email, position, status, expiredDate, completedDate, pic, rating, result } = candidate;
+    const { id, name, email, position, status, pic, rating, result } = candidate;
+    const { expiredDate, completedDate } = candidate?.activeInterview;
     const navigate = useNavigate();
     const isInterviewCompleted = !!completedDate;
 

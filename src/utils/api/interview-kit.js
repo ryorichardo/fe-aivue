@@ -4,7 +4,7 @@ const INTERVIEW_KITS = [
         title: 'General HR Interview',
         desc: 'Posisi software enginer nih bos senggol dong',
         numOfQuestions: 3,
-        duration: 15,
+        totalDuration: 15,
         createdAt: new Date(),
         updatedAt: new Date(),
         questions: [
@@ -16,10 +16,9 @@ const INTERVIEW_KITS = [
     {
         id: '2',
         title: 'General SE I Interview',
-        level: 'Entry Level',
         desc: 'Posisi software enginer nih bos senggol dong',
         numOfQuestions: 3,
-        duration: 15,
+        totalDuration: 15,
         createdAt: new Date(),
         updatedAt: new Date(),
         questions: [
@@ -31,10 +30,9 @@ const INTERVIEW_KITS = [
     {
         id: '3',
         title: 'Additional Algorithm SE I Interview',
-        level: 'Entry Level',
         desc: 'Posisi software enginer nih bos senggol dong',
         numOfQuestions: 3,
-        duration: 15,
+        totalDuration: 15,
         createdAt: new Date(),
         updatedAt: new Date(),
         questions: [

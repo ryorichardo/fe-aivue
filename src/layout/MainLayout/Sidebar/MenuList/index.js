@@ -1,14 +1,15 @@
-// material-ui
+import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 
 // project imports
-import menuItem from 'layout/MainLayout/Sidebar/MenuItems';
 import NavGroup from './NavGroup';
+import { menuItems, menuItemsAdmin } from '../MenuItems';
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
-const MenuList = () => {
-    const navItems = menuItem.items.map((item) => {
+const MenuList = ({ isSuperAdmin }) => {
+    const menu = isSuperAdmin ? menuItemsAdmin : menuItems;
+    const navItems = menu.items.map((item) => {
         switch (item.type) {
             case 'group':
                 return <NavGroup key={item.id} item={item} />;
@@ -24,4 +25,7 @@ const MenuList = () => {
     return <>{navItems}</>;
 };
 
+MenuList.propTypes = {
+    isSuperAdmin: PropTypes.bool
+};
 export default MenuList;

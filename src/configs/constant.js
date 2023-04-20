@@ -18,7 +18,7 @@ export const INTERVIEW_RESULT = {
 
 export const LEVEL_OPTIONS = ['Entry Level', 'Mid/Senior', 'Manager'];
 
-export const ROLE = {
-    ADMIN: 'ADMIN',
-    SUPERADMIN: 'SUPERADMIN'
+export const USER_ROLE = {
+    ADMIN: 'admin',
+    SUPERADMIN: 'super admin'
 };
