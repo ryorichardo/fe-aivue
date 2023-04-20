@@ -13,7 +13,7 @@ function CandidateCard({ candidate }) {
     const isInterviewCompleted = !!completedDate;
 
     const onClickReview = () => {
-        navigate(`${id}/review`);
+        navigate(`${id}/detail`);
     };
     return (
         <Card>

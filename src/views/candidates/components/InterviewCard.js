@@ -10,7 +10,7 @@ function InterviewCard({ interview }) {
 
     const navigate = useNavigate();
     const handleClickNavigateReview = () => {
-        navigate(`${id}`);
+        navigate(`${id}/interview`);
     };
 
     return (

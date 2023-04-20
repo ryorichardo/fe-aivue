@@ -53,11 +53,11 @@ const MainRoutes = {
                     element: <FormCandidatePage />
                 },
                 {
-                    path: ':id/review',
+                    path: ':id/detail',
                     element: <CandidateDetailPage />
                 },
                 {
-                    path: ':id/review/:interviewId',
+                    path: ':id/detail/:interviewId/interview',
                     element: <CandidateReviewPage />
                 }
             ]
