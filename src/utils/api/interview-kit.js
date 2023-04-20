@@ -1,3 +1,5 @@
+import { apiGet, apiPost } from '.';
+
 const INTERVIEW_KITS = [
     {
         id: '1',
@@ -44,13 +46,17 @@ const INTERVIEW_KITS = [
 ];
 
 export const getInterviewKits = () => {
-    return {
-        data: INTERVIEW_KITS
-    };
+    return apiGet('/kits');
 };
 
 export const getInterviewKitById = (id) => {
-    return {
-        data: INTERVIEW_KITS.filter((kit) => kit.id === id)[0] || undefined
-    };
+    return apiGet('/kits', { params: { id } });
+};
+
+export const createInterviewKit = (payload) => {
+    return apiPost('/kits', payload);
+};
+
+export const updateInterviewKit = (id, payload) => {
+    return apiPut('/kits', { id, ...payload });
 };

@@ -4,6 +4,7 @@ import { gridSpacing } from 'configs/constant';
 import { useState, useEffect } from 'react';
 import PositionList from './components/PositionList';
 import { getAllPositions } from 'utils/api/position';
+import Cookies from 'js-cookie';
 
 function PositionPage() {
     const navigate = useNavigate();

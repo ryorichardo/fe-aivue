@@ -16,7 +16,7 @@ export const INTERVIEW_RESULT = {
     ONHOLD: 'Ditangguhkan'
 };
 
-export const LEVEL_OPTIONS = ['Entry Level', 'Mid/Senior', 'Manager'];
+export const LEVEL_OPTIONS = ['internship', 'entry_level', 'mid/senior', 'manager', 'lead'];
 
 export const USER_ROLE = {
     ADMIN: 'admin',

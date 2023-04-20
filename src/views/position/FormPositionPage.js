@@ -35,7 +35,7 @@ import { IconAlarmOff, IconClock, IconInfoCircle, IconPlus, IconTrash } from '@t
 import { useRef } from 'react';
 import MainCard from 'components/cards/MainCard';
 import { defaultValues, positionSchema } from 'utils/schema/position';
-import { getPositionById } from 'utils/api/position';
+import { createPosition, getPositionById, updatePositionById } from 'utils/api/position';
 
 function FormPositionPage() {
     const { id } = useParams();
@@ -97,11 +97,17 @@ function FormPositionPage() {
             const payload = {
                 title,
                 level,
-                desc,
-                interviewKits
+                description: desc,
+                interview_kit_ids: interviewKits?.map((kit) => kit.id)
             };
 
-            console.log(payload);
+            let res;
+            if (id) {
+                res = await updatePositionById({ id, ...payload });
+            } else {
+                res = await createPosition(payload);
+            }
+            console.log(res);
             // TODO - handle submit for position
         } catch (error) {
             console.log(error);
@@ -231,7 +237,7 @@ function FormPositionPage() {
                                         {watch &&
                                             watch('interviewKits').length > 0 &&
                                             watch('interviewKits').map((tahap, i) => (
-                                                <Typography sx={{ marginBottom: 2 }} variant="h5">{`Tahap ${i + 1}: ${
+                                                <Typography key={tahap.id} sx={{ marginBottom: 2 }} variant="h5">{`Tahap ${i + 1}: ${
                                                     tahap.title
                                                 }`}</Typography>
                                             ))}

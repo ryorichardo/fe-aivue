@@ -1,3 +1,5 @@
+import { apiGet, apiPost, apiPut, getAxiosInstance } from '.';
+
 const POSITIONS = [
     {
         id: '1',
@@ -56,9 +58,17 @@ const POSITIONS = [
 ];
 
 export const getAllPositions = () => {
-    return { data: POSITIONS };
+    return apiGet('/positions');
 };
 
 export const getPositionById = (id) => {
-    return { data: POSITIONS.filter((pos) => pos.id === id)[0] || undefined };
+    return apiGet('/positions/detail', { params: { id } });
+};
+
+export const createPosition = (payload) => {
+    return apiPost('/positions', payload);
+};
+
+export const updatePositionById = (id, payload) => {
+    return apiPut('/positions', { id, ...payload });
 };

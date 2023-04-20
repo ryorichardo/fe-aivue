@@ -1,7 +1,7 @@
 import { Typography, Link, Stack } from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 import { useLocation } from 'react-router';
-import { capitalizeFirstChar } from 'utils/string';
+import { capitalizeFirstChar, containsNumbers } from 'utils/string';
 
 function Breadcrumbs() {
     const pathToBahasa = {
@@ -49,7 +49,7 @@ function Breadcrumbs() {
                     if (i === crumbs.length - 1) {
                         active = pathToTitle[crumb];
                     }
-                    if (crumb == Number(crumb)) {
+                    if (containsNumbers(crumb)) {
                         return;
                     }
 

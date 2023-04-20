@@ -68,6 +68,7 @@ const MainLayout = () => {
         dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
     };
 
+    console.log(user);
     return (
         <>
             <CssBaseline />

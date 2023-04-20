@@ -4,7 +4,7 @@ import { IconPencil, IconTrash } from '@tabler/icons';
 import { useNavigate } from 'react-router';
 
 function InterviewKit({ kit }) {
-    const { id, title, desc, numOfQuestions, totalDuration, createdAt, updatedAt } = kit;
+    const { id, title, description, num_of_questions, total_duration, createdAt, updatedAt } = kit;
     const navigate = useNavigate();
     const handleClickNavigateEdit = () => {
         navigate(`${id}/edit`);
@@ -35,7 +35,7 @@ function InterviewKit({ kit }) {
                                     <Typography variant="caption">Jumlah Pertanyaan</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{numOfQuestions}</Typography>
+                                    <Typography variant="body2">{num_of_questions}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -45,7 +45,7 @@ function InterviewKit({ kit }) {
                                     <Typography variant="caption">Durasi</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{totalDuration} menit</Typography>
+                                    <Typography variant="body2">{total_duration} menit</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -55,7 +55,7 @@ function InterviewKit({ kit }) {
                                     <Typography variant="caption">Dibuat pada</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{createdAt.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{createdAt?.toLocaleString()}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -65,7 +65,7 @@ function InterviewKit({ kit }) {
                                     <Typography variant="caption">Terakhir diupdate</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{updatedAt.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{updatedAt?.toLocaleString()}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>

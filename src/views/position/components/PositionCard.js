@@ -4,7 +4,7 @@ import { IconPencil, IconTrash } from '@tabler/icons';
 import { useNavigate } from 'react-router';
 
 function PositionCard({ position }) {
-    const { id, title, desc, level, numOfInterviews, createdAt, updatedAt, lastUpdatedBy } = position;
+    const { id, title, desc, level, num_of_interviews, createdAt, updatedAt, last_updated_by } = position;
     const navigate = useNavigate();
     const handleClickNavigateEdit = () => {
         navigate(`${id}/edit`);
@@ -17,7 +17,6 @@ function PositionCard({ position }) {
                     <Grid container justifyContent={'space-between'} alignItems="center">
                         <Grid item xs={8}>
                             <Typography variant="h4">{title}</Typography>
-                            <Typography variant="caption">{desc}</Typography>
                         </Grid>
                         <Grid item xs={'auto'}>
                             <IconButton size="small" color="warning" sx={{ marginRight: '8px' }} onClick={handleClickNavigateEdit}>
@@ -47,7 +46,7 @@ function PositionCard({ position }) {
                                     <Typography variant="caption">Jumlah tahapan interview</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{numOfInterviews} tahap</Typography>
+                                    <Typography variant="body2">{num_of_interviews} tahap</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -58,7 +57,7 @@ function PositionCard({ position }) {
                                     <Typography variant="caption">Dibuat pada</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{createdAt.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{createdAt?.toLocaleString()}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -68,17 +67,7 @@ function PositionCard({ position }) {
                                     <Typography variant="caption">Terakhir diupdate</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{updatedAt.toLocaleString()}</Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Grid container justifyContent={'space-between'}>
-                                <Grid item xs={6}>
-                                    <Typography variant="caption">Terakhir diubah oleh</Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Typography variant="body2">{lastUpdatedBy}</Typography>
+                                    <Typography variant="body2">{updatedAt?.toLocaleString()}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
