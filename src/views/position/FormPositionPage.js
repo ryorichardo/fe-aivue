@@ -21,7 +21,8 @@ import {
     Select,
     ToggleButton,
     ToggleButtonGroup,
-    Autocomplete
+    Autocomplete,
+    Box
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -45,7 +46,8 @@ function FormPositionPage() {
         handleSubmit,
         setValue,
         control,
-        formState: { errors }
+        formState: { errors },
+        watch
     } = useForm({
         resolver: yupResolver(positionSchema),
         defaultValues
@@ -225,6 +227,15 @@ function FormPositionPage() {
                                             )}
                                         </FormControl>
                                     </Stack>
+                                    <Box my={2}>
+                                        {watch &&
+                                            watch('interviewKits').length > 0 &&
+                                            watch('interviewKits').map((tahap, i) => (
+                                                <Typography sx={{ marginBottom: 2 }} variant="h5">{`Tahap ${i + 1}: ${
+                                                    tahap.title
+                                                }`}</Typography>
+                                            ))}
+                                    </Box>
                                 </Grid>
                             </Grid>
                         </Card>
