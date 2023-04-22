@@ -86,6 +86,7 @@ export default function themeTypography(theme) {
             }
         },
         mainContent: {
+            marginLeft: '32px !important',
             zIndex: 1,
             backgroundColor: theme.background,
             width: '100%',

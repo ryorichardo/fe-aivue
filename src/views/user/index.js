@@ -7,10 +7,13 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema, defaultValues } from 'utils/schema/user';
 import { register } from 'utils/api/auth';
+import SearchSection from 'components/Search';
 
 function UserPage() {
     const [users, setUsers] = useState([]);
     const [open, setOpen] = useState(false);
+
+    const [search, setSearch] = useState('');
 
     const {
         handleSubmit,
@@ -66,6 +69,9 @@ function UserPage() {
                         </Button>
                     </Grid>
                 </Grid>
+                <Grid item xs={12}>
+                    <SearchSection noFilter value={search} onSearch={(e) => setSearch(e.target.value)} />
+                </Grid>
                 {!users || users.length === 0 ? (
                     <Grid item xs={12}>
                         <Typography variant="h4">
@@ -74,7 +80,7 @@ function UserPage() {
                     </Grid>
                 ) : (
                     <>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} className="list-container-list-page">
                             <UserList data={users} />
                         </Grid>
                         <Grid item xs={12}>

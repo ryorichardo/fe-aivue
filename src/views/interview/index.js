@@ -4,10 +4,13 @@ import { gridSpacing } from 'configs/constant';
 import InterviewKitList from './components/InterviewKitList';
 import { getInterviewKits } from 'utils/api/interview-kit';
 import { useState, useEffect } from 'react';
+import SearchSection from 'components/Search';
 
 function InterviewKitPage() {
     const navigate = useNavigate();
     const [interviewKits, setInterviewKits] = useState([]);
+
+    const [search, setSearch] = useState('');
 
     const getAllInterviewKits = async () => {
         try {
@@ -35,6 +38,9 @@ function InterviewKitPage() {
                         Tambah Interview Kit
                     </Button>
                 </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <SearchSection noFilter value={search} onSearch={(e) => setSearch(e.target.value)} />
             </Grid>
             {!interviewKits || interviewKits.length === 0 ? (
                 <Grid item xs={12}>

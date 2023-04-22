@@ -23,7 +23,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({
         }),
         [theme.breakpoints.up('md')]: {
             marginLeft: -(drawerWidth - 20),
-            width: `calc(100% - ${drawerWidth}px)`
+            width: `calc(100% - ${drawerWidth}px)`,
+            paddingLeft: '100px'
         },
         [theme.breakpoints.down('md')]: {
             marginLeft: '20px',
