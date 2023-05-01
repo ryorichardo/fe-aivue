@@ -5,11 +5,18 @@ import { INTERVIEW_RESULT, INTERVIEW_STATUS, gridSpacing } from 'configs/constan
 import CandidateList from './components/CandidateList';
 import { getAllCandidates } from 'utils/api/candidate';
 import SearchSection from 'components/Search';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
+import { getAllUsers } from 'utils/api/user';
 
 function CandidatePage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [candidates, setCandidates] = useState([]);
+    const [pics, setPics] = useState([]);
 
+    const [refetch, setRefetch] = useState(false);
     const [search, setSearch] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
     const [filterResult, setFilterResult] = useState('');
@@ -33,7 +40,7 @@ function CandidatePage() {
             label: 'PIC',
             value: filterPIC,
             changeHandler: (e) => setFilterPIC(e.target.value),
-            options: Object.values(INTERVIEW_RESULT)
+            options: pics.map((pic) => pic.name)
         }
     ];
 
@@ -42,47 +49,59 @@ function CandidatePage() {
         setFilterPIC('');
         setFilterResult('');
         setIsFilter(false);
+        setRefetch(true);
     };
 
     const applyFilter = () => {
-        setIsFilter(Boolean(filterPIC || filterResult || filterStatus));
-        // TODO- have proper filter mechanism
-        setCandidates((prevList) => {
-            let newList = prevList;
-            if (filterStatus) {
-                newList = prevList.filter((c) => c.status === filterStatus);
-            }
-            if (filterPIC) {
-                newList = prevList.filter((c) => c.pic.name === filterPIC);
-            }
-            if (filterResult) {
-                newList = prevList.filter((c) => c.result === filterResult);
-            }
-            return newList;
-        });
+        setRefetch(true);
     };
 
     const getCandidates = async () => {
         try {
             // TODO - add loading mechanism
             const { data } = await getAllCandidates();
-            setCandidates(data);
+
+            // TODO- have proper filter mechanism
+            setIsFilter(Boolean(filterPIC || filterResult || filterStatus));
+            let newList = data;
+            if (filterStatus) {
+                newList = data.filter((c) => c.active_interview.status === filterStatus);
+            }
+            if (filterPIC) {
+                newList = data.filter((c) => c.pic.name === filterPIC);
+            }
+            if (filterResult) {
+                newList = data.filter((c) => c.result === filterResult);
+            }
+            setCandidates(newList);
         } catch (error) {
-            // TODO - add error handling
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
+
+    const getPics = async () => {
+        try {
+            // TODO - add loading mechanism
+            const { data } = await getAllUsers();
+            setPics(data);
+        } catch (error) {
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        }
+    };
+
     useEffect(() => {
         getCandidates();
+        getPics();
     }, []);
 
     useEffect(() => {
-        if (isFilter) {
-            applyFilter();
-        } else {
+        if (refetch) {
             getCandidates();
         }
-    }, [isFilter]);
+        return () => {
+            setRefetch(false);
+        };
+    }, [refetch]);
 
     const handleClickNavigate = () => {
         navigate('/candidate/new');

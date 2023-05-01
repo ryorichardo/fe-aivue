@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -10,6 +10,9 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import { USER_ROLE, drawerWidth } from 'configs/constant';
 import { SET_MENU } from 'store/actions';
+import { logout } from 'utils/api/auth';
+import Cookies from 'js-cookie';
+import Notification from 'components/Notification';
 
 // styles
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
@@ -65,11 +68,24 @@ const MainLayout = () => {
     const leftDrawerOpened = useSelector((state) => state.customization.opened);
     const user = useSelector((state) => state.global.user);
     const dispatch = useDispatch();
+    const nav = useNavigate();
     const handleLeftDrawerToggle = () => {
         dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
     };
 
-    console.log(user);
+    const handleLogout = async () => {
+        try {
+            await logout().then((res) => {
+                if (res.status == 200) {
+                    //TODO- handle logout
+                    // localStorage.removeItem('token');
+                    nav('/login');
+                }
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <>
             <CssBaseline />
@@ -85,7 +101,11 @@ const MainLayout = () => {
                 }}
             >
                 <Toolbar>
-                    <Header handleLeftDrawerToggle={handleLeftDrawerToggle} leftDrawerOpened={leftDrawerOpened} />
+                    <Header
+                        handleLeftDrawerToggle={handleLeftDrawerToggle}
+                        leftDrawerOpened={leftDrawerOpened}
+                        logoutHandler={handleLogout}
+                    />
                 </Toolbar>
             </AppBar>
             <Box sx={{ display: 'flex' }}>
@@ -101,6 +121,7 @@ const MainLayout = () => {
                     <Outlet />
                 </Main>
             </Box>
+            <Notification />
         </>
     );
 };

@@ -34,7 +34,11 @@ function InterviewList({ interviews }) {
                             </Grid>
                         ))
                     ) : (
-                        <Typography>Semua tahapan interview untuk posisi ini telah diselesaikan</Typography>
+                        <Grid item>
+                            <Typography variant="body1" align="center">
+                                Semua tahapan interview untuk posisi ini telah diselesaikan
+                            </Typography>
+                        </Grid>
                     )}
                 </Grid>
             </TabPanel>

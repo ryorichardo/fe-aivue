@@ -78,7 +78,7 @@ function Breadcrumbs() {
                     );
                 })}
             </MuiBreadcrumbs>
-            <Typography variant="h2">{active}</Typography>
+            <Typography variant="h2">{active || 'Dashboard'}</Typography>
         </Stack>
     );
 }

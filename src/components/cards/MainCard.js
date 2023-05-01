@@ -37,6 +37,7 @@ const MainCard = forwardRef(
                 ref={ref}
                 {...others}
                 sx={{
+                    padding: '0px !important',
                     border: border ? '1px solid' : 'none',
                     borderColor: theme.palette.primary[200] + 25,
                     ':hover': {

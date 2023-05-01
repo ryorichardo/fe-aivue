@@ -13,6 +13,7 @@ import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
+    padding: '16px !important',
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.primary.light,
     overflow: 'hidden',
@@ -50,7 +51,7 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                 <TotalIncomeCard />
             ) : (
                 <CardWrapper border={false} content={false}>
-                    <Box sx={{ p: 2 }}>
+                    <Box>
                         <List sx={{ py: 0 }}>
                             <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
                                 <ListItemAvatar>

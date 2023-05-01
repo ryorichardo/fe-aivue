@@ -9,12 +9,24 @@ const getAllowedOrigin = () => {
 const api = axios.create({
     baseURL: config.apiUrl,
     headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBSVZ1ZSIsImV4cCI6MTY4MjYwMzU0OCwiaWQiOiI1R0pGZVJoc2pPQjR5QjhjNURqMFgzTGEiLCJuYW1lIjoiU3VwZXIgYWRtaW4gMSIsImVtYWlsIjoidmloYWdpNjI0OUBpcHBhbHMuY29tIiwicm9sZSI6InN1cGVyIGFkbWluIn0.OL88c9CqgngfobsG52aPdY0vVUBLLWblVsnqAwm8m9w`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
     }
 });
 
 export const getAxiosInstance = () => {
     return api;
+};
+
+export const apiGetWithPagination = async (url, data) => {
+    try {
+        const res = await api.get(url, data);
+        return {
+            data: res.data.data,
+            pagination_info: res.pagination_info
+        };
+    } catch (error) {
+        throw error;
+    }
 };
 
 export const apiGet = async (url, data) => {
@@ -37,6 +49,15 @@ export const apiPost = async (url, data) => {
 export const apiPut = async (url, data) => {
     try {
         const res = await api.put(url, data);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiDelete = async (url, data) => {
+    try {
+        const res = await api.delete(url, { data: data });
         return res.data;
     } catch (error) {
         throw error;

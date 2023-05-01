@@ -1,4 +1,5 @@
 import { INTERVIEW_RESULT, INTERVIEW_STATUS } from 'configs/constant';
+import { apiGet, apiGetWithPagination, apiPost } from '.';
 
 const CANDIDATES_v1 = [
     {
@@ -24,36 +25,37 @@ const CANDIDATES_v1 = [
 
 const CANDIDATES = [
     {
-        id: '1',
-        name: 'Andrew Tate',
-        email: 'tate@topg.com',
-        position: 'Software Engineer I',
-        result: INTERVIEW_RESULT.SELECTED,
-        status: INTERVIEW_STATUS.COMPLETED,
-        pic: { name: 'Rafidika Samekto', email: 'rafidika@gmail.com' },
-        activeInterview: {
-            interviewKitId: 'kit1',
-            expiredDate: new Date(),
-            completedDate: new Date(),
-            isActive: true,
-            notes: [
-                {
-                    sender: 'Rafidika Samekto',
-                    text: 'Sumpah ini TOP G pasti layak jadi karyawan kita dia kan botak',
-                    dateTime: '2 hours ago'
-                }
-            ]
+        id: 'J5ZObT3dzFU-R9rieLPahxU=',
+        name: 'Kandidat 1',
+        email: 'rafidika2013@gmail.com',
+        position: 'Mobile Enjiner Intern',
+        level: 'internship',
+        result: 'Belum ada hasil',
+        pic: {
+            id: 'NPxdtjBH8-3aOiPI7t06BZxJ',
+            name: 'Super admin 1',
+            email: 'vihagi6249@ippals.com',
+            role: 'super admin'
         },
-        expiredDuration: 3,
-        startDateTime: new Date(),
-        cvUrl: 'CV_URl'
+        active_interview: {
+            name: 'general hr',
+            status: 'Menunggu Review',
+            expired_date: '25/04/2023 08:00',
+            completed_date: '25/04/2023 08:00'
+        }
     }
 ];
 
-export const getAllCandidates = async () => {
+export const getAllCandidates = () => {
+    // return apiGetWithPagination('/candidates');
     return { data: CANDIDATES };
 };
 
-export const getCandidateById = async (id) => {
+export const getCandidateById = (id) => {
+    // return apiGet('/candidates/detail', { params: { id } });
     return { data: CANDIDATES.filter((candidate) => candidate.id === id)[0] || undefined };
+};
+
+export const createCandidate = (payload) => {
+    return apiPost('/candidates', payload);
 };

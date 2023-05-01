@@ -90,7 +90,7 @@ export default function themeTypography(theme) {
             zIndex: 1,
             backgroundColor: theme.background,
             width: '100%',
-            minHeight: 'calc(100vh)',
+            minHeight: 'calc(100vh-126px)',
             flexGrow: 1,
             padding: '20px',
             marginRight: '20px'

@@ -14,9 +14,13 @@ import InterviewQuestions from './components/InterviewQuestions';
 import CandidateNotes from './components/CandidateNotes';
 import InterviewAnswer from './components/InterviewAnswer';
 import InterviewList from './components/InterviewList';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
 
 function CandidateReviewPage() {
     const { id, interviewId } = useParams();
+    const dispatch = useDispatch();
     const [candidate, setCandidate] = useState();
     const [interview, setInterview] = useState();
     const [currentQuestionId, setCurrentQuestionId] = useState();
@@ -29,8 +33,7 @@ function CandidateReviewPage() {
             const { data } = await getCandidateById(id);
             setCandidate(data);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -41,8 +44,7 @@ function CandidateReviewPage() {
             setNotes(data.notes);
             setCurrentQuestionId(data.interviewKit.questions[0].id);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -72,7 +74,7 @@ function CandidateReviewPage() {
                                 name={candidate?.name}
                                 email={candidate?.email}
                                 position={candidate?.position}
-                                completedDate={candidate?.completedDate}
+                                result={candidate?.result}
                                 pic={candidate?.pic}
                             />
                         </Grid>
@@ -91,7 +93,7 @@ function CandidateReviewPage() {
                                 selectedQuestionId={currentQuestionId}
                                 handleSelectQuestion={setCurrentQuestionId}
                             />
-                            <CandidateNotes notes={notes} />
+                            <CandidateNotes notes={notes} interviewId={interviewId} />
                         </Stack>
                     </Grid>
                     <Grid item xs={7}>

@@ -6,7 +6,7 @@ import { drawerWidth } from 'configs/constant';
 import Breadcrumbs from 'components/extended/Breadcrumbs';
 import ProfileSection from './ProfileSection';
 
-const Header = ({ handleLeftDrawerToggle, leftDrawerOpened }) => {
+const Header = ({ handleLeftDrawerToggle, leftDrawerOpened, logoutHandler }) => {
     const theme = useTheme();
 
     return (
@@ -45,14 +45,15 @@ const Header = ({ handleLeftDrawerToggle, leftDrawerOpened }) => {
                 <Breadcrumbs />
             </Stack>
             <Box sx={{ flexGrow: 1 }} />
-            <ProfileSection />
+            <ProfileSection logoutHandler={logoutHandler} />
         </>
     );
 };
 
 Header.propTypes = {
     handleLeftDrawerToggle: PropTypes.func,
-    leftDrawerOpened: PropTypes.bool
+    leftDrawerOpened: PropTypes.bool,
+    logoutHandler: PropTypes.func
 };
 
 export default Header;

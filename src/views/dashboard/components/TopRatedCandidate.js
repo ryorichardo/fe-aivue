@@ -6,7 +6,6 @@ import { useTheme } from '@mui/material/styles';
 import { Avatar, Button, CardActions, CardContent, Divider, Grid, Menu, MenuItem, Typography } from '@mui/material';
 
 // project imports
-import BajajAreaChartCard from './BajajAreaChartCard';
 import MainCard from 'components/cards/MainCard';
 import SkeletonPopularCard from 'components/cards/Skeleton/PopularCard';
 import { gridSpacing } from 'configs/constant';
@@ -17,9 +16,7 @@ import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
-// ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
-
-const PopularCard = ({ isLoading }) => {
+const TopRatedCandidate = ({ isLoading }) => {
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -37,13 +34,13 @@ const PopularCard = ({ isLoading }) => {
             {isLoading ? (
                 <SkeletonPopularCard />
             ) : (
-                <MainCard content={false} sx={{ p: '0px !important' }}>
+                <MainCard content={false}>
                     <CardContent>
                         <Grid container spacing={gridSpacing}>
                             <Grid item xs={12}>
                                 <Grid container alignContent="center" justifyContent="space-between">
                                     <Grid item>
-                                        <Typography variant="h4">Popular Stocks</Typography>
+                                        <Typography variant="h4">Kandidat terbaik</Typography>
                                     </Grid>
                                     <Grid item>
                                         <MoreHorizOutlinedIcon
@@ -52,12 +49,12 @@ const PopularCard = ({ isLoading }) => {
                                                 color: theme.palette.primary[200],
                                                 cursor: 'pointer'
                                             }}
-                                            aria-controls="menu-popular-card"
+                                            aria-controls="menu-popular-candidate"
                                             aria-haspopup="true"
                                             onClick={handleClick}
                                         />
                                         <Menu
-                                            id="menu-popular-card"
+                                            id="menu-popular-candidate"
                                             anchorEl={anchorEl}
                                             keepMounted
                                             open={Boolean(anchorEl)}
@@ -72,15 +69,12 @@ const PopularCard = ({ isLoading }) => {
                                                 horizontal: 'right'
                                             }}
                                         >
-                                            <MenuItem onClick={handleClose}> Today</MenuItem>
-                                            <MenuItem onClick={handleClose}> This Month</MenuItem>
-                                            <MenuItem onClick={handleClose}> This Year </MenuItem>
+                                            <MenuItem onClick={handleClose}> Software Engineer</MenuItem>
+                                            <MenuItem onClick={handleClose}> Engineering Manager</MenuItem>
+                                            <MenuItem onClick={handleClose}> Intern </MenuItem>
                                         </Menu>
                                     </Grid>
                                 </Grid>
-                            </Grid>
-                            <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                <BajajAreaChartCard />
                             </Grid>
                             <Grid item xs={12}>
                                 <Grid container direction="column">
@@ -290,20 +284,14 @@ const PopularCard = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                     </CardContent>
-                    <CardActions sx={{ p: 1.25, pt: 0, justifyContent: 'center' }}>
-                        <Button size="small" disableElevation>
-                            View All
-                            <ChevronRightOutlinedIcon />
-                        </Button>
-                    </CardActions>
                 </MainCard>
             )}
         </>
     );
 };
 
-PopularCard.propTypes = {
+TopRatedCandidate.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default PopularCard;
+export default TopRatedCandidate;

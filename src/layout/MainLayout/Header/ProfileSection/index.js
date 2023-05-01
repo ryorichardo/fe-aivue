@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -12,7 +13,7 @@ import MainCard from 'components/cards/MainCard';
 
 // ==============================|| PROFILE MENU ||============================== //
 
-const ProfileSection = () => {
+const ProfileSection = ({ logoutHandler }) => {
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
 
@@ -20,7 +21,7 @@ const ProfileSection = () => {
 
     const anchorRef = useRef(null);
     const handleLogout = async () => {
-        console.log('Logout');
+        await logoutHandler();
     };
 
     const handleClose = (event) => {
@@ -144,6 +145,10 @@ const ProfileSection = () => {
             </Popper>
         </>
     );
+};
+
+ProfileSection.propTypes = {
+    logoutHandler: PropTypes.func
 };
 
 export default ProfileSection;

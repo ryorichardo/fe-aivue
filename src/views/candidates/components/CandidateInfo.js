@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { Grid, Stack, Typography } from '@mui/material';
+import CandidateStatusLabel from './CandidateStatusLabel';
 
-function CandidateInfo({ name, email, position, completedDate, pic }) {
+function CandidateInfo({ name, email, position, pic, result }) {
     return (
         <Grid container spacing={1.5}>
             <Grid item xs={12}>
@@ -25,13 +26,23 @@ function CandidateInfo({ name, email, position, completedDate, pic }) {
                     <Grid item xs={12}>
                         <Grid container justifyContent={'space-between'}>
                             <Grid item xs={6}>
-                                <Typography variant="caption">Diselesaikan pada</Typography>
+                                <Typography variant="caption">Hasil</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography variant="body2">{completedDate?.toLocaleString()}</Typography>
+                                <CandidateStatusLabel label={result} />
                             </Grid>
                         </Grid>
                     </Grid>
+                    {/* <Grid item xs={12}>
+                        <Grid container justifyContent={'space-between'}>
+                            <Grid item xs={6}>
+                                <Typography variant="caption">Ditambahkan pada</Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body2">{createdAt?.toLocaleString()}</Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                         <Grid container justifyContent={'space-between'}>
                             <Grid item xs={6}>
@@ -52,7 +63,7 @@ CandidateInfo.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
     position: PropTypes.string,
-    completedDate: PropTypes.any,
+    result: PropTypes.string,
     pic: PropTypes.object
 };
 

@@ -1,9 +1,10 @@
 import { INTERVIEW_STATUS } from 'configs/constant';
+import { apiGet } from '.';
 
 const INTERVIEWS = [
     {
         id: '1',
-        candidateId: '1',
+        candidateId: 'J5ZObT3dzFU-R9rieLPahxU=',
         interviewKit: {
             id: '1',
             title: 'General HR Interview',
@@ -44,6 +45,7 @@ const INTERVIEWS = [
         status: INTERVIEW_STATUS.WAITING_REVIEW,
         notes: [
             {
+                id: '1',
                 sender: 'Rafidika Samekto',
                 text: 'Sumpah ini TOP G pasti layak jadi karyawan kita dia kan botak',
                 dateTime: '2 hours ago'
@@ -53,7 +55,12 @@ const INTERVIEWS = [
 ];
 
 export const getAllInterviews = (candidateId) => {
-    return { data: INTERVIEWS.filter((interview) => interview.candidateId === candidateId) || undefined };
+    return apiGet('/interviews/candidate', {
+        params: {
+            id: candidateId
+        }
+    });
+    // return { data: INTERVIEWS.filter((interview) => interview.candidateId === candidateId) || undefined };
 };
 
 export const getInterviewDetail = (candidateId, id) => {

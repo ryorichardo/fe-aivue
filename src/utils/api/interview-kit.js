@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from '.';
+import { apiDelete, apiGet, apiPost, apiPut } from '.';
 
 const INTERVIEW_KITS = [
     {
@@ -50,7 +50,7 @@ export const getInterviewKits = () => {
 };
 
 export const getInterviewKitById = (id) => {
-    return apiGet('/kits', { params: { id } });
+    return apiGet('/kits/detail', { params: { id } });
 };
 
 export const createInterviewKit = (payload) => {
@@ -59,4 +59,8 @@ export const createInterviewKit = (payload) => {
 
 export const updateInterviewKit = (id, payload) => {
     return apiPut('/kits', { id, ...payload });
+};
+
+export const deleteInterviewKit = (id) => {
+    return apiDelete('/kits', { id });
 };

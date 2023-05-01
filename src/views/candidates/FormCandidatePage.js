@@ -38,10 +38,19 @@ import { getAllPositions } from 'utils/api/position';
 import { getAllUsers } from 'utils/api/user';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import FileUploader from 'components/FileUploader';
+import { format } from 'date-fns';
+import { createCandidate } from 'utils/api/candidate';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
 
 function FormCandidatePage() {
+    const dispatch = useDispatch();
     const [positionList, setPositionList] = useState([]);
     const [userList, setUserList] = useState([]);
+
+    const [cv, setCv] = useState();
 
     const {
         handleSubmit,
@@ -58,8 +67,7 @@ function FormCandidatePage() {
             const { data } = await getAllPositions();
             setPositionList(data);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -69,8 +77,7 @@ function FormCandidatePage() {
             const { data } = await getAllUsers();
             setUserList(data);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -79,22 +86,26 @@ function FormCandidatePage() {
         getUserList();
     }, []);
 
-    const onSubmit = async ({ name, email, cv, position, pic, expiredDuration, startDateTime }) => {
+    const onSubmit = async ({ name, email, position, pic, expiredDuration, startDateTime }) => {
         try {
+            const cvFormData = new FormData();
+            cvFormData.append('cv', cv, cv.name);
+
             const payload = {
                 name,
                 email,
-                cv,
-                position,
-                pic,
-                expiredDuration,
-                startDateTime
+                cv: cvFormData,
+                position_id: position.id,
+                pic_id: pic.id,
+                expired_duration: expiredDuration,
+                start_time: format(startDateTime, 'dd/mm/yyyy hh:mm')
             };
+            //TODO - formData and json handling
 
-            console.log(payload);
-            // TODO - handle submit for position
+            const res = await createCandidate(payload);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
         } catch (error) {
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -160,9 +171,10 @@ function FormCandidatePage() {
                                                 control={control}
                                                 render={({ field: { onChange, value } }) => (
                                                     <Autocomplete
+                                                        isOptionEqualToValue={(opt, val) => opt.id === val.id}
                                                         value={value || null}
-                                                        options={positionList.map((pos) => pos.title)}
-                                                        getOptionLabel={(option) => option}
+                                                        options={positionList}
+                                                        getOptionLabel={(option) => option.title}
                                                         disablePortal
                                                         renderInput={(params) => (
                                                             <TextField {...params} fullWidth placeholder="Software Engineer I" />
@@ -180,29 +192,26 @@ function FormCandidatePage() {
                                         </FormControl>
                                     </Stack>
                                 </Grid>
+                                {/* <Grid item xs={12}>
+                                    <Stack spacing={1}>
+                                        <Typography variant="h4">CV</Typography>
+                                        <FormControl fullWidth error={errors.cv !== undefined}>
+                                            <Controller
+                                                name="cv"
+                                                control={control}
+                                                render={({ field }) => <FileUploader otherProps={{ ...field }} />}
+                                            />
+                                            {errors.cv && errors.cv?.message && <FormHelperText error>{errors.cv?.message}</FormHelperText>}
+                                        </FormControl>
+                                    </Stack>
+                                </Grid> */}
                                 <Grid item xs={12}>
-                                    <Controller
-                                        name="cv"
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Stack spacing={1}>
-                                                <InputLabel>
-                                                    <Typography variant="h4">CV</Typography>
-                                                </InputLabel>
-                                                <TextField
-                                                    {...field}
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    placeholder="CV"
-                                                    multiline
-                                                    minRows={3}
-                                                    error={errors.cv !== undefined}
-                                                    helperText={errors.cv?.message}
-                                                />
-                                            </Stack>
-                                        )}
-                                    />
+                                    <Stack spacing={1}>
+                                        <Typography variant="h4">CV</Typography>
+                                        <FormControl fullWidth>
+                                            <FileUploader file={cv} setFile={setCv} />
+                                        </FormControl>
+                                    </Stack>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -222,9 +231,10 @@ function FormCandidatePage() {
                                                 control={control}
                                                 render={({ field: { onChange, value } }) => (
                                                     <Autocomplete
+                                                        isOptionEqualToValue={(opt, val) => opt.email === val.email}
                                                         value={value || null}
-                                                        options={userList.map((usr) => usr.name)}
-                                                        getOptionLabel={(option) => option}
+                                                        options={userList}
+                                                        getOptionLabel={(option) => option.name}
                                                         disablePortal
                                                         renderInput={(params) => (
                                                             <TextField {...params} fullWidth placeholder="Nama PIC/Interviewer" />

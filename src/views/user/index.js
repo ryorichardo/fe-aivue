@@ -8,11 +8,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema, defaultValues } from 'utils/schema/user';
 import { register } from 'utils/api/auth';
 import SearchSection from 'components/Search';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
 
 function UserPage() {
+    const dispatch = useDispatch();
+
     const [users, setUsers] = useState([]);
     const [open, setOpen] = useState(false);
 
+    const [refetch, setRefetch] = useState(false);
     const [search, setSearch] = useState('');
 
     const {
@@ -31,14 +37,22 @@ function UserPage() {
             const { data } = await getAllUsers();
             setUsers(data);
         } catch (error) {
-            // TODO - add error handling
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
     useEffect(() => {
         getUsers();
     }, []);
+
+    useEffect(() => {
+        if (refetch) {
+            getUsers();
+        }
+        return () => {
+            setRefetch(false);
+        };
+    }, [refetch]);
 
     const onSubmitNewUser = async ({ name, role, email }) => {
         const payload = {
@@ -48,9 +62,10 @@ function UserPage() {
         };
         try {
             const res = await register(payload);
-            console.log(res);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
+            setRefetch(true);
         } catch (error) {
-            console.error(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
         setOpen(false);
         reset();

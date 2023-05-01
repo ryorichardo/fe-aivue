@@ -36,9 +36,13 @@ import { useRef } from 'react';
 import MainCard from 'components/cards/MainCard';
 import { defaultValues, positionSchema } from 'utils/schema/position';
 import { createPosition, getPositionById, updatePositionById } from 'utils/api/position';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
 
 function FormPositionPage() {
     const { id } = useParams();
+    const dispatch = useDispatch();
     const [currentData, setCurrentData] = useState(null);
     const [interviewKitList, setInterviewKitList] = useState([]);
 
@@ -59,8 +63,7 @@ function FormPositionPage() {
             const { data } = await getPositionById(id);
             setCurrentData(data);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -70,8 +73,7 @@ function FormPositionPage() {
             const { data } = await getInterviewKits();
             setInterviewKitList(data);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -87,8 +89,8 @@ function FormPositionPage() {
         if (currentData !== null) {
             setValue('title', currentData.title);
             setValue('level', currentData.level);
-            setValue('desc', currentData.desc);
-            setValue('interviewKits', currentData.interviewKits);
+            setValue('desc', currentData.description);
+            setValue('interviewKits', currentData.interview_kits);
         }
     }, [currentData, setValue]);
 
@@ -103,14 +105,13 @@ function FormPositionPage() {
 
             let res;
             if (id) {
-                res = await updatePositionById({ id, ...payload });
+                res = await updatePositionById(id, payload);
             } else {
                 res = await createPosition(payload);
             }
-            console.log(res);
-            // TODO - handle submit for position
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
         } catch (error) {
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -235,8 +236,8 @@ function FormPositionPage() {
                                     </Stack>
                                     <Box my={2}>
                                         {watch &&
-                                            watch('interviewKits').length > 0 &&
-                                            watch('interviewKits').map((tahap, i) => (
+                                            watch('interviewKits')?.length > 0 &&
+                                            watch('interviewKits')?.map((tahap, i) => (
                                                 <Typography key={tahap.id} sx={{ marginBottom: 2 }} variant="h5">{`Tahap ${i + 1}: ${
                                                     tahap.title
                                                 }`}</Typography>

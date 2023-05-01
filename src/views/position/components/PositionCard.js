@@ -3,8 +3,8 @@ import { Card, Grid, IconButton, Typography } from '@mui/material';
 import { IconPencil, IconTrash } from '@tabler/icons';
 import { useNavigate } from 'react-router';
 
-function PositionCard({ position }) {
-    const { id, title, desc, level, num_of_interviews, createdAt, updatedAt, last_updated_by } = position;
+function PositionCard({ position, handleDelete }) {
+    const { id, title, desc, level, num_of_interviews, created_at, updated_at, last_updated_by } = position;
     const navigate = useNavigate();
     const handleClickNavigateEdit = () => {
         navigate(`${id}/edit`);
@@ -22,7 +22,13 @@ function PositionCard({ position }) {
                             <IconButton size="small" color="warning" sx={{ marginRight: '8px' }} onClick={handleClickNavigateEdit}>
                                 <IconPencil size={18} />
                             </IconButton>
-                            <IconButton size="small" color="error">
+                            <IconButton
+                                size="small"
+                                color="error"
+                                onClick={() => {
+                                    handleDelete(id);
+                                }}
+                            >
                                 <IconTrash size={18} />
                             </IconButton>
                         </Grid>
@@ -57,7 +63,7 @@ function PositionCard({ position }) {
                                     <Typography variant="caption">Dibuat pada</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{createdAt?.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{created_at?.toLocaleString()}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -67,7 +73,7 @@ function PositionCard({ position }) {
                                     <Typography variant="caption">Terakhir diupdate</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{updatedAt?.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{updated_at?.toLocaleString()}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -79,7 +85,8 @@ function PositionCard({ position }) {
 }
 
 PositionCard.propTypes = {
-    position: PropTypes.object
+    position: PropTypes.object,
+    handleDelete: PropTypes.func
 };
 
 export default PositionCard;

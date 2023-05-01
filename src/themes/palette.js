@@ -85,7 +85,8 @@ export default function themePalette(theme) {
         },
         aivue: {
             primary400: theme.colors?.primary400,
-            secondary300: theme.colors?.secondary300
+            secondary300: theme.colors?.secondary300,
+            secondary500: theme.colors?.secondary500
         }
     };
 }

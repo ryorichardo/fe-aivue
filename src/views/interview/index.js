@@ -2,13 +2,19 @@ import { Button, Grid, Pagination, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { gridSpacing } from 'configs/constant';
 import InterviewKitList from './components/InterviewKitList';
-import { getInterviewKits } from 'utils/api/interview-kit';
+import { deleteInterviewKit, getInterviewKits } from 'utils/api/interview-kit';
 import { useState, useEffect } from 'react';
 import SearchSection from 'components/Search';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
 
 function InterviewKitPage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [interviewKits, setInterviewKits] = useState([]);
+    const [refetch, setRefetch] = useState(false);
 
     const [search, setSearch] = useState('');
 
@@ -18,8 +24,7 @@ function InterviewKitPage() {
             const { data } = await getInterviewKits();
             setInterviewKits(data);
         } catch (error) {
-            // TODO - add error handling
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -27,9 +32,30 @@ function InterviewKitPage() {
         getAllInterviewKits();
     }, []);
 
+    useEffect(() => {
+        if (refetch) {
+            getAllInterviewKits();
+        }
+
+        return () => {
+            setRefetch(false);
+        };
+    }, [refetch]);
+
     const handleClickNavigate = () => {
         navigate('/interview-kit/new');
     };
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await deleteInterviewKit(id);
+            setRefetch(true);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
+        } catch (err) {
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(err) });
+        }
+    };
+
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
@@ -51,7 +77,7 @@ function InterviewKitPage() {
             ) : (
                 <>
                     <Grid item xs={12}>
-                        <InterviewKitList data={interviewKits} />
+                        <InterviewKitList data={interviewKits} handleDelete={handleDelete} />
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justifyContent="flex-end">

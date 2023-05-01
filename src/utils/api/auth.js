@@ -7,3 +7,7 @@ export const register = (payload) => {
 export const login = (payload) => {
     return apiPost('/login', payload);
 };
+
+export const logout = () => {
+    return apiPost('/logout');
+};

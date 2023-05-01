@@ -8,7 +8,6 @@ import { IconPencil, IconTrash } from '@tabler/icons';
 
 function UserList({ data }) {
     const theme = useTheme();
-    console.log(theme);
     const columns = [
         {
             name: <Typography variant="h4">Id</Typography>,
@@ -23,11 +22,6 @@ function UserList({ data }) {
         {
             name: <Typography variant="h4">Email</Typography>,
             selector: (row) => row.email,
-            sortable: true
-        },
-        {
-            name: <Typography variant="h4">Username</Typography>,
-            selector: (row) => row.username,
             sortable: true
         },
         {

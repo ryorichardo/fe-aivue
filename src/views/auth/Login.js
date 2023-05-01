@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { useTheme } from '@mui/material/styles';
@@ -9,8 +10,9 @@ import Logo from 'components/Logo';
 import AuthWrapper from './components/AuthWrapper';
 
 import VidcallIllustration from 'assets/images/vidcall-illustration.svg';
+import UserRecording from 'assets/images/user-recording.svg';
 
-const Login = () => {
+const Login = ({ isClient = false }) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const matchDownLg = useMediaQuery(theme.breakpoints.down('lg'));
@@ -31,10 +33,16 @@ const Login = () => {
                                 Selamat datang di AIVue!
                             </Typography>
                         </Grid>
-                        <img src={VidcallIllustration} alt="vidcall-illustration" width={matchDownXL ? '450px' : '600px'} />
+                        <img
+                            src={isClient ? UserRecording : VidcallIllustration}
+                            alt="vidcall-illustration"
+                            width={matchDownXL ? '450px' : '600px'}
+                        />
                         <Grid item xs={12} alignSelf="flex-start" sx={{ m: { xs: 1, sm: 3 }, mt: 0 }}>
                             <Typography variant={'h2'} textAlign="center" color={theme.palette.background.paper}>
-                                Kelola interview kandidat dengan mudah dengan AIVue!
+                                {isClient
+                                    ? 'Lakukan interview dengan mudah kapan saja dan dimana saja dengan AIVue!'
+                                    : 'Kelola interview kandidat dengan mudah dengan AIVue!'}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -69,12 +77,8 @@ const Login = () => {
                                                         </Typography>
                                                     )}
 
-                                                    <Typography
-                                                        variant="caption"
-                                                        fontSize="16px"
-                                                        textAlign={matchDownSM ? 'center' : 'inherit'}
-                                                    >
-                                                        Masukkan kredensial untuk masuk
+                                                    <Typography variant="caption" fontSize="16px" textAlign={'center'}>
+                                                        Masukkan kredensial untuk {isClient ? 'memulai interview' : 'masuk'}
                                                     </Typography>
                                                 </Stack>
                                             </Grid>
@@ -82,7 +86,7 @@ const Login = () => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <AuthLogin />
+                                        <AuthLogin isClient={isClient} />
                                     </Grid>
                                 </Grid>
                             </AuthCardWrapper>
@@ -94,4 +98,7 @@ const Login = () => {
     );
 };
 
+Login.propTypes = {
+    isClient: PropTypes.bool
+};
 export default Login;

@@ -1,4 +1,5 @@
 import { USER_ROLE } from 'configs/constant';
+import { apiGetWithPagination } from '.';
 
 const USERS = [
     {
@@ -20,7 +21,7 @@ const USERS = [
 ];
 
 export const getAllUsers = () => {
-    return { data: USERS };
+    return apiGetWithPagination('/users');
 };
 
 export const getAllUsersById = () => {

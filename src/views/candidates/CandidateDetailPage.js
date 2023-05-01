@@ -9,26 +9,26 @@ import { gridSpacing } from 'configs/constant';
 import CandidateInfo from './components/CandidateInfo';
 import CandidateReviewAction from './components/CandidateReviewAction';
 import InterviewQuestions from './components/InterviewQuestions';
-import CandidateNotes from './components/CandidateNotes';
 import InterviewAnswer from './components/InterviewAnswer';
 import InterviewList from './components/InterviewList';
 import { getAllInterviews } from 'utils/api/interview';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
 
 function CandidateDetailPage() {
     const { id } = useParams();
+    const dispatch = useDispatch();
     const [candidate, setCandidate] = useState();
     const [interviews, setInterviews] = useState();
-    const [notes, setNotes] = useState([]);
 
     const getCandidateDetail = async (id) => {
         try {
             // TODO - add loading mechanism
             const { data } = await getCandidateById(id);
             setCandidate(data);
-            setNotes(data.notes);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -37,8 +37,7 @@ function CandidateDetailPage() {
             const { data } = await getAllInterviews(candidateId);
             setInterviews(data);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -68,12 +67,12 @@ function CandidateDetailPage() {
                                 name={candidate?.name}
                                 email={candidate?.email}
                                 position={candidate?.position}
-                                completedDate={candidate?.completedDate}
+                                result={candidate?.result}
                                 pic={candidate?.pic}
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <CandidateReviewAction rating={candidate?.rating} isReviewPage={false} />
+                            <CandidateReviewAction rating={candidate?.rating} isReviewPage={false} cvUrl={candidate.cv_url} />
                         </Grid>
                     </Grid>
                 </Card>

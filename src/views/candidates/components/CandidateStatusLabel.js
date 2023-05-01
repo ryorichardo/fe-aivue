@@ -34,8 +34,8 @@ function CandidateStatusLabel({ label }) {
             color = theme.palette.status.waiting;
             break;
         default:
-            bgColor = theme.palette.success.light;
-            color = theme.palette.success.main;
+            bgColor = theme.palette.status.bgExpired;
+            color = theme.palette.status.expired;
     }
 
     return (

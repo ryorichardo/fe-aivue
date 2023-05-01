@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,7 +35,7 @@ import { SET_USER } from 'store/actions';
 import { useNavigate } from 'react-router';
 import config from 'configs';
 
-const AuthLogin = ({ ...others }) => {
+const AuthLogin = ({ isClient = false, ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const dispatch = useDispatch();
@@ -73,10 +74,24 @@ const AuthLogin = ({ ...others }) => {
                     email: 'vihagi6249@ippals.com',
                     password: 'JNZNzIVwigUxvWCH'
                 };
-                const data = await login(payload);
-                if (data) {
-                    dispatch({ type: SET_USER, user: data.data });
-                    nav(config.defaultPath);
+
+                let res;
+                if (!isClient) {
+                    await login(payload).then((res) => {
+                        if (res.status === 200) {
+                            localStorage.setItem('token', res.data.access_token);
+                            dispatch({ type: SET_USER, user: res.data });
+                            nav(config.defaultPath);
+                        }
+                    });
+                } else {
+                    // TODO - handle client login
+                    await login(payload).then((res) => {
+                        if (res.status === 200) {
+                            dispatch({ type: SET_USER, user: res.data });
+                            nav(config.defaultPath);
+                        }
+                    });
                 }
             }
         } catch (err) {
@@ -108,56 +123,83 @@ const AuthLogin = ({ ...others }) => {
                         </FormHelperText>
                     )}
                 </FormControl>
-
-                <FormControl fullWidth error={Boolean(errors.password)} sx={{ ...theme.typography.customInput }}>
-                    <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
-                    <Controller
-                        name="password"
-                        control={control}
-                        render={({ field }) => (
-                            <OutlinedInput
-                                {...field}
-                                id="outlined-adornment-password-login"
-                                type={showPassword ? 'text' : 'password'}
-                                name="password"
-                                label="Password"
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                            size="large"
-                                        >
-                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
+                {isClient ? (
+                    <FormControl fullWidth error={Boolean(errors.password)} sx={{ ...theme.typography.customInput }}>
+                        <InputLabel htmlFor="outlined-adornment-password-login">Token Interview</InputLabel>
+                        <Controller
+                            name="password"
+                            control={control}
+                            render={({ field }) => (
+                                <OutlinedInput
+                                    {...field}
+                                    id="outlined-adornment-password-login"
+                                    type={'text'}
+                                    name="password"
+                                    label="Token Interview"
+                                />
+                            )}
+                        />
+                        {errors.password && errors.password?.message && (
+                            <FormHelperText error id="standard-weight-helper-text-password-login">
+                                {errors.password?.message}
+                            </FormHelperText>
                         )}
-                    />
-                    {errors.password && errors.password?.message && (
-                        <FormHelperText error id="standard-weight-helper-text-password-login">
-                            {errors.password?.message}
-                        </FormHelperText>
-                    )}
-                </FormControl>
+                    </FormControl>
+                ) : (
+                    <FormControl fullWidth error={Boolean(errors.password)} sx={{ ...theme.typography.customInput }}>
+                        <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
+                        <Controller
+                            name="password"
+                            control={control}
+                            render={({ field }) => (
+                                <OutlinedInput
+                                    {...field}
+                                    id="outlined-adornment-password-login"
+                                    type={showPassword ? 'text' : 'password'}
+                                    name="password"
+                                    label="Password"
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                size="large"
+                                            >
+                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+                            )}
+                        />
+                        {errors.password && errors.password?.message && (
+                            <FormHelperText error id="standard-weight-helper-text-password-login">
+                                {errors.password?.message}
+                            </FormHelperText>
+                        )}
+                    </FormControl>
+                )}
+                {/* 
                 <Stack direction="row" alignItems="center" justifyContent="flex-end">
                     <Typography variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
                         Forgot Password?
                     </Typography>
-                </Stack>
+                </Stack> */}
                 <Box sx={{ mt: 2 }}>
                     <AnimateButton>
                         <Button disableElevation fullWidth size="large" type="submit" variant="contained" color="secondary">
-                            Sign in
+                            {isClient ? 'Mulai Interview' : 'Masuk'}
                         </Button>
                     </AnimateButton>
                 </Box>
             </form>
         </>
     );
+};
+AuthLogin.propTypes = {
+    isClient: PropTypes.bool
 };
 
 export default AuthLogin;

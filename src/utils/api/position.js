@@ -1,4 +1,4 @@
-import { apiGet, apiPost, apiPut, getAxiosInstance } from '.';
+import { apiDelete, apiGet, apiPost, apiPut, getAxiosInstance } from '.';
 
 const POSITIONS = [
     {
@@ -71,4 +71,8 @@ export const createPosition = (payload) => {
 
 export const updatePositionById = (id, payload) => {
     return apiPut('/positions', { id, ...payload });
+};
+
+export const deletePosition = (id) => {
+    return apiDelete('/positions', { id });
 };

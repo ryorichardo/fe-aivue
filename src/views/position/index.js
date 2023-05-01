@@ -3,13 +3,18 @@ import { useNavigate } from 'react-router';
 import { LEVEL_OPTIONS, gridSpacing } from 'configs/constant';
 import { useState, useEffect } from 'react';
 import PositionList from './components/PositionList';
-import { getAllPositions } from 'utils/api/position';
+import { deletePosition, getAllPositions } from 'utils/api/position';
 import SearchSection from 'components/Search';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
 
 function PositionPage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [positions, setPositions] = useState([]);
 
+    const [refetch, setRefetch] = useState(false);
     const [search, setSearch] = useState('');
     const [filterLevel, setFilterLevel] = useState('');
     const [isFilter, setIsFilter] = useState(false);
@@ -38,8 +43,7 @@ function PositionPage() {
             const { data } = await getAllPositions();
             setPositions(data);
         } catch (error) {
-            // TODO - add error handling
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -47,9 +51,26 @@ function PositionPage() {
         getPositions();
     }, []);
 
+    useEffect(() => {
+        if (refetch) {
+            getPositions();
+        }
+    }, [refetch]);
+
     const handleClickNavigate = () => {
         navigate('/position/new');
     };
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await deletePosition(id);
+            setRefetch(true);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
+        } catch (err) {
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(err) });
+        }
+    };
+
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
@@ -78,7 +99,7 @@ function PositionPage() {
             ) : (
                 <>
                     <Grid item xs={12} className="list-container-list-page">
-                        <PositionList data={positions} />
+                        <PositionList data={positions} handleDelete={handleDelete} />
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justifyContent="flex-end">

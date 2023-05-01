@@ -33,16 +33,22 @@ import { createInterviewKit, getInterviewKitById, updateInterviewKit } from 'uti
 import { IconAlarmOff, IconClock, IconPlus, IconTrash } from '@tabler/icons';
 import { useRef } from 'react';
 import MainCard from 'components/cards/MainCard';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
+import { generateNotification } from 'utils/notification';
+
+const DEFAULT_INTERVIEW_DURATION = 3;
 
 function FormInterviewKitPage() {
     const { id } = useParams();
     const [currentData, setCurrentData] = useState(null);
+    const dispatch = useDispatch();
     const theme = useTheme();
 
     const [modalDurationOpen, setModalDurationOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(false);
 
-    const [newQuestion, setNewQuestion] = useState({ question: '', duration: -1 });
+    const [newQuestion, setNewQuestion] = useState({ question: '', duration: DEFAULT_INTERVIEW_DURATION });
 
     const {
         handleSubmit,
@@ -67,8 +73,7 @@ function FormInterviewKitPage() {
             const { data } = await getInterviewKitById(id);
             setCurrentData(data);
         } catch (error) {
-            // TODO: error handling here
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -81,7 +86,7 @@ function FormInterviewKitPage() {
     useEffect(() => {
         if (currentData !== null) {
             setValue('title', currentData.title);
-            setValue('desc', currentData.desc);
+            setValue('desc', currentData.description);
             setValue('questions', currentData.questions);
         }
     }, [currentData, setValue]);
@@ -101,9 +106,9 @@ function FormInterviewKitPage() {
                 res = await createInterviewKit(payload);
             }
 
-            console.log(res);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
         } catch (error) {
-            console.log(error);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     });
 
@@ -197,10 +202,13 @@ function FormInterviewKitPage() {
                                                 if (newQuestion.question === '') {
                                                     setError('questions', { message: 'Pertanyaan tidak boleh kosong' });
                                                 } else {
-                                                    append(newQuestion);
+                                                    append({
+                                                        ...newQuestion,
+                                                        duration: newQuestion.duration === -1 ? 0 : newQuestion.duration
+                                                    });
                                                     setNewQuestion({
                                                         question: '',
-                                                        duration: 0
+                                                        duration: DEFAULT_INTERVIEW_DURATION
                                                     });
                                                     setModalDurationOpen(false);
                                                 }
@@ -235,7 +243,12 @@ function FormInterviewKitPage() {
                                                                     value={newQuestion.duration === -1 ? 0 : newQuestion.duration}
                                                                     onChange={(e) =>
                                                                         setNewQuestion((prev) => {
-                                                                            return { ...prev, duration: parseInt(e.target.value) };
+                                                                            return {
+                                                                                ...prev,
+                                                                                duration: parseInt(
+                                                                                    e.target.value === -1 ? 0 : e.target.value
+                                                                                )
+                                                                            };
                                                                         })
                                                                     }
                                                                     InputProps={{
@@ -251,7 +264,10 @@ function FormInterviewKitPage() {
                                                                         value={newQuestion?.duration}
                                                                         onChange={(_, value) => {
                                                                             setNewQuestion((prev) => {
-                                                                                return { ...prev, duration: value || 0 };
+                                                                                return {
+                                                                                    ...prev,
+                                                                                    duration: value || DEFAULT_INTERVIEW_DURATION
+                                                                                };
                                                                             });
                                                                         }}
                                                                     >
@@ -300,7 +316,7 @@ function FormInterviewKitPage() {
                                                                     <InputAdornment position="end">
                                                                         <Stack direction="row" spacing={1}>
                                                                             <IconButton size="small" color="secondary">
-                                                                                {question.duration === -1 ? (
+                                                                                {question.duration === 0 ? (
                                                                                     <IconAlarmOff size={18} />
                                                                                 ) : (
                                                                                     <>

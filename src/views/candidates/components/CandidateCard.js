@@ -7,10 +7,12 @@ import { INTERVIEW_STATUS } from 'configs/constant';
 import { useNavigate } from 'react-router';
 
 function CandidateCard({ candidate }) {
-    const { id, name, email, position, status, pic, rating, result } = candidate;
-    const { expiredDate, completedDate } = candidate?.activeInterview;
+    const { id, name, email, position, pic, rating, result } = candidate;
+    const { expired_date, completed_date, status } = candidate?.active_interview;
     const navigate = useNavigate();
-    const isInterviewCompleted = !!completedDate;
+
+    //TODO - debug purposes REMOVE TRUE
+    const isInterviewCompleted = true;
 
     const onClickReview = () => {
         navigate(`${id}/detail`);
@@ -70,7 +72,7 @@ function CandidateCard({ candidate }) {
                                     <Typography variant="caption">Berlaku hingga</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{expiredDate.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{expired_date?.toLocaleString() || '-'}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -80,7 +82,7 @@ function CandidateCard({ candidate }) {
                                     <Typography variant="caption">Diselesaikan pada</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{completedDate ? completedDate.toLocaleString() : '-'}</Typography>
+                                    <Typography variant="body2">{completed_date ? completed_date.toLocaleString() : '-'}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
