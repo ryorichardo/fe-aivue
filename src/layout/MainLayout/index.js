@@ -105,6 +105,7 @@ const MainLayout = () => {
                         handleLeftDrawerToggle={handleLeftDrawerToggle}
                         leftDrawerOpened={leftDrawerOpened}
                         logoutHandler={handleLogout}
+                        user={user}
                     />
                 </Toolbar>
             </AppBar>

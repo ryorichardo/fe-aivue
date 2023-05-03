@@ -10,12 +10,14 @@ import User1 from 'assets/images/users/user-round.svg';
 import { IconLogout, IconSettings } from '@tabler/icons';
 import Transitions from 'components/extended/Transitions';
 import MainCard from 'components/cards/MainCard';
+import { stringAvatar } from 'utils/string';
 
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = ({ logoutHandler }) => {
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
+    const user = useSelector((state) => state.global.user);
 
     const [open, setOpen] = useState(false);
 
@@ -68,7 +70,6 @@ const ProfileSection = ({ logoutHandler }) => {
                 }}
                 icon={
                     <Avatar
-                        src={User1}
                         sx={{
                             ...theme.typography.mediumAvatar,
                             margin: '8px 0 8px 8px !important',
@@ -78,6 +79,7 @@ const ProfileSection = ({ logoutHandler }) => {
                         aria-controls={open ? 'menu-list-grow' : undefined}
                         aria-haspopup="true"
                         color="inherit"
+                        {...stringAvatar(user.name)}
                     />
                 }
                 label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}

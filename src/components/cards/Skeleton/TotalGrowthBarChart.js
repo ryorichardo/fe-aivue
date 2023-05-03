@@ -29,7 +29,7 @@ const TotalGrowthBarChart = () => (
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <Skeleton variant="rectangular" height={530} />
+                    <Skeleton variant="rectangular" height={496.13} />
                 </Grid>
             </Grid>
         </CardContent>

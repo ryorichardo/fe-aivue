@@ -31,9 +31,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { login } from 'utils/api/auth';
-import { SET_USER } from 'store/actions';
+import { SET_NOTIFICATION, SET_USER } from 'store/actions';
 import { useNavigate } from 'react-router';
 import config from 'configs';
+import { generateNotification } from 'utils/notification';
 
 const AuthLogin = ({ isClient = false, ...others }) => {
     const theme = useTheme();
@@ -70,12 +71,12 @@ const AuthLogin = ({ isClient = false, ...others }) => {
     const onSubmit = async ({ email, password }) => {
         try {
             if (scriptedRef.current) {
+                // TODO - remove hardcoded payload
                 const payload = {
                     email: 'vihagi6249@ippals.com',
                     password: 'JNZNzIVwigUxvWCH'
                 };
 
-                let res;
                 if (!isClient) {
                     await login(payload).then((res) => {
                         if (res.status === 200) {
@@ -94,8 +95,8 @@ const AuthLogin = ({ isClient = false, ...others }) => {
                     });
                 }
             }
-        } catch (err) {
-            console.error(err.response);
+        } catch (error) {
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
@@ -103,18 +104,12 @@ const AuthLogin = ({ isClient = false, ...others }) => {
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl fullWidth error={Boolean(errors.email)} sx={{ ...theme.typography.customInput }}>
-                    <InputLabel htmlFor="outlined-adornment-email-login">Email Address / Username</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-email-login">Alamat Email</InputLabel>
                     <Controller
                         name="email"
                         control={control}
                         render={({ field }) => (
-                            <OutlinedInput
-                                {...field}
-                                id="outlined-adornment-email-login"
-                                type="email"
-                                name="email"
-                                label="Email Address / Username"
-                            />
+                            <OutlinedInput {...field} id="outlined-adornment-email-login" type="email" name="email" label="Alamat Email" />
                         )}
                     />
                     {errors.email && errors.email?.message && (

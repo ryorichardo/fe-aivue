@@ -13,6 +13,8 @@ import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'configs/constant';
 import TopRatedCandidate from '../components/TopRatedCandidate';
 import ListWaitingForReview from '../components/ListWaitingForReview';
+import OngoingInterview from '../components/OngoingInterview';
+import GreetingSection from '../components/GreetingSection';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -26,36 +28,34 @@ const Dashboard = () => {
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-                    <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <EarningCard isLoading={isLoading} />
-                    </Grid>
-                    <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <TotalOrderLineChartCard isLoading={isLoading} />
-                    </Grid>
-                    <Grid item lg={4} md={12} sm={12} xs={12}>
+                    <Grid item lg={9} md={12}>
                         <Grid container spacing={gridSpacing}>
-                            <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeDarkCard isLoading={isLoading} />
+                            <Grid item lg={12}>
+                                <GreetingSection isLoading={isLoading} />
                             </Grid>
-                            <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeLightCard isLoading={isLoading} />
+                            <Grid item lg={12}>
+                                <Grid container spacing={gridSpacing}>
+                                    <Grid item lg={5} md={12} sm={12} xs={12}>
+                                        <Grid container spacing={gridSpacing} direction="column">
+                                            <Grid item>
+                                                <TotalOrderLineChartCard isLoading={isLoading} />
+                                            </Grid>
+                                            <Grid item>
+                                                <OngoingInterview isLoading={isLoading} />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item lg={7} md={12} sm={12} xs={12}>
+                                        <TotalGrowthBarChart isLoading={isLoading} />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-            </Grid>
-            <Grid item xs={12}>
-                <Grid container spacing={gridSpacing}>
-                    <Grid item xs={12} md={8}>
-                        <TotalGrowthBarChart isLoading={isLoading} />
-                    </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item lg={3} md={12} sm={12} xs={12}>
                         <TopRatedCandidate isLoading={isLoading} />
                     </Grid>
                 </Grid>
-            </Grid>
-            <Grid item xs={12}>
-                <ListWaitingForReview isLoading={isLoading} />
             </Grid>
         </Grid>
     );

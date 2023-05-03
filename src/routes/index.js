@@ -7,3 +7,5 @@ import ClientRoutes from './ClientRoutes';
 export default function ThemeRoutes() {
     return useRoutes([ClientRoutes, MainRoutes, AuthenticationRoutes]);
 }
+
+// TODO- buat route terisolasi hanya untuk logged in users

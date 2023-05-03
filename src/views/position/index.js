@@ -66,8 +66,8 @@ function PositionPage() {
             const res = await deletePosition(id);
             setRefetch(true);
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
-        } catch (err) {
-            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(err) });
+        } catch (error) {
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 

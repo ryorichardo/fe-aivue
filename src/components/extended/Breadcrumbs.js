@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { Typography, Link, Stack } from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 import { useLocation } from 'react-router';
 import { capitalizeFirstChar, containsNumbers } from 'utils/string';
 
-function Breadcrumbs() {
+function Breadcrumbs({ user }) {
     const pathToBahasa = {
         dashboard: 'Dashboard',
         candidate: 'Kandidat',
@@ -17,7 +18,7 @@ function Breadcrumbs() {
     };
 
     const pathToTitle = {
-        dashboard: 'Dashboard',
+        dashboard: `Dashboard`,
         candidate: 'Kandidat',
         position: 'Posisi',
         new: 'Tambah',
@@ -78,9 +79,13 @@ function Breadcrumbs() {
                     );
                 })}
             </MuiBreadcrumbs>
-            <Typography variant="h2">{active || 'Dashboard'}</Typography>
+            <Typography variant="h2">{active || `Dashboard`}</Typography>
         </Stack>
     );
 }
+
+Breadcrumbs.propTypes = {
+    user: PropTypes.object
+};
 
 export default Breadcrumbs;
