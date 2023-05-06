@@ -51,14 +51,14 @@ const chartData = {
                     name: {
                         show: true,
                         fontSize: '22px',
-                        fontFamily: undefined,
+                        fontFamily: `'Inter', sans-serif`,
                         color: undefined,
                         offsetY: -10
                     },
                     value: {
                         show: true,
                         fontSize: '2rem',
-                        fontFamily: undefined,
+                        fontFamily: `'Inter', sans-serif`,
                         color: undefined,
                         offsetY: 16,
                         formatter: function (val) {

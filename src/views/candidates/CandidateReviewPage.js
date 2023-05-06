@@ -17,6 +17,7 @@ import InterviewList from './components/InterviewList';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
+import OverallEmotion from './components/OverallEmotion';
 
 function CandidateReviewPage() {
     const { id, interviewId } = useParams();
@@ -87,17 +88,28 @@ function CandidateReviewPage() {
             <Grid item xs={12}>
                 <Grid container justifyContent="space-between" spacing={gridSpacing}>
                     <Grid item xs={5}>
-                        <Stack spacing={4}>
-                            <InterviewQuestions
-                                questions={interview?.interviewKit?.questions}
-                                selectedQuestionId={currentQuestionId}
-                                handleSelectQuestion={setCurrentQuestionId}
-                            />
-                            <CandidateNotes notes={notes} interviewId={interviewId} />
-                        </Stack>
+                        <Grid container direction="column" spacing={gridSpacing}>
+                            <Grid item>
+                                <InterviewQuestions
+                                    questions={interview?.interviewKit?.questions}
+                                    selectedQuestionId={currentQuestionId}
+                                    handleSelectQuestion={setCurrentQuestionId}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <OverallEmotion />
+                            </Grid>
+                            <Grid item>
+                                <CandidateNotes notes={notes} interviewId={interviewId} />
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item xs={7}>
-                        <InterviewAnswer interviewId={interviewId} currentQuestionId={currentQuestionId} />
+                        <Grid container direction="column" spacing={gridSpacing}>
+                            <Grid item>
+                                <InterviewAnswer interviewId={interviewId} currentQuestionId={currentQuestionId} />
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>

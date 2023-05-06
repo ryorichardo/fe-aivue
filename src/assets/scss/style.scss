@@ -58,10 +58,19 @@
 .player-wrapper {
     width: auto; // Reset width
     height: auto; // Reset height
-    position: relative;
-    padding-top: 56.25%; // Percentage ratio for 16:9
 }
 .react-player {
+    position: relative;
+    padding-top: 56.25%; // Percentage ratio for 16:9
+
+    video {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.react-player > div {
     position: absolute;
     top: 0;
     left: 0;

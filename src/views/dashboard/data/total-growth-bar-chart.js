@@ -37,7 +37,7 @@ const chartData = {
         legend: {
             show: true,
             fontSize: '14px',
-            fontFamily: `'Roboto', sans-serif`,
+            fontFamily: `'Inter', sans-serif`,
             position: 'bottom',
             offsetX: 20,
             labels: {

@@ -58,8 +58,8 @@ function CandidateNotes({ interviewId, notes }) {
                 <Grid container>
                     <Grid item xs={12}>
                         {notes.length > 0 &&
-                            notes.map((note) => (
-                                <List dense>
+                            notes.map((note, i) => (
+                                <List key={i} dense>
                                     <ListItem
                                         secondaryAction={
                                             <IconButton

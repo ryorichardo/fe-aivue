@@ -5,14 +5,18 @@ import StarIcon from '@mui/icons-material/Star';
 import { IconFile, IconPlus, IconShare } from '@tabler/icons';
 import { gridSpacing } from 'configs/constant';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { SET_NOTIFICATION } from 'store/actions';
 
 function CandidateReviewAction({ cvUrl, rating, isReviewPage }) {
     const nav = useNavigate();
+    const dispatch = useDispatch();
     const handleCopy = () => {
         window.open(cvUrl, '_blank');
     };
     const handleShare = () => {
         navigator.clipboard.writeText(window.location.href);
+        dispatch({ type: SET_NOTIFICATION, notification: { type: 'success', message: 'Link berhasil disalin di clipboard' } });
     };
 
     const handleAddInterview = () => {

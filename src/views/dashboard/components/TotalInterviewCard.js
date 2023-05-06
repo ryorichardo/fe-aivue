@@ -16,7 +16,7 @@ import MainCard from 'components/cards/MainCard';
 import { gridSpacing } from 'configs/constant';
 
 // chart data
-import chartData from './../data/ongoing-interview';
+import chartData from '../data/ongoing-interview';
 import TotalInterviewCard from 'components/cards/Skeleton/TotalInterviewCard';
 
 const status = [
@@ -34,9 +34,7 @@ const status = [
     }
 ];
 
-// ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
-
-const OngoingInterview = ({ isLoading }) => {
+const TotalInterview = ({ isLoading }) => {
     const theme = useTheme();
 
     return (
@@ -77,8 +75,8 @@ const OngoingInterview = ({ isLoading }) => {
     );
 };
 
-OngoingInterview.propTypes = {
+TotalInterview.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default OngoingInterview;
+export default TotalInterview;

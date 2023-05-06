@@ -12,8 +12,8 @@ import Chart from 'react-apexcharts';
 import MainCard from 'components/cards/MainCard';
 import SkeletonTotalOrderCard from 'components/cards/Skeleton/EarningCard';
 
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
-import ChartDataYear from './chart-data/total-order-year-line-chart';
+import ChartDataMonth from '../data/total-order-month-line-chart';
+import ChartDataYear from '../data/total-order-year-line-chart';
 
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
@@ -132,18 +132,6 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                     </Typography>
                                                 )}
                                             </Grid>
-                                            <Grid item>
-                                                <Avatar
-                                                    sx={{
-                                                        ...theme.typography.smallAvatar,
-                                                        cursor: 'pointer',
-                                                        backgroundColor: theme.palette.primary[200],
-                                                        color: theme.palette.primary.dark
-                                                    }}
-                                                >
-                                                    <ArrowDownwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
-                                                </Avatar>
-                                            </Grid>
                                             <Grid item xs={12}>
                                                 <Typography
                                                     sx={{
@@ -152,7 +140,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    Total Order
+                                                    Total Kandidat
                                                 </Typography>
                                             </Grid>
                                         </Grid>

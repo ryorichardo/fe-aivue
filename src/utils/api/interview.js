@@ -23,7 +23,7 @@ const INTERVIEWS = [
             {
                 id: '1',
                 questionId: '1',
-                videoUrl: 'https://www.youtube.com/watch?v=xqhN68d-UzA&ab_channel=WillTennyson',
+                videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
                 rating: 0
             },
             {

@@ -16,7 +16,7 @@ import MainCard from 'components/cards/MainCard';
 import { gridSpacing } from 'configs/constant';
 
 // chart data
-import chartData from '../Default/chart-data/total-growth-bar-chart';
+import chartData from '../data/total-growth-bar-chart';
 
 const status = [
     {
