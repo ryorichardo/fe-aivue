@@ -1,7 +1,3 @@
-// project imports
-import config from 'configs';
-
-// action - state management
 import * as actionTypes from './actions';
 
 export const initialState = {
@@ -11,7 +7,8 @@ export const initialState = {
         type: '',
         message: ''
     },
-    notificationOpen: false
+    notificationOpen: false,
+    loading: false
 };
 
 const globalReducer = (state = initialState, action) => {
@@ -43,6 +40,11 @@ const globalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 notificationOpen: action.notificationOpen
+            };
+        case actionTypes.SET_LOADING:
+            return {
+                ...state,
+                loading: action.loading
             };
         default:
             return state;

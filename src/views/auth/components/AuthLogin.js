@@ -31,10 +31,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { login } from 'utils/api/auth';
-import { SET_NOTIFICATION, SET_USER } from 'store/actions';
+import { SET_CANDIDATE, SET_NOTIFICATION, SET_USER } from 'store/actions';
 import { useNavigate } from 'react-router';
 import config from 'configs';
 import { generateNotification } from 'utils/notification';
+import { loginInterview } from 'utils/api/interview';
 
 const AuthLogin = ({ isClient = false, ...others }) => {
     const theme = useTheme();
@@ -72,13 +73,11 @@ const AuthLogin = ({ isClient = false, ...others }) => {
         try {
             if (scriptedRef.current) {
                 // TODO - remove hardcoded payload
-                const payload = {
-                    email: 'vihagi6249@ippals.com',
-                    password: 'JNZNzIVwigUxvWCH'
-                };
-
                 if (!isClient) {
-                    await login(payload).then((res) => {
+                    await login({
+                        email: 'vihagi6249@ippals.com',
+                        password: 'JNZNzIVwigUxvWCH'
+                    }).then((res) => {
                         if (res.status === 200) {
                             localStorage.setItem('token', res.data.access_token);
                             dispatch({ type: SET_USER, user: res.data });
@@ -86,11 +85,10 @@ const AuthLogin = ({ isClient = false, ...others }) => {
                         }
                     });
                 } else {
-                    // TODO - handle client login
-                    await login(payload).then((res) => {
+                    await loginInterview({ token: password }).then((res) => {
                         if (res.status === 200) {
-                            dispatch({ type: SET_USER, user: res.data });
-                            nav(config.defaultPath);
+                            dispatch({ type: SET_CANDIDATE, candidate: res.data });
+                            nav(`/interview/${res.data.id}`, { replace: true });
                         }
                     });
                 }

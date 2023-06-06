@@ -23,7 +23,7 @@ const CAMERA_STATUS = {
     ERROR: 'ERROR'
 };
 
-function AnswerRecorder({ question }) {
+function AnswerRecorder({ question, setVideoFile, onSubmit }) {
     const { duration } = question;
     const recordWebcam = useRecordWebcam(OPTIONS);
 
@@ -70,7 +70,8 @@ function AnswerRecorder({ question }) {
 
     const getRecordingFileHooks = async () => {
         const blob = await recordWebcam.getRecording();
-        console.log({ blob });
+        setVideoFile(new File([blob], 'test.mp4', { type: blob.type }));
+        onSubmit();
     };
 
     useEffect(() => {

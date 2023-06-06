@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, Box, CssBaseline, Toolbar } from '@mui/material';
 import ClientHeader from './Header';
+import Notification from 'components/Notification';
 
 const ClientWrapper = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
@@ -52,6 +53,7 @@ const ClientLayout = () => {
                     <Outlet />
                 </ClientWrapper>
             </Box>
+            <Notification />
         </>
     );
 };

@@ -1,69 +1,48 @@
-import { useState } from 'react';
-
 import { Box, Button, Grid } from '@mui/material';
-
 import CardInfoInterview from './components/CardInfoInterview';
-import { useParams } from 'react-router';
-import { getInterviewKitById } from 'utils/api/interview-kit';
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
+import { gridSpacing } from 'configs/constant';
 
 function OnboardingPage() {
-    const { id } = useParams();
-    const [interview, setInterview] = useState({
-        id: '1',
-        title: 'General HR Interview',
-        desc: 'Posisi software enginer nih bos senggol dong',
-        num_of_questions: 3,
-        total_duration: 15,
-        position: 'Software Engineer I',
-        expiredAt: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        questions: [
-            { id: '1', question: 'Siapa Tuhanmu?', duration: 5 },
-            { id: '2', question: 'Siapa Nabimu?', duration: 5 },
-            { id: '3', question: 'Apa Kitabmu?', duration: 5 }
-        ]
-    });
+    const candidate = useSelector((state) => state.candidate?.candidate);
+    const nav = useNavigate();
 
-    const getInterviewDetail = async (id) => {
-        try {
-            const { data } = getInterviewKitById(id);
-            setInterview(data);
-            console.log(data);
-        } catch (error) {
-            console.log(error);
-        }
+    const handleClickPractice = () => {
+        nav('practice');
     };
 
-    useEffect(() => {
-        if (id) {
-            getInterviewDetail(id);
-        }
-    }, []);
+    const handleClickStartInterview = () => {
+        nav(`question/${candidate?.interview_detail?.questions?.[0]?.question_id}`);
+    };
+    if (!candidate) {
+        return;
+    }
 
     return (
-        <Grid container justifyContent="center" alignItems="center">
-            <Grid item xs={12}>
-                <Grid container justifyContent="center" alignItems="center" minHeight="100vh">
-                    <CardInfoInterview interview={interview} />
-                </Grid>
-            </Grid>
-            <Grid item xs={12}>
-                <Grid container justifyContent="center" alignItems="center">
-                    <Grid item>
-                        <Button variant="contained" color="primary">
-                            Latihan Interview
-                        </Button>
+        <Box display="flex" justifyContent="center">
+            <Box maxWidth={600} display="flex" justifyContent="center">
+                <Grid container justifyContent="center" alignItems="center" direction="column" minHeight="80vh" spacing={gridSpacing}>
+                    <Grid item width="100%">
+                        <CardInfoInterview interview={candidate} />
                     </Grid>
-                    <Grid item>
-                        <Button variant="contained" color="secondary">
-                            Mulai Interview
-                        </Button>
+                    <Grid item width="100%">
+                        <Grid container justifyContent="space-between" alignItems="center" direction="row" spacing={gridSpacing}>
+                            <Grid item xs={6}>
+                                <Button size="large" variant="contained" color="primary" fullWidth onClick={handleClickPractice}>
+                                    Latihan Interview
+                                </Button>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Button size="large" variant="contained" color="secondary" fullWidth onClick={handleClickStartInterview}>
+                                    Mulai Interview
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </Grid>
+            </Box>
+        </Box>
     );
 }
 

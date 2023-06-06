@@ -3,16 +3,27 @@ import { Button, Card, Grid, Typography } from '@mui/material';
 import React from 'react';
 
 function CardInfoInterview({ interview }) {
-    const { position, num_of_questions, expiredAt, duration } = interview;
+    const { expired_at } = interview;
+    const { num_of_questions, total_duration, description, title } = interview.interview_kit;
+
     return (
-        <Card sx={{ maxWidth: 600 }}>
-            <Grid container justifyContent="center" alignItems="center">
-                <Grid item xs={12}>
-                    <Typography variant="h3" align="center">
-                        {position || '-'}
-                    </Typography>
+        <Card sx={{ width: '100%' }}>
+            <Grid container justifyContent="center" alignItems="center" spacing={4} direction="column">
+                <Grid item width="100%">
+                    <Grid container direction="column">
+                        <Grid item>
+                            <Typography variant="h3" align="center">
+                                {title}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="body2" align="center">
+                                {description}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item width="100%">
                     <Grid container direction="row" spacing="3">
                         <Grid item xs={12}>
                             <Grid container justifyContent={'space-between'}>
@@ -30,7 +41,7 @@ function CardInfoInterview({ interview }) {
                                     <Typography variant="caption">Estimasi Durasi</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{duration} menit</Typography>
+                                    <Typography variant="body2">{total_duration} menit</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -40,7 +51,7 @@ function CardInfoInterview({ interview }) {
                                     <Typography variant="caption">Berlaku hingga</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{expiredAt?.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{expired_at?.toLocaleString()}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>

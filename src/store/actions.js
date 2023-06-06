@@ -10,3 +10,10 @@ export const SET_ROLE = '@global/SET_ROLE';
 export const SET_NOTIFICATION_OPEN = '@global/SET_NOTIFICATION_OPEN';
 export const SET_NOTIFICATION = '@global/SET_NOTIFICATION';
 export const RESET_NOTIFICATION = '@global/RESET_NOTIFICATION';
+
+export const SET_LOADING = '@global/SET_LOADING';
+
+export const SET_CANDIDATE = '@global/SET_CANDIDATE';
+export const SET_CURRENT_QUESTION = '@global/SET_CURRENT_QUESTION';
+export const INCREMENT_QUESTION_INDEX = '@global/INCREMENT_QUESTION_INDEX';
+export const FINISH = '@global/FINISH';
