@@ -5,18 +5,19 @@ import StarIcon from '@mui/icons-material/Star';
 import CandidateStatusLabel from './CandidateStatusLabel';
 import { INTERVIEW_STATUS } from 'configs/constant';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
+import ModalConfirm from 'components/ModalConfirm';
 
-function CandidateCard({ candidate }) {
+function CandidateCard({ candidate, handleDelete }) {
     const { id, name, email, position, pic, rating, result } = candidate;
     const { expired_date, completed_date, status } = candidate?.active_interview;
     const navigate = useNavigate();
-
-    //TODO - debug purposes REMOVE TRUE
-    const isInterviewCompleted = true;
+    const [open, setOpen] = useState(false);
 
     const onClickReview = () => {
         navigate(`${id}/detail`);
     };
+
     return (
         <Card>
             <Grid container spacing={2}>
@@ -108,29 +109,36 @@ function CandidateCard({ candidate }) {
                         </Grid>
                     </Grid>
                 </Grid>
-                {isInterviewCompleted && (
-                    <Grid item xs={12}>
-                        <Grid container justifyContent="space-between" alignItems="center" spacing={1.5}>
-                            <Grid item xs>
-                                <Button size="small" variant="contained" color="secondary" sx={{ width: '100%' }} onClick={onClickReview}>
-                                    Review
-                                </Button>
-                            </Grid>
-                            <Grid item xs={1}>
-                                <IconButton size="small" color="error">
-                                    <IconTrash size={18} />
-                                </IconButton>
-                            </Grid>
+                <Grid item xs={12}>
+                    <Grid container justifyContent="space-between" alignItems="center" spacing={1.5}>
+                        <Grid item xs>
+                            <Button size="small" variant="contained" color="secondary" sx={{ width: '100%' }} onClick={onClickReview}>
+                                Review
+                            </Button>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <IconButton size="small" color="error" onClick={() => setOpen(true)}>
+                                <IconTrash size={18} />
+                            </IconButton>
                         </Grid>
                     </Grid>
-                )}
+                </Grid>
             </Grid>
+            <ModalConfirm
+                open={open}
+                setOpen={setOpen}
+                onOk={() => handleDelete(id)}
+                confirmDelete
+                title="Peringatan!"
+                message={`Apakah Anda yakin ingin mengarsipkan kandidat ${name}?`}
+            />
         </Card>
     );
 }
 
 CandidateCard.propTypes = {
-    candidate: PropTypes.object
+    candidate: PropTypes.object,
+    handleDelete: PropTypes.func
 };
 
 export default CandidateCard;

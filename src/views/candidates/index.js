@@ -3,7 +3,7 @@ import { Button, Grid, Pagination, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { INTERVIEW_RESULT, INTERVIEW_STATUS, gridSpacing } from 'configs/constant';
 import CandidateList from './components/CandidateList';
-import { getAllCandidates } from 'utils/api/candidate';
+import { deleteCandidate, getAllCandidates } from 'utils/api/candidate';
 import SearchSection from 'components/Search';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
@@ -89,6 +89,16 @@ function CandidatePage() {
         }
     };
 
+    const handleDelete = async (id) => {
+        try {
+            const res = await deleteCandidate(id);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res, 'Berhasil menghapus kandidat') });
+            setRefetch(true);
+        } catch (error) {
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        }
+    };
+
     useEffect(() => {
         getCandidates();
         getPics();
@@ -136,7 +146,7 @@ function CandidatePage() {
             ) : (
                 <>
                     <Grid item xs={12} className="list-container-list-page">
-                        <CandidateList data={candidates} />
+                        <CandidateList data={candidates} onDelete={handleDelete} />
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justifyContent="flex-end">
