@@ -1,17 +1,26 @@
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
-
 import { Card, Chip, Grid, IconButton, Typography } from '@mui/material';
-import { gridSpacing } from 'configs/constant';
 import DataTable from 'react-data-table-component';
 import { IconPencil, IconTrash } from '@tabler/icons';
+import { deleteUser } from 'utils/api/user';
+import { useState } from 'react';
+import ModalConfirm from 'components/ModalConfirm';
 
-function UserList({ data }) {
+function UserList({ data, onDeleteUser }) {
     const theme = useTheme();
+    const [open, setOpen] = useState(false);
+    const [selected, setSelected] = useState();
+
+    const handleDeleteUser = (id) => {
+        setOpen(true);
+        setSelected(id);
+    };
     const columns = [
         {
-            name: <Typography variant="h4">Id</Typography>,
-            selector: (row) => row.id,
+            name: <Typography variant="h4">No.</Typography>,
+            selector: (_, i) => i + 1,
+            maxWidth: '32px',
             sortable: true
         },
         {
@@ -47,7 +56,13 @@ function UserList({ data }) {
         {
             name: <Typography variant="h4">Action</Typography>,
             selector: (row) => (
-                <IconButton size="small" color="error" onClick={() => console.log(row.id)}>
+                <IconButton
+                    size="small"
+                    color="error"
+                    onClick={() => {
+                        handleDeleteUser(row.id);
+                    }}
+                >
                     <IconTrash />
                 </IconButton>
             ),
@@ -58,12 +73,21 @@ function UserList({ data }) {
     return (
         <Card>
             <DataTable data={data} columns={columns} />
+            <ModalConfirm
+                open={open}
+                setOpen={setOpen}
+                onOk={() => onDeleteUser(selected)}
+                confirmDelete
+                title="Peringatan!"
+                message="Apakah Anda yakin ingin menghapus user?"
+            />
         </Card>
     );
 }
 
 UserList.propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
+    onDeleteUser: PropTypes.func
 };
 
 export default UserList;
