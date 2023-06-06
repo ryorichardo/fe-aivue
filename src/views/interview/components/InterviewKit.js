@@ -2,14 +2,20 @@ import PropTypes from 'prop-types';
 import { Card, Grid, IconButton, Typography } from '@mui/material';
 import { IconPencil, IconTrash } from '@tabler/icons';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
+import ModalConfirm from 'components/ModalConfirm';
 
 function InterviewKit({ kit, handleDelete }) {
     const { id, title, description, num_of_questions, total_duration, updated_at, created_at } = kit;
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const handleClickNavigateEdit = () => {
         navigate(`${id}/edit`);
     };
 
+    const handleDeleteKit = () => {
+        setOpen(true);
+    };
     return (
         <Card>
             <Grid container spacing={2}>
@@ -26,7 +32,7 @@ function InterviewKit({ kit, handleDelete }) {
                                 size="small"
                                 color="error"
                                 onClick={() => {
-                                    handleDelete(id);
+                                    handleDeleteKit();
                                 }}
                             >
                                 <IconTrash size={18} />
@@ -79,6 +85,14 @@ function InterviewKit({ kit, handleDelete }) {
                     </Grid>
                 </Grid>
             </Grid>
+            <ModalConfirm
+                open={open}
+                setOpen={setOpen}
+                onOk={() => handleDelete(id)}
+                confirmDelete
+                title="Peringatan!"
+                message={`Apakah Anda yakin ingin menghapus interview kit ${title}?`}
+            />
         </Card>
     );
 }
