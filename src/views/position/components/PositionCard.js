@@ -2,9 +2,12 @@ import PropTypes, { object } from 'prop-types';
 import { Card, Grid, IconButton, Typography } from '@mui/material';
 import { IconPencil, IconTrash } from '@tabler/icons';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
+import ModalConfirm from 'components/ModalConfirm';
 
 function PositionCard({ position, handleDelete }) {
     const { id, title, desc, level, num_of_interviews, created_at, updated_at, last_updated_by } = position;
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const handleClickNavigateEdit = () => {
         navigate(`${id}/edit`);
@@ -26,7 +29,7 @@ function PositionCard({ position, handleDelete }) {
                                 size="small"
                                 color="error"
                                 onClick={() => {
-                                    handleDelete(id);
+                                    setOpen(true);
                                 }}
                             >
                                 <IconTrash size={18} />
@@ -80,6 +83,14 @@ function PositionCard({ position, handleDelete }) {
                     </Grid>
                 </Grid>
             </Grid>
+            <ModalConfirm
+                open={open}
+                setOpen={setOpen}
+                onOk={() => handleDelete(id)}
+                confirmDelete
+                title="Peringatan!"
+                message={`Apakah Anda yakin ingin menghapus posisi ${title}?`}
+            />
         </Card>
     );
 }
