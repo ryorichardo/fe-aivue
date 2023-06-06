@@ -1,10 +1,16 @@
 import { getErrorMessage } from './error';
 
-export const generateNotification = (res) => {
+export const generateNotification = (res, msg = '') => {
     let type;
-    const message = getErrorMessage(res) || res.message;
+    const message = msg || getErrorMessage(res) || res.message;
     switch (res.status) {
         case 200:
+            type = 'success';
+            break;
+        case 201:
+            type = 'success';
+            break;
+        case 203:
             type = 'success';
             break;
         default:

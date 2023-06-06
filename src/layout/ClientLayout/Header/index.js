@@ -6,7 +6,7 @@ import { drawerWidth } from 'configs/constant';
 import LogoSection from 'layout/MainLayout/LogoSection';
 import config from 'configs';
 
-const ClientHeader = ({ handleLeftDrawerToggle, leftDrawerOpened }) => {
+const ClientHeader = ({ leftDrawerOpened }) => {
     const theme = useTheme();
 
     return (

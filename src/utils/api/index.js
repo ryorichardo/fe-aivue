@@ -46,6 +46,15 @@ export const apiPost = async (url, data) => {
     }
 };
 
+export const apiPostFormData = async (url, data) => {
+    try {
+        const res = await api.post(url, data, { headers: { 'Content-Type': 'multipart/form-data' } });
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const apiPut = async (url, data) => {
     try {
         const res = await api.put(url, data);
@@ -57,7 +66,7 @@ export const apiPut = async (url, data) => {
 
 export const apiDelete = async (url, data) => {
     try {
-        const res = await api.delete(url, { data: data });
+        const res = await api.delete(url, { data });
         return res.data;
     } catch (error) {
         throw error;
