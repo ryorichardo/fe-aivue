@@ -31,7 +31,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { login } from 'utils/api/auth';
-import { SET_CANDIDATE, SET_NOTIFICATION, SET_USER } from 'store/actions';
+import { SET_CANDIDATE, SET_CURRENT_QUESTION, SET_NOTIFICATION, SET_USER } from 'store/actions';
 import { useNavigate } from 'react-router';
 import config from 'configs';
 import { generateNotification } from 'utils/notification';
@@ -70,31 +70,36 @@ const AuthLogin = ({ isClient = false, ...others }) => {
     };
 
     const onSubmit = async ({ email, password }) => {
-        try {
-            if (scriptedRef.current) {
-                // TODO - remove hardcoded payload
-                if (!isClient) {
-                    await login({
-                        email: 'vihagi6249@ippals.com',
-                        password: 'JNZNzIVwigUxvWCH'
-                    }).then((res) => {
+        if (scriptedRef.current) {
+            // TODO - remove hardcoded payload
+            if (!isClient) {
+                await login({
+                    email: 'vihagi6249@ippals.com',
+                    password: 'JNZNzIVwigUxvWCH'
+                })
+                    .then((res) => {
                         if (res.status === 200) {
                             localStorage.setItem('token', res.data.access_token);
                             dispatch({ type: SET_USER, user: res.data });
                             nav(config.defaultPath);
                         }
+                    })
+                    .catch((error) => {
+                        dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
                     });
-                } else {
-                    await loginInterview({ token: password }).then((res) => {
+            } else {
+                await loginInterview({ token: password })
+                    .then((res) => {
                         if (res.status === 200) {
                             dispatch({ type: SET_CANDIDATE, candidate: res.data });
+                            dispatch({ type: SET_CURRENT_QUESTION, index: 0 });
                             nav(`/interview/${res.data.id}`, { replace: true });
                         }
+                    })
+                    .catch((error) => {
+                        return dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
                     });
-                }
             }
-        } catch (error) {
-            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
