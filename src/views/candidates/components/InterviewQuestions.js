@@ -5,6 +5,7 @@ function InterviewQuestions({ questions, selectedQuestionId, handleSelectQuestio
     const handleNavigateToAnswer = (event, id) => {
         handleSelectQuestion(id);
     };
+
     return (
         <Stack spacing={1.5}>
             <Typography variant="h4">Pertanyaan Interview</Typography>

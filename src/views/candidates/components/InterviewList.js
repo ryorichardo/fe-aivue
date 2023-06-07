@@ -7,8 +7,8 @@ import InterviewCard from './InterviewCard';
 function InterviewList({ interviews }) {
     const [index, setIndex] = useState('completed');
 
-    const completedInterviews = interviews?.filter((interview) => interview.isCompleted);
-    const futureInterviews = interviews?.filter((interview) => interview.isCompleted === false);
+    const completedInterviews = interviews?.filter((interview) => interview.is_completed);
+    const futureInterviews = interviews?.filter((interview) => !interview.is_completed);
 
     return (
         <Box>

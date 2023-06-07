@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import CandidateStatusLabel from './CandidateStatusLabel';
 
 function InterviewCard({ interview }) {
-    const { id, interviewKit, completedAt, expiredAt, isCompleted, status } = interview;
+    const { id, interview_kit, completed_at, expired_at, is_completed, status } = interview;
 
     const navigate = useNavigate();
     const handleClickNavigateReview = () => {
@@ -14,21 +14,24 @@ function InterviewCard({ interview }) {
     };
 
     return (
-        <Card sx={{ border: '1px solid #8E92BC' }}>
+        <Card
+            sx={{ border: '1px solid #8E92BC', cursor: is_completed ? 'pointer' : 'none', pointerEvents: is_completed ? 'click' : 'none' }}
+            onClick={handleClickNavigateReview}
+        >
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Grid container justifyContent={'space-between'} alignItems="center">
-                        <Grid item xs={8}>
-                            <Typography variant="h4">{interviewKit.title}</Typography>
-                            <Typography variant="caption">{interviewKit.desc}</Typography>
+                        <Grid item>
+                            <Typography variant="h4">{interview_kit.title}</Typography>
+                            <Typography variant="caption">{interview_kit.desc}</Typography>
                         </Grid>
-                        <Grid item xs={'auto'}>
-                            {isCompleted && (
+                        {/* <Grid item xs={'auto'}>
+                            {is_completed && (
                                 <IconButton color="primary" onClick={handleClickNavigateReview}>
                                     <PlayArrowIcon sx={{ width: '40px', height: 'auto' }} />
                                 </IconButton>
                             )}
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
@@ -46,11 +49,11 @@ function InterviewCard({ interview }) {
                         <Grid item xs={12}>
                             <Grid container justifyContent={'space-between'}>
                                 <Grid item xs={6}>
-                                    <Typography variant="caption">{isCompleted ? 'Diselesaikan pada' : 'Kedaluwarsa pada'}</Typography>
+                                    <Typography variant="caption">{is_completed ? 'Diselesaikan pada' : 'Kedaluwarsa pada'}</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Typography variant="body2">
-                                        {isCompleted ? completedAt.toLocaleString() : expiredAt.toLocaleString()}
+                                        {is_completed ? completed_at.toLocaleString('en-GB') : expired_at.toLocaleString('en-GB')}
                                     </Typography>
                                 </Grid>
                             </Grid>

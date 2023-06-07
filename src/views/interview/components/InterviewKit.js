@@ -68,7 +68,7 @@ function InterviewKit({ kit, handleDelete }) {
                                     <Typography variant="caption">Dibuat pada</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{created_at?.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{created_at?.toLocaleString('en-GB')}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -78,7 +78,7 @@ function InterviewKit({ kit, handleDelete }) {
                                     <Typography variant="caption">Terakhir diupdate</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{updated_at?.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{updated_at?.toLocaleString('en-GB')}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>

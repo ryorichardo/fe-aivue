@@ -73,7 +73,7 @@ function CandidateCard({ candidate, handleDelete }) {
                                     <Typography variant="caption">Berlaku hingga</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{expired_date?.toLocaleString() || '-'}</Typography>
+                                    <Typography variant="body2">{expired_date?.toLocaleString('en-GB') || '-'}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -83,7 +83,7 @@ function CandidateCard({ candidate, handleDelete }) {
                                     <Typography variant="caption">Diselesaikan pada</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{completed_date ? completed_date.toLocaleString() : '-'}</Typography>
+                                    <Typography variant="body2">{completed_date ? completed_date.toLocaleString('en-GB') : '-'}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
