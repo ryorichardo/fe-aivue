@@ -16,4 +16,5 @@ export const SET_LOADING = '@global/SET_LOADING';
 export const SET_CANDIDATE = '@global/SET_CANDIDATE';
 export const SET_CURRENT_QUESTION = '@global/SET_CURRENT_QUESTION';
 export const INCREMENT_QUESTION_INDEX = '@global/INCREMENT_QUESTION_INDEX';
+export const SET_LOADING_CANDIDATE = '@global/SET_LOADING_CANDIDATE';
 export const FINISH = '@global/FINISH';

@@ -2,15 +2,30 @@ import PropTypes from 'prop-types';
 import { Button, Card, Grid, Stack, Typography } from '@mui/material';
 import { IconAlarm } from '@tabler/icons';
 import React from 'react';
+import { useEffect } from 'react';
 import Countdown, { zeroPad } from 'react-countdown';
-import { CAMERA_STATUS } from '../constant';
+import { useRecordWebcam } from 'react-record-webcam';
 
-function AnswerRecorder({ question, onSubmit, recordWebcam }) {
-    if (!recordWebcam) {
-        return;
-    }
+const OPTIONS = {
+    fileName: 'test-filename',
+    mimeType: 'video/x-matroska;codecs=avc1',
+    width: 1920,
+    height: 1080,
+    disableLogs: true
+};
 
+const CAMERA_STATUS = {
+    INIT: 'INIT',
+    CLOSED: 'CLOSED',
+    OPEN: 'OPEN',
+    RECORDING: 'RECORDING',
+    PREVIEW: 'PREVIEW',
+    ERROR: 'ERROR'
+};
+
+function AnswerRecorderPractice({ question, onSubmit }) {
     const { duration } = question;
+    const recordWebcam = useRecordWebcam(OPTIONS);
 
     const handleStartRecord = () => {
         recordWebcam.start();
@@ -45,13 +60,27 @@ function AnswerRecorder({ question, onSubmit, recordWebcam }) {
                     <Button size="large" variant="outlined" onClick={handleRetake}>
                         Rekam ulang
                     </Button>
-                    <Button size="large" variant="contained" onClick={onSubmit}>
+                    <Button size="large" variant="contained" onClick={getRecordingFileHooks}>
                         Submit
                     </Button>
                 </Stack>
             );
         }
     };
+
+    const getRecordingFileHooks = async () => {
+        onSubmit();
+    };
+
+    useEffect(() => {
+        if (recordWebcam) {
+            if (recordWebcam.status === CAMERA_STATUS.PREVIEW) {
+                recordWebcam.retake();
+            } else {
+                recordWebcam.open();
+            }
+        }
+    }, []);
 
     const CountdownTimer = ({ minutes, seconds }) => {
         return (
@@ -120,7 +149,7 @@ function AnswerRecorder({ question, onSubmit, recordWebcam }) {
     );
 }
 
-AnswerRecorder.propTypes = {
+AnswerRecorderPractice.propTypes = {
     question: PropTypes.object
 };
-export default AnswerRecorder;
+export default AnswerRecorderPractice;

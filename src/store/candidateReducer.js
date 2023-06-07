@@ -2,7 +2,8 @@ import * as actionTypes from './actions';
 
 export const initialCandidateState = {
     candidate: {},
-    currentQuestionIndex: 0
+    currentQuestionIndex: 0,
+    loading: false
 };
 
 const candidateReducer = (state = initialCandidateState, action) => {
@@ -20,10 +21,15 @@ const candidateReducer = (state = initialCandidateState, action) => {
         case actionTypes.INCREMENT_QUESTION_INDEX:
             return {
                 ...state,
-                currentQuestionIndex: state.currentQuestionIndex++
+                currentQuestionIndex: state.currentQuestionIndex + 1
             };
         case actionTypes.FINISH:
             return initialCandidateState;
+        case actionTypes.SET_LOADING_CANDIDATE:
+            return {
+                ...state,
+                loading: action.loading
+            };
         default:
             return state;
     }

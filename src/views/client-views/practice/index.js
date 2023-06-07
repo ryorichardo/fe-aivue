@@ -1,7 +1,7 @@
 import { Button, Grid } from '@mui/material';
 import { gridSpacing } from 'configs/constant';
 import QuestionCard from '../components/QuestionCard';
-import AnswerRecorder from '../components/AnswerRecorder';
+import AnswerRecorderPractice from '../components/AnswerRecorderPractice';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { useState } from 'react';
@@ -13,8 +13,14 @@ function PracticePage() {
     const candidate = useSelector((state) => state.candidate.candidate);
     const nav = useNavigate();
 
-    const handleClickStartInterview = () => {
+    const handleClickStartInterview = (e) => {
+        e.preventDefault();
         nav(`/interview/${id}/question/${candidate?.interview_detail?.questions?.[0]?.question_id}`);
+    };
+
+    const handleBack = (e) => {
+        e.preventDefault();
+        nav(`/interview/${id}`);
     };
     const [showNextButton, setShowNextButton] = useState(false);
 
@@ -33,9 +39,8 @@ function PracticePage() {
             <Grid item xs={8}>
                 <Grid container direction="column" spacing={3}>
                     <Grid item>
-                        <AnswerRecorder
+                        <AnswerRecorderPractice
                             question={{ question: 'Perkenalkan dirimu dalam Bahasa Inggris', duration: 1 }}
-                            setVideoFile={() => {}}
                             onSubmit={() => {
                                 dispatch({
                                     type: SET_NOTIFICATION,
@@ -47,9 +52,18 @@ function PracticePage() {
                     </Grid>
                     {showNextButton ? (
                         <Grid item>
-                            <Button variant="contained" onClick={() => handleClickStartInterview()}>
-                                Mulai Interview
-                            </Button>
+                            <Grid container direction="row" spacing={1}>
+                                <Grid item>
+                                    <Button variant="contained" onClick={handleClickStartInterview}>
+                                        Mulai Interview
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant="outlined" onClick={handleBack}>
+                                        Kembali
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     ) : null}
                 </Grid>

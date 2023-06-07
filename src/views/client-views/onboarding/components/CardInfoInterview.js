@@ -51,7 +51,7 @@ function CardInfoInterview({ interview }) {
                                     <Typography variant="caption">Berlaku hingga</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{expired_at?.toLocaleString()}</Typography>
+                                    <Typography variant="body2">{expired_at?.toLocaleString('en-GB')}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>

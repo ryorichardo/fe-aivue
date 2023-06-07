@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-
-// material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, Box, CssBaseline, Toolbar } from '@mui/material';
 import ClientHeader from './Header';
 import Notification from 'components/Notification';
+import Loader from 'components/Loader';
 
 const ClientWrapper = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
@@ -32,10 +31,12 @@ const ClientWrapper = styled('div')(({ theme }) => ({
 
 const ClientLayout = () => {
     const theme = useTheme();
+    const loading = useSelector((state) => state.candidate.loading);
     return (
         <>
             <CssBaseline />
             {/* header */}
+            {loading ? <Loader /> : null}
             <AppBar
                 enableColorOnDark
                 position="relative"

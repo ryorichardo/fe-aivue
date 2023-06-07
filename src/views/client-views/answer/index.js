@@ -7,8 +7,18 @@ import { useNavigate, useParams } from 'react-router';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_NOTIFICATION } from 'store/actions';
+import { INCREMENT_QUESTION_INDEX, SET_CURRENT_QUESTION, SET_LOADING_CANDIDATE, SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
+import { useRecordWebcam } from 'react-record-webcam';
+import { CAMERA_STATUS } from '../constant';
+
+const OPTIONS = {
+    fileName: 'test-filename',
+    mimeType: 'video/x-matroska;codecs=avc1',
+    width: 1920,
+    height: 1080,
+    disableLogs: true
+};
 
 function AnswerPage() {
     const { interviewId, questionId } = useParams();
@@ -16,17 +26,18 @@ function AnswerPage() {
     const interviewQuestions = useSelector((state) => state.candidate?.candidate?.interview_detail?.questions);
     const currentIndex = useSelector((state) => state.candidate?.currentQuestionIndex);
 
-    console.log(useSelector((state) => state));
     const dispatch = useDispatch();
 
     const [currentQuestion, setCurrentQuestion] = useState();
-    const [videoFile, setVideoFile] = useState();
-    const [loading, setLoading] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
+    const recordWebcam = useRecordWebcam(OPTIONS);
 
     const insertAnswer = async (interviewId, questionId) => {
-        setLoading(true);
+        dispatch({ type: SET_LOADING_CANDIDATE, loading: true });
         try {
+            const blob = await recordWebcam.getRecording();
+            const videoFile = new File([blob], 'test.mp4', { type: blob.type });
+
             const { data } = await insertAnswerForQuestionId(interviewId, questionId);
             if (data?.presigned_url && videoFile) {
                 const res = await uploadAnswerToS3(data.presigned_url, videoFile);
@@ -35,7 +46,6 @@ function AnswerPage() {
                         type: SET_NOTIFICATION,
                         notification: generateNotification(res, 'Upload jawaban berhasil, silahkan menuju pertanyaan berikutnya')
                     });
-                    dispatch({ type: INCREMENT_QUESTION_INDEX });
                     setUploadSuccess(true);
                 }
             }
@@ -45,7 +55,7 @@ function AnswerPage() {
                 notification: generateNotification(error, 'Terjadi kesalahan, mohon upload video kembali')
             });
         } finally {
-            setLoading(false);
+            dispatch({ type: SET_LOADING_CANDIDATE, loading: false });
         }
     };
 
@@ -56,15 +66,24 @@ function AnswerPage() {
     };
 
     const navigateToNextQuestion = async (idx) => {
-        if (idx >= interviewQuestions.length) {
+        if (idx + 1 >= interviewQuestions.length) {
             navigate(`/interview/${interviewId}/finish`);
         } else {
-            navigate(`/interview/${interviewId}/question/${interviewQuestions[idx]?.question_id}`);
+            dispatch({ type: SET_CURRENT_QUESTION, index: idx + 1 });
+            navigate(`/interview/${interviewId}/question/${interviewQuestions[idx + 1]?.question_id}`);
+            setUploadSuccess(false);
         }
     };
 
     useEffect(() => {
         if (questionId && interviewQuestions) setCurrentQuestion(interviewQuestions.filter((q) => q.question_id === questionId)?.[0]);
+        if (recordWebcam) {
+            if (recordWebcam.status === CAMERA_STATUS.PREVIEW) {
+                recordWebcam.retake();
+            } else {
+                recordWebcam.open();
+            }
+        }
     }, [questionId, interviewQuestions]);
 
     if (!currentQuestion) {
@@ -77,13 +96,13 @@ function AnswerPage() {
                 <QuestionCard
                     currentQuestion={currentQuestion}
                     numOfQuestion={interviewQuestions?.length}
-                    currentQuestionNumber={currentIndex}
+                    currentQuestionNumber={currentIndex + 1}
                 />
             </Grid>
             <Grid item xs={8}>
                 <Grid container spacing={3} direction="column">
                     <Grid item>
-                        <AnswerRecorder question={currentQuestion} onSubmit={handleSubmit} setVideoFile={setVideoFile} />
+                        <AnswerRecorder question={currentQuestion} onSubmit={handleSubmit} recordWebcam={recordWebcam} />
                     </Grid>
                     {uploadSuccess ? (
                         <Grid item>
@@ -93,7 +112,7 @@ function AnswerPage() {
                                     navigateToNextQuestion(currentIndex);
                                 }}
                             >
-                                Pertanyaan Selanjutnya
+                                {currentIndex + 1 >= interviewQuestions.length ? 'Selesaikan Interview' : 'Pertanyaan Selanjutnya'}
                             </Button>
                         </Grid>
                     ) : null}
