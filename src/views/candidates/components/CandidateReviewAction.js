@@ -8,7 +8,29 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 
-function CandidateReviewAction({ cvUrl, rating, isReviewPage }) {
+function ButtonInterviewResult({ onClickSelect, onClickReject, onClickOnHold }) {
+    return (
+        <Grid container direction="row" spacing={1}>
+            <Grid item xs={12} md={4}>
+                <Button size="large" variant="contained" color="error" fullWidth onClick={onClickReject}>
+                    Tolak
+                </Button>
+            </Grid>
+            <Grid item xs={12} md={4}>
+                <Button size="large" variant="contained" color="warning" fullWidth onClick={onClickOnHold}>
+                    Tangguhkan
+                </Button>
+            </Grid>
+            <Grid item xs={12} md={4}>
+                <Button size="large" variant="contained" color="primary" fullWidth onClick={onClickSelect}>
+                    Lanjutkan
+                </Button>
+            </Grid>
+        </Grid>
+    );
+}
+
+function CandidateReviewAction({ cvUrl, rating, isReviewPage, onClickSelect, onClickReject, onClickOnHold }) {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const handleCopy = () => {
@@ -26,10 +48,13 @@ function CandidateReviewAction({ cvUrl, rating, isReviewPage }) {
         <Grid container justify="flex-end" spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Stack direction="row" spacing={1.5} justifyContent="flex-end">
-                    <Stack direction="row" spacing={1} alignItems="center">
-                        <StarIcon size={24} sx={{ color: '#FFB054' }} />
-                        <Typography variant="body1">{rating || 0}</Typography>
-                    </Stack>
+                    {isReviewPage ? (
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            <StarIcon size={24} sx={{ color: '#FFB054' }} />
+                            <Typography variant="body1">{rating?.toFixed(2) || 0}</Typography>
+                        </Stack>
+                    ) : null}
+
                     <Button size="small" color="secondary" variant="contained" onClick={handleCopy}>
                         <IconFile size={16} style={{ marginRight: '0.5rem' }} />
                         CV
@@ -48,9 +73,7 @@ function CandidateReviewAction({ cvUrl, rating, isReviewPage }) {
                 <Grid item xs={12}>
                     <Stack spacing={0.5}>
                         <Typography variant="h5">Hasil Interview</Typography>
-                        <Button size="large" variant="contained">
-                            Lolos ke Interview Berikutnya
-                        </Button>
+                        <ButtonInterviewResult onClickSelect={onClickSelect} onClickReject={onClickReject} onClickOnHold={onClickOnHold} />
                     </Stack>
                 </Grid>
             )}

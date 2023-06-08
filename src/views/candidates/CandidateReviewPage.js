@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import { Card, Grid, Tab, Tabs, Stack } from '@mui/material';
+import { Card, Grid, Tab, Tabs, Stack, Rating } from '@mui/material';
 
 import { getCandidateById } from 'utils/api/candidate';
 import { getInterviewDetail } from 'utils/api/interview';
@@ -18,6 +18,13 @@ import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
 import OverallEmotion from './components/OverallEmotion';
+import { getAnswerForInterview, submitRating } from 'utils/api/answer';
+import { getInterviewKitById } from 'utils/api/interview-kit';
+import { useMemo } from 'react';
+import EmotionDetail from './components/EmotionDetail';
+import ModalConfirm from 'components/ModalConfirm';
+import RatingAnswer from './components/RatingAnswer';
+import { mapAnswerToPayloadSubmitRating } from './utils';
 
 function CandidateReviewPage() {
     const { id, interviewId } = useParams();
@@ -25,6 +32,10 @@ function CandidateReviewPage() {
     const [candidate, setCandidate] = useState();
     const [interview, setInterview] = useState();
     const [currentQuestionId, setCurrentQuestionId] = useState();
+
+    const [questions, setQuestions] = useState([]);
+    const [mapAnswer, setMapAnswer] = useState({});
+    const [currentPredictions, setCurrentPredictions] = useState();
 
     const [notes, setNotes] = useState([]);
 
@@ -38,17 +49,100 @@ function CandidateReviewPage() {
         }
     };
 
-    const getInterview = async (candidateId, interviewId) => {
+    const getInterview = async (interviewId) => {
         try {
-            const { data } = await getInterviewDetail(candidateId, interviewId);
+            const { data } = await getInterviewDetail(interviewId);
             setInterview(data);
-            setNotes(data.notes);
-            setCurrentQuestionId(data.interviewKit.questions[0].id);
+            //TODO- change Notes to notes
+            setNotes(data.Notes);
         } catch (error) {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
         }
     };
 
+    const getAnswers = async (interviewId) => {
+        try {
+            const { data } = await getAnswerForInterview(interviewId);
+            let map = {};
+            data.answers.forEach((answer) => {
+                map[answer.question_id] = answer;
+            });
+            setMapAnswer(map);
+
+            setQuestions(
+                data.answers.map((a) => {
+                    return {
+                        id: a.question_id,
+                        question: a.question
+                    };
+                })
+            );
+            setCurrentQuestionId(data.answers[0].question_id);
+        } catch (error) {
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        }
+    };
+
+    // handle modal
+    const [modalAction, setModalAction] = useState({
+        open: false,
+        onOK: () => {},
+        title: '',
+        message: '',
+        confirmDelete: false
+    });
+
+    const handleClickReject = () => {
+        setModalAction({
+            open: true,
+            onOk: () => handleSubmitRating(mapAnswer, 'Ditolak'),
+            title: 'Tolak Kandidat',
+            message: `Apakah Anda yakin ingin menolak kandidat ${candidate?.name} untuk posisi ${candidate?.position}? Email penolakan akan dikirim secara otomatis oleh sistem ke email kandidat.`,
+            confirmDelete: true
+        });
+    };
+
+    const handleClickSelect = () => {
+        setModalAction({
+            open: true,
+            onOk: () => handleSubmitRating(mapAnswer, undefined),
+            title: 'Pilih Kandidat',
+            message: `Apakah Anda yakin ingin memilih kandidat ${candidate?.name} untuk posisi ${candidate?.position}? Email penerimaan kandidat akan dikirim secara otomatis oleh sistem ke email kandidat.`,
+            confirmDelete: false
+        });
+    };
+
+    const handleClickOnHold = () => {
+        setModalAction({
+            open: true,
+            onOk: () => handleSubmitRating(mapAnswer, 'Ditangguhkan'),
+            title: 'Tangguhkan Kandidat',
+            message: `Apakah Anda yakin ingin menangguhkan kandidat  ${candidate?.name} untuk posisi ${candidate?.position}? Anda tetap dapat mengubah hasil interview kandidat sewaktu-waktu.`,
+            confirmDelete: false
+        });
+    };
+
+    const handleSubmitRating = async (mapAnswer, result) => {
+        try {
+            const payload = mapAnswerToPayloadSubmitRating({ mapAnswer, result });
+            if (payload.ratings.some((rate) => rate.rating === 0)) {
+                return dispatch({
+                    type: SET_NOTIFICATION,
+                    notification: { type: 'warning', message: 'Mohon beri penilaian untuk setiap jawaban kandidat' }
+                });
+            }
+            const res = await submitRating(payload);
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res, 'Berhasil menyimpan hasil interview kandidat') });
+        } catch (error) {
+            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        }
+    };
+
+    const handleOpenModal = (open) => {
+        setModalAction((prev) => ({ ...prev, open }));
+    };
+
+    // effects
     useEffect(() => {
         if (id) {
             getCandidateDetail(id);
@@ -57,9 +151,14 @@ function CandidateReviewPage() {
 
     useEffect(() => {
         if (candidate && interviewId) {
-            getInterview(candidate.id, interviewId);
+            getInterview(interviewId);
+            getAnswers(interviewId);
         }
     }, [candidate, interviewId]);
+
+    useEffect(() => {
+        setCurrentPredictions();
+    }, [currentQuestionId]);
 
     if (!candidate && !interview) {
         return;
@@ -80,39 +179,67 @@ function CandidateReviewPage() {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <CandidateReviewAction rating={candidate.rating} isReviewPage />
+                            <CandidateReviewAction
+                                rating={interview?.rating}
+                                isReviewPage
+                                onClickOnHold={handleClickOnHold}
+                                onClickReject={handleClickReject}
+                                onClickSelect={handleClickSelect}
+                                cvUrl={candidate?.cv_url}
+                            />
                         </Grid>
                     </Grid>
                 </Card>
             </Grid>
             <Grid item xs={12}>
                 <Grid container justifyContent="space-between" spacing={gridSpacing}>
-                    <Grid item xs={5}>
+                    <Grid item xs={12} md={5}>
                         <Grid container direction="column" spacing={gridSpacing}>
                             <Grid item>
                                 <InterviewQuestions
-                                    questions={interview?.interviewKit?.questions}
+                                    questions={questions}
                                     selectedQuestionId={currentQuestionId}
                                     handleSelectQuestion={setCurrentQuestionId}
                                 />
                             </Grid>
                             <Grid item>
-                                <OverallEmotion />
+                                <EmotionDetail emotion={currentPredictions} />
                             </Grid>
                             <Grid item>
-                                <CandidateNotes notes={notes} interviewId={interviewId} />
+                                <Grid container direction="row" spacing={3}>
+                                    <Grid item xs={8}>
+                                        <CandidateNotes notes={notes} interviewId={interviewId} />
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <RatingAnswer
+                                            onChange={(_, newValue) => {
+                                                setMapAnswer((prev) => ({
+                                                    ...prev,
+                                                    [currentQuestionId]: { ...prev[currentQuestionId], rating: newValue }
+                                                }));
+                                            }}
+                                            mapAnswer={mapAnswer}
+                                            currentQuestionId={currentQuestionId}
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={12} md={7}>
                         <Grid container direction="column" spacing={gridSpacing}>
                             <Grid item>
-                                <InterviewAnswer interviewId={interviewId} currentQuestionId={currentQuestionId} />
+                                <InterviewAnswer
+                                    answerMap={mapAnswer}
+                                    currentQuestionId={currentQuestionId}
+                                    setCurrentPredictions={setCurrentPredictions}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
+            <ModalConfirm setOpen={handleOpenModal} {...modalAction} />
         </Grid>
     );
 }

@@ -88,21 +88,16 @@ function FormCandidatePage() {
 
     const onSubmit = async ({ name, email, position, pic, expiredDuration, startDateTime }) => {
         try {
-            const cvFormData = new FormData();
-            cvFormData.append('cv', cv, cv.name);
+            const payloadFormData = new FormData();
+            payloadFormData.append('cv', cv);
+            payloadFormData.append('name', name);
+            payloadFormData.append('email', email);
+            payloadFormData.append('position_id', position.id);
+            payloadFormData.append('pic_id', pic.id);
+            payloadFormData.append('expired_duration', expiredDuration);
+            payloadFormData.append('start_time', '06/07/2023 10:00');
 
-            const payload = {
-                name,
-                email,
-                cv: cvFormData,
-                position_id: position.id,
-                pic_id: pic.id,
-                expired_duration: expiredDuration,
-                start_time: format(startDateTime, 'dd/mm/yyyy hh:mm')
-            };
-            //TODO - formData and json handling
-
-            const res = await createCandidate(payload);
+            const res = await createCandidate(payloadFormData);
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
         } catch (error) {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
@@ -292,6 +287,7 @@ function FormCandidatePage() {
                                                             <DateTimePicker
                                                                 value={value}
                                                                 onChange={(value) => {
+                                                                    console.log(value);
                                                                     onChange(value);
                                                                 }}
                                                             />

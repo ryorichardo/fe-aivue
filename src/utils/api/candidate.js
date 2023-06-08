@@ -15,3 +15,7 @@ export const createCandidate = (payload) => {
 export const deleteCandidate = (id) => {
     return apiDelete('/candidates', { id });
 };
+
+export const submitResult = async (payload) => {
+    return apiPost('/candidates', payload);
+};

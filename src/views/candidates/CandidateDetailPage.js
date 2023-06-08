@@ -72,7 +72,7 @@ function CandidateDetailPage() {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <CandidateReviewAction rating={candidate?.rating} isReviewPage={false} cvUrl={candidate.cv_url} />
+                            <CandidateReviewAction isReviewPage={false} cvUrl={candidate?.cv_url} />
                         </Grid>
                     </Grid>
                 </Card>
