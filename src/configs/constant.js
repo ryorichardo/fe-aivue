@@ -13,7 +13,8 @@ export const INTERVIEW_STATUS = {
 export const INTERVIEW_RESULT = {
     SELECTED: 'Dipilih',
     REJECTED: 'Ditolak',
-    ONHOLD: 'Ditangguhkan'
+    ONHOLD: 'Ditangguhkan',
+    PENDING: 'Belum ada hasil'
 };
 
 export const LEVEL_OPTIONS = ['internship', 'entry_level', 'mid/senior', 'manager', 'lead'];
