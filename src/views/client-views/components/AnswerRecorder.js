@@ -5,7 +5,7 @@ import React from 'react';
 import Countdown, { zeroPad } from 'react-countdown';
 import { CAMERA_STATUS } from '../constant';
 
-function AnswerRecorder({ question, onSubmit, recordWebcam }) {
+function AnswerRecorder({ question, onSubmit, recordWebcam, isUploaded }) {
     if (!recordWebcam) {
         return;
     }
@@ -80,7 +80,10 @@ function AnswerRecorder({ question, onSubmit, recordWebcam }) {
                         )}
                         <Card
                             color="error"
-                            sx={{ visibility: 'hidden', display: recordWebcam.status === CAMERA_STATUS.RECORDING ? 'none' : 'block' }}
+                            sx={{
+                                visibility: 'hidden',
+                                display: recordWebcam.status === CAMERA_STATUS.RECORDING ? 'none' : 'block'
+                            }}
                         >
                             <Stack direction="row" justifyContent="center">
                                 <IconAlarm />
@@ -88,7 +91,7 @@ function AnswerRecorder({ question, onSubmit, recordWebcam }) {
                             </Stack>
                         </Card>
                     </Grid>
-                    <Grid item>{renderControlButton(recordWebcam.status)}</Grid>
+                    {!isUploaded ? <Grid item>{renderControlButton(recordWebcam.status)}</Grid> : null}
                 </Grid>
             </Grid>
             <Grid item xs={12}>
@@ -121,6 +124,9 @@ function AnswerRecorder({ question, onSubmit, recordWebcam }) {
 }
 
 AnswerRecorder.propTypes = {
-    question: PropTypes.object
+    question: PropTypes.object,
+    onSubmit: PropTypes.func,
+    recordWebcam: PropTypes.any,
+    isUploaded: PropTypes.bool
 };
 export default AnswerRecorder;

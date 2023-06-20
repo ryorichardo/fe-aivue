@@ -11,7 +11,7 @@ import CandidateReviewAction from './components/CandidateReviewAction';
 import InterviewQuestions from './components/InterviewQuestions';
 import InterviewAnswer from './components/InterviewAnswer';
 import InterviewList from './components/InterviewList';
-import { getAllInterviews } from 'utils/api/interview';
+import { getAllInterviewsForCandidate } from 'utils/api/interview';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
@@ -28,16 +28,22 @@ function CandidateDetailPage() {
             const { data } = await getCandidateById(id);
             setCandidate(data);
         } catch (error) {
-            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+            dispatch({
+                type: SET_NOTIFICATION,
+                notification: generateNotification(error)
+            });
         }
     };
 
     const getInterviewList = async (candidateId) => {
         try {
-            const { data } = await getAllInterviews(candidateId);
+            const { data } = await getAllInterviewsForCandidate(candidateId);
             setInterviews(data);
         } catch (error) {
-            dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+            dispatch({
+                type: SET_NOTIFICATION,
+                notification: generateNotification(error)
+            });
         }
     };
 

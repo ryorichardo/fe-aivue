@@ -19,22 +19,7 @@ import { gridSpacing } from 'configs/constant';
 import chartData from '../data/ongoing-interview';
 import TotalInterviewCard from 'components/cards/Skeleton/TotalInterviewCard';
 
-const status = [
-    {
-        value: 'today',
-        label: 'Today'
-    },
-    {
-        value: 'month',
-        label: 'This Month'
-    },
-    {
-        value: 'year',
-        label: 'This Year'
-    }
-];
-
-const TotalInterview = ({ isLoading }) => {
+const TotalInterview = ({ isLoading, data }) => {
     const theme = useTheme();
 
     return (
@@ -43,7 +28,7 @@ const TotalInterview = ({ isLoading }) => {
                 <TotalInterviewCard />
             ) : (
                 <MainCard>
-                    <Grid container spacing={gridSpacing} alignItems="center" height={446}>
+                    <Grid container spacing={gridSpacing} alignItems="center">
                         <Grid item xs={12}>
                             <Grid container alignItems="center" justifyContent="space-between">
                                 <Grid item>
@@ -54,10 +39,10 @@ const TotalInterview = ({ isLoading }) => {
                                         <Grid item>
                                             <Grid container direction="row" spacing={1}>
                                                 <Grid item>
-                                                    <Typography variant="h3">82</Typography>
+                                                    <Typography variant="h3">{data?.completed}</Typography>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant="subtitle1">/ 167</Typography>
+                                                    <Typography variant="subtitle1">/ {data?.total}</Typography>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -66,7 +51,14 @@ const TotalInterview = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <Chart width="100%" {...chartData} />
+                            <Chart
+                                height={420}
+                                width="100%"
+                                {...{
+                                    ...chartData,
+                                    series: [data?.completed, data?.ongoing, data?.expired]
+                                }}
+                            />
                         </Grid>
                     </Grid>
                 </MainCard>

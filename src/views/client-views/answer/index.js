@@ -102,7 +102,12 @@ function AnswerPage() {
             <Grid item xs={8}>
                 <Grid container spacing={3} direction="column">
                     <Grid item>
-                        <AnswerRecorder question={currentQuestion} onSubmit={handleSubmit} recordWebcam={recordWebcam} />
+                        <AnswerRecorder
+                            question={currentQuestion}
+                            onSubmit={handleSubmit}
+                            recordWebcam={recordWebcam}
+                            isUploaded={uploadSuccess}
+                        />
                     </Grid>
                     {uploadSuccess ? (
                         <Grid item>

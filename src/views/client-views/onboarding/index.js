@@ -1,12 +1,14 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import CardInfoInterview from './components/CardInfoInterview';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { gridSpacing } from 'configs/constant';
+import { useEffect } from 'react';
 
 function OnboardingPage() {
     const candidate = useSelector((state) => state.candidate?.candidate);
     const nav = useNavigate();
+    console.log(candidate);
 
     const handleClickPractice = () => {
         nav('practice');
@@ -23,6 +25,11 @@ function OnboardingPage() {
         <Box display="flex" justifyContent="center">
             <Box maxWidth={600} display="flex" justifyContent="center">
                 <Grid container justifyContent="center" alignItems="center" direction="column" minHeight="80vh" spacing={gridSpacing}>
+                    <Grid item width="100%">
+                        <Typography variant="h2" align="center">
+                            Selamat datang, Imaduddin!
+                        </Typography>
+                    </Grid>
                     <Grid item width="100%">
                         <CardInfoInterview interview={candidate} />
                     </Grid>

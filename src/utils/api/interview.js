@@ -1,6 +1,14 @@
 import { apiGet, apiPost } from '.';
 
-export const getAllInterviews = (candidateId) => {
+export const getAllInterviews = ({ page = 1, limit = 10 }) => {
+    return apiGet('/interviews', {
+        params: {
+            page,
+            limit
+        }
+    });
+};
+export const getAllInterviewsForCandidate = (candidateId) => {
     return apiGet('/interviews/candidate', {
         params: {
             id: candidateId

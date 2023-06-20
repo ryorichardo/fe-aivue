@@ -22,7 +22,7 @@ export const apiGetWithPagination = async (url, data) => {
         const res = await api.get(url, data);
         return {
             data: res.data.data,
-            pagination_info: res.pagination_info
+            pagination_info: res.data.pagination_info
         };
     } catch (error) {
         throw error;
@@ -48,7 +48,9 @@ export const apiPost = async (url, data) => {
 
 export const apiPostFormData = async (url, data) => {
     try {
-        const res = await api.post(url, data, { headers: { 'Content-Type': 'multipart/form-data' } });
+        const res = await api.post(url, data, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
         return res.data;
     } catch (error) {
         throw error;

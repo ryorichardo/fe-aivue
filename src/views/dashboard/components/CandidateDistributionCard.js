@@ -35,8 +35,7 @@ const status = [
 
 // ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
 
-const TotalGrowthBarChart = ({ isLoading }) => {
-    const [value, setValue] = useState('today');
+const TotalGrowthBarChart = ({ isLoading, data }) => {
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
 
@@ -50,11 +49,12 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const primaryDark = theme.palette.primary.dark;
     const secondaryMain = theme.palette.secondary.main;
     const secondaryLight = theme.palette.secondary.light;
+    const primary800 = theme.palette.primary[800];
 
     useEffect(() => {
         const newChartData = {
             ...chartData.options,
-            colors: [primary200, primaryDark, secondaryMain, secondaryLight],
+            colors: [primaryDark],
             xaxis: {
                 labels: {
                     style: {
@@ -79,14 +79,15 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 labels: {
                     colors: grey500
                 }
-            }
+            },
+            series: [{ data: [data?.pending, data?.rejected, data?.selected, data?.onhold] }]
         };
 
         // do not load chart when loading
         if (!isLoading) {
             ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
         }
-    }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
+    }, [data, navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
 
     return (
         <>
@@ -96,35 +97,10 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 <MainCard>
                     <Grid container spacing={gridSpacing}>
                         <Grid item xs={12}>
-                            <Grid container alignItems="center" justifyContent="space-between">
-                                <Grid item>
-                                    <Grid container direction="column" spacing={1}>
-                                        <Grid item>
-                                            <Typography variant="subtitle2">Total Growth</Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography variant="h3">$2,324.00</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item>
-                                    <TextField
-                                        id="standard-select-currency"
-                                        select
-                                        value={value}
-                                        onChange={(e) => setValue(e.target.value)}
-                                    >
-                                        {status.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </Grid>
-                            </Grid>
+                            <Typography variant="subtitle2">Distribusi Kandidat</Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Chart width="100%" height={528} type="bar" {...chartData} />
+                            <Chart width="100%" height={520} type="bar" {...chartData} />
                         </Grid>
                     </Grid>
                 </MainCard>

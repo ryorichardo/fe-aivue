@@ -1,4 +1,4 @@
-import { apiGet, apiGetWithPagination, apiPostFormData, apiDelete } from '.';
+import { apiGet, apiGetWithPagination, apiPostFormData, apiDelete, apiPost } from '.';
 
 export const getAllCandidates = () => {
     return apiGetWithPagination('/candidates');

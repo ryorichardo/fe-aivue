@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Grid, Stack, Typography } from '@mui/material';
 import CandidateStatusLabel from './CandidateStatusLabel';
 
-function CandidateInfo({ name, email, position, pic, result }) {
+function CandidateInfo({ name, email, position, pic, result, isReviewPage = false, completedDate }) {
     return (
         <Grid container spacing={1.5}>
             <Grid item xs={12}>
@@ -33,16 +33,6 @@ function CandidateInfo({ name, email, position, pic, result }) {
                             </Grid>
                         </Grid>
                     </Grid>
-                    {/* <Grid item xs={12}>
-                        <Grid container justifyContent={'space-between'}>
-                            <Grid item xs={6}>
-                                <Typography variant="caption">Ditambahkan pada</Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography variant="body2">{createdAt?.toLocaleString()}</Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid> */}
                     <Grid item xs={12}>
                         <Grid container justifyContent={'space-between'}>
                             <Grid item xs={6}>
@@ -53,6 +43,18 @@ function CandidateInfo({ name, email, position, pic, result }) {
                             </Grid>
                         </Grid>
                     </Grid>
+                    {isReviewPage ? (
+                        <Grid item xs={12}>
+                            <Grid container justifyContent={'space-between'}>
+                                <Grid item xs={6}>
+                                    <Typography variant="caption">Diselesaikan pada</Typography>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Typography variant="body2">{completedDate?.toLocaleString('en-GB')}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    ) : null}
                 </Grid>
             </Grid>
         </Grid>
@@ -64,7 +66,9 @@ CandidateInfo.propTypes = {
     email: PropTypes.string,
     position: PropTypes.string,
     result: PropTypes.string,
-    pic: PropTypes.object
+    pic: PropTypes.object,
+    isReviewPage: PropTypes.bool,
+    completedDate: PropTypes.string
 };
 
 export default CandidateInfo;

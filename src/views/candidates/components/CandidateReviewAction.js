@@ -4,7 +4,6 @@ import StarIcon from '@mui/icons-material/Star';
 
 import { IconFile, IconPlus, IconShare } from '@tabler/icons';
 import { gridSpacing } from 'configs/constant';
-import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 
@@ -31,19 +30,21 @@ function ButtonInterviewResult({ onClickSelect, onClickReject, onClickOnHold }) 
 }
 
 function CandidateReviewAction({ cvUrl, rating, isReviewPage, onClickSelect, onClickReject, onClickOnHold }) {
-    const nav = useNavigate();
     const dispatch = useDispatch();
     const handleCopy = () => {
         window.open(cvUrl, '_blank');
     };
     const handleShare = () => {
         navigator.clipboard.writeText(window.location.href);
-        dispatch({ type: SET_NOTIFICATION, notification: { type: 'success', message: 'Link berhasil disalin di clipboard' } });
+        dispatch({
+            type: SET_NOTIFICATION,
+            notification: {
+                type: 'success',
+                message: 'Link berhasil disalin di clipboard'
+            }
+        });
     };
 
-    const handleAddInterview = () => {
-        nav('/candidate/new');
-    };
     return (
         <Grid container justify="flex-end" spacing={gridSpacing}>
             <Grid item xs={12}>
@@ -62,10 +63,6 @@ function CandidateReviewAction({ cvUrl, rating, isReviewPage, onClickSelect, onC
                     <Button size="small" color="secondary" variant="contained" onClick={handleShare}>
                         <IconShare size={16} style={{ marginRight: '0.5rem' }} />
                         Bagikan
-                    </Button>
-                    <Button size="small" color="secondary" variant="contained" onClick={handleAddInterview}>
-                        <IconPlus size={16} style={{ marginRight: '0.5rem' }} />
-                        Tambah Interview
                     </Button>
                 </Stack>
             </Grid>
