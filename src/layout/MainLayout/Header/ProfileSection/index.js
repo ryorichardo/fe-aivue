@@ -5,14 +5,10 @@ import { useSelector } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, Chip, ClickAwayListener, List, ListItemButton, ListItemIcon, ListItemText, Popper, Typography } from '@mui/material';
 
-import User1 from 'assets/images/users/user-round.svg';
-
 import { IconLogout, IconSettings } from '@tabler/icons';
 import Transitions from 'components/extended/Transitions';
 import MainCard from 'components/cards/MainCard';
 import { stringAvatar } from 'utils/string';
-
-// ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = ({ logoutHandler }) => {
     const theme = useTheme();

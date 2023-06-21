@@ -3,17 +3,12 @@ import { forwardRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
 
-// project imports
 import { MENU_OPEN, SET_MENU } from 'store/actions';
 
-// assets
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-
-// ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
 const NavItem = ({ item, level }) => {
     const theme = useTheme();

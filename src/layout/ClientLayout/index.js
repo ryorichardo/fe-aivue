@@ -35,7 +35,6 @@ const ClientLayout = () => {
     return (
         <>
             <CssBaseline />
-            {/* header */}
             {loading ? <Loader /> : null}
             <AppBar
                 enableColorOnDark

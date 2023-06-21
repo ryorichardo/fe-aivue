@@ -1,4 +1,4 @@
-import { Card, Rating, Slider, Stack, Typography } from '@mui/material';
+import { Card, Rating, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 

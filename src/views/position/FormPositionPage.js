@@ -8,32 +8,21 @@ import {
     TextField,
     Typography,
     InputLabel,
-    OutlinedInput,
     MenuItem,
     IconButton,
-    InputAdornment,
     FormHelperText,
     FormControl,
-    FormGroup,
     Tooltip,
-    Popper,
-    ClickAwayListener,
-    Select,
-    ToggleButton,
-    ToggleButtonGroup,
     Autocomplete,
     Box
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { LEVEL_OPTIONS, gridSpacing } from 'configs/constant';
-import { getInterviewKitById, getInterviewKits } from 'utils/api/interview-kit';
-import { IconAlarmOff, IconClock, IconInfoCircle, IconPlus, IconTrash } from '@tabler/icons';
-import { useRef } from 'react';
-import MainCard from 'components/cards/MainCard';
+import { getInterviewKits } from 'utils/api/interview-kit';
+import { IconInfoCircle } from '@tabler/icons';
 import { defaultValues, positionSchema } from 'utils/schema/position';
 import { createPosition, getPositionById, updatePositionById } from 'utils/api/position';
 import { useDispatch } from 'react-redux';

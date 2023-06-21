@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Grid, Stack, Typography, Button } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 
-import { IconFile, IconPlus, IconShare } from '@tabler/icons';
+import { IconFile, IconShare } from '@tabler/icons';
 import { gridSpacing } from 'configs/constant';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';

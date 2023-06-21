@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 
-// project imports
 import NavGroup from './NavGroup';
 import { menuItems, menuItemsAdmin } from '../MenuItems';
-
-// ==============================|| SIDEBAR MENU LIST ||============================== //
 
 const MenuList = ({ isSuperAdmin }) => {
     const menu = isSuperAdmin ? menuItemsAdmin : menuItems;

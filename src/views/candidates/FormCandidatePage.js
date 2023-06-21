@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
 import {
     Button,
     Card,
@@ -8,38 +7,25 @@ import {
     TextField,
     Typography,
     InputLabel,
-    OutlinedInput,
-    MenuItem,
     IconButton,
     InputAdornment,
     FormHelperText,
     FormControl,
-    FormGroup,
     Tooltip,
-    Popper,
-    ClickAwayListener,
-    Select,
-    ToggleButton,
-    ToggleButtonGroup,
     Autocomplete
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { LEVEL_OPTIONS, gridSpacing } from 'configs/constant';
-import { getInterviewKitById, getInterviewKits } from 'utils/api/interview-kit';
-import { IconAlarmOff, IconClock, IconInfoCircle, IconPlus, IconTrash } from '@tabler/icons';
-import { useRef } from 'react';
-import MainCard from 'components/cards/MainCard';
+import { gridSpacing } from 'configs/constant';
+import { IconInfoCircle } from '@tabler/icons';
 import { defaultValues, candidateSchema } from 'utils/schema/candidate';
 import { getAllPositions } from 'utils/api/position';
 import { getAllUsers } from 'utils/api/user';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import FileUploader from 'components/FileUploader';
-import { format } from 'date-fns';
 import { createCandidate } from 'utils/api/candidate';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';

@@ -1,17 +1,11 @@
 import PropTypes from 'prop-types';
-
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { List, Typography } from '@mui/material';
 
-// project imports
 import NavItem from '../NavItem';
-// ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
 const NavGroup = ({ item }) => {
     const theme = useTheme();
-
-    // menu list collapse & items
     const items = item.children?.map((menu) => {
         switch (menu.type) {
             case 'item':

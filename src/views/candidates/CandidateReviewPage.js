@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import { Card, Grid, Tab, Tabs, Stack, Rating } from '@mui/material';
+import { Card, Grid } from '@mui/material';
 
 import { getCandidateById } from 'utils/api/candidate';
 import { getInterviewDetail } from 'utils/api/interview';
@@ -13,14 +13,10 @@ import CandidateReviewAction from './components/CandidateReviewAction';
 import InterviewQuestions from './components/InterviewQuestions';
 import CandidateNotes from './components/CandidateNotes';
 import InterviewAnswer from './components/InterviewAnswer';
-import InterviewList from './components/InterviewList';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
-import OverallEmotion from './components/OverallEmotion';
 import { getAnswerForInterview, submitRating } from 'utils/api/answer';
-import { getInterviewKitById } from 'utils/api/interview-kit';
-import { useMemo } from 'react';
 import EmotionDetail from './components/EmotionDetail';
 import ModalConfirm from 'components/ModalConfirm';
 import RatingAnswer from './components/RatingAnswer';

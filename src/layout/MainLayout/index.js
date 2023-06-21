@@ -11,7 +11,6 @@ import Sidebar from './Sidebar';
 import { USER_ROLE, drawerWidth } from 'configs/constant';
 import { SET_MENU } from 'store/actions';
 import { logout } from 'utils/api/auth';
-import Cookies from 'js-cookie';
 import Notification from 'components/Notification';
 
 // styles

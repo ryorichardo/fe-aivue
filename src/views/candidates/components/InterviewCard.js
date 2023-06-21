@@ -1,7 +1,5 @@
-import PropTypes, { object } from 'prop-types';
-import { Card, Grid, IconButton, Typography } from '@mui/material';
-import { IconPencil, IconTrash } from '@tabler/icons';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PropTypes from 'prop-types';
+import { Card, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import CandidateStatusLabel from './CandidateStatusLabel';
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { Card, Grid, IconButton, Typography, Stack } from '@mui/material';
-import { IconAlarm, IconPencil, IconTrash } from '@tabler/icons';
+import { Card, Grid, Typography, Stack } from '@mui/material';
+import { IconAlarm } from '@tabler/icons';
 
 function QuestionCard({ currentQuestion, currentQuestionNumber, numOfQuestion }) {
     const { question, duration } = currentQuestion;

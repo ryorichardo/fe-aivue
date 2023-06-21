@@ -9,16 +9,13 @@ import {
     Typography,
     InputLabel,
     OutlinedInput,
-    MenuItem,
     IconButton,
     InputAdornment,
     FormHelperText,
     FormControl,
-    FormGroup,
     Tooltip,
     Popper,
     ClickAwayListener,
-    Select,
     ToggleButton,
     ToggleButtonGroup
 } from '@mui/material';
@@ -31,8 +28,6 @@ import { gridSpacing } from 'configs/constant';
 import { defaultValues, interviewKitSchema } from 'utils/schema/interview-kit';
 import { createInterviewKit, getInterviewKitById, updateInterviewKit } from 'utils/api/interview-kit';
 import { IconAlarmOff, IconClock, IconPlus, IconTrash } from '@tabler/icons';
-import { useRef } from 'react';
-import MainCard from 'components/cards/MainCard';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';

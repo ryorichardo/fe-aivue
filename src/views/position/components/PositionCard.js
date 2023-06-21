@@ -1,4 +1,4 @@
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Card, Grid, IconButton, Typography } from '@mui/material';
 import { IconPencil, IconTrash } from '@tabler/icons';
 import { useNavigate } from 'react-router';

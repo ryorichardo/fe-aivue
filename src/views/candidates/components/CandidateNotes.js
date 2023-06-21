@@ -15,7 +15,7 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import { IconTrash, IconUser } from '@tabler/icons';
+import { IconTrash } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNotes, deleteNotes, getNotesByInterviewId } from 'utils/api/notes';
 import { SET_NOTIFICATION } from 'store/actions';

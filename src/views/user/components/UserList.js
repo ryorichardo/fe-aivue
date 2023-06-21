@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
-import { Card, Chip, Grid, IconButton, Typography } from '@mui/material';
+import { Card, Chip, IconButton, Typography } from '@mui/material';
 import DataTable from 'react-data-table-component';
-import { IconPencil, IconTrash } from '@tabler/icons';
-import { deleteUser } from 'utils/api/user';
+import { IconTrash } from '@tabler/icons';
 import { useState } from 'react';
 import ModalConfirm from 'components/ModalConfirm';
 

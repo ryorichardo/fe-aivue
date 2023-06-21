@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { Box, Button, Card, Grid, Rating, Slider } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import ReactPlayer from 'react-player';
 import { useState } from 'react';
 import { useEffect } from 'react';

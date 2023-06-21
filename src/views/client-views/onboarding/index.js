@@ -3,7 +3,6 @@ import CardInfoInterview from './components/CardInfoInterview';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { gridSpacing } from 'configs/constant';
-import { useEffect } from 'react';
 
 function OnboardingPage() {
     const candidate = useSelector((state) => state.candidate?.candidate);
