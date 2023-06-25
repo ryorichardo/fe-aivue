@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CardActions, Button, Box, Typography, Link } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import BackupOutlinedIcon from '@mui/icons-material/BackupOutlined';
 

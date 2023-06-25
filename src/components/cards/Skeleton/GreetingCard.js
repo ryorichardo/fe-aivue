@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Card, CardContent, Grid } from '@mui/material';
+import { Box, Card, Grid } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 
 const GreetingCard = () => (

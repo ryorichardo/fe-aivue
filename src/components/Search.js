@@ -8,33 +8,23 @@ import {
     Box,
     Button,
     ButtonBase,
-    Card,
-    ClickAwayListener,
     Grid,
     InputAdornment,
     MenuItem,
     OutlinedInput,
     Popper,
-    Select,
     TextField,
     Drawer,
     Typography,
-    Divider,
-    Badge,
-    Link,
-    Stack
+    Badge
 } from '@mui/material';
 
 // third-party
-import PopupState, { bindPopper, bindToggle } from 'material-ui-popup-state';
 
 // assets
-import { IconAdjustmentsHorizontal, IconArrowsSort, IconSearch, IconX } from '@tabler/icons';
+import { IconAdjustmentsHorizontal, IconSearch } from '@tabler/icons';
 import { shouldForwardProp } from '@mui/system';
-import Transitions from './extended/Transitions';
-import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { LEVEL_OPTIONS } from 'configs/constant';
 
 // styles
 const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
