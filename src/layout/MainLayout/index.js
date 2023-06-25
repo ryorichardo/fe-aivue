@@ -10,7 +10,6 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import { USER_ROLE, drawerWidth } from 'configs/constant';
 import { SET_MENU } from 'store/actions';
-import { logout } from 'utils/api/auth';
 import Notification from 'components/Notification';
 
 // styles
@@ -74,15 +73,14 @@ const MainLayout = () => {
 
     const handleLogout = async () => {
         try {
-            await logout().then((res) => {
-                if (res.status == 200) {
-                    //TODO- handle logout
-                    // localStorage.removeItem('token');
-                    nav('/login');
-                }
-            });
+            await logout();
         } catch (err) {
             console.log(err);
+        } finally {
+            if (localStorage.getItem('token')) {
+                localStorage.removeItem('token');
+            }
+            nav('/login');
         }
     };
     return (

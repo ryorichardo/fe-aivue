@@ -37,7 +37,6 @@ function CandidateReviewPage() {
 
     const getCandidateDetail = async (id) => {
         try {
-            // TODO - add loading mechanism
             const { data } = await getCandidateById(id);
             setCandidate(data);
         } catch (error) {

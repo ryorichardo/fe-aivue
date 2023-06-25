@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
     Button,
     Card,
@@ -31,13 +31,16 @@ import { IconAlarmOff, IconClock, IconPlus, IconTrash } from '@tabler/icons';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
+import CircularLoader from 'components/CircularLoader';
 
 const DEFAULT_INTERVIEW_DURATION = 3;
 
 function FormInterviewKitPage() {
     const { id } = useParams();
     const [currentData, setCurrentData] = useState(null);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const theme = useTheme();
 
     const [modalDurationOpen, setModalDurationOpen] = useState(false);
@@ -64,7 +67,6 @@ function FormInterviewKitPage() {
 
     const getInterviewKitDetail = async (id) => {
         try {
-            // TODO - add loading mechanism
             const { data } = await getInterviewKitById(id);
             setCurrentData(data);
         } catch (error) {
@@ -87,6 +89,7 @@ function FormInterviewKitPage() {
     }, [currentData, setValue]);
 
     const onSubmit = handleSubmit(async ({ title, desc, questions }) => {
+        setLoading(true);
         try {
             let payload = {
                 title,
@@ -104,11 +107,15 @@ function FormInterviewKitPage() {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
         } catch (error) {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        } finally {
+            setLoading(false);
+            navigate('/interview-kit');
         }
     });
 
     return (
         <form id="interviewKitForm" noValidate onSubmit={onSubmit}>
+            {loading ? <CircularLoader disabledBg /> : null}
             <Grid container spacing={gridSpacing} justifyContent="flex-start">
                 <Grid item sm={10}>
                     <Stack spacing={2}>

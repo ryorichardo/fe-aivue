@@ -30,11 +30,13 @@ import { createCandidate } from 'utils/api/candidate';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
+import CircularLoader from 'components/CircularLoader';
 
 function FormCandidatePage() {
     const dispatch = useDispatch();
     const [positionList, setPositionList] = useState([]);
     const [userList, setUserList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [cv, setCv] = useState();
 
@@ -49,7 +51,6 @@ function FormCandidatePage() {
 
     const getPositionList = async () => {
         try {
-            // TODO - add loading mechanism
             const { data } = await getAllPositions();
             setPositionList(data);
         } catch (error) {
@@ -59,7 +60,6 @@ function FormCandidatePage() {
 
     const getUserList = async () => {
         try {
-            // TODO - add loading mechanism
             const { data } = await getAllUsers();
             setUserList(data);
         } catch (error) {
@@ -73,6 +73,7 @@ function FormCandidatePage() {
     }, []);
 
     const onSubmit = async ({ name, email, position, pic, expiredDuration, startDateTime }) => {
+        setLoading(true);
         try {
             const payloadFormData = new FormData();
             payloadFormData.append('cv', cv);
@@ -87,11 +88,14 @@ function FormCandidatePage() {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
         } catch (error) {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <form id="positionForm" noValidate onSubmit={handleSubmit(onSubmit)}>
+            {loading ? <CircularLoader disabledBg /> : null}
             <Grid container spacing={gridSpacing} justifyContent="flex-start">
                 <Grid item md={6} sm={12}>
                     <Stack spacing={2}>

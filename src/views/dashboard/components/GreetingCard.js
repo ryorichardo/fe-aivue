@@ -5,6 +5,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import GreetingCard from 'components/cards/Skeleton/GreetingCard';
+import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.aivue.secondary500,
@@ -61,6 +63,9 @@ function GreetingSection({ isLoading }) {
                             <Grid item xs={12}>
                                 <Typography variant="h5" color="#fff">
                                     Kelola jadwal dan pertanyaan interview dengan AIVue!
+                                </Typography>
+                                <Typography variant="h5" color="#fff">
+                                    {format(new Date(), 'PPPP', { locale: id })}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>

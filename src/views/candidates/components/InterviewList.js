@@ -18,16 +18,24 @@ function InterviewList({ interviews }) {
             </Tabs>
             <TabPanel value={index} index="completed">
                 <Grid container spacing={3}>
-                    {completedInterviews?.map((interview) => (
-                        <Grid item lg={6} md={12} key={interview.id}>
-                            <InterviewCard interview={interview} />
+                    {completedInterviews && completedInterviews?.length > 0 ? (
+                        completedInterviews?.map((interview) => (
+                            <Grid item md={6} key={interview.id}>
+                                <InterviewCard interview={interview} />
+                            </Grid>
+                        ))
+                    ) : (
+                        <Grid item>
+                            <Typography variant="body1" align="center">
+                                Belum ada interview yang disubmit kandidat
+                            </Typography>
                         </Grid>
-                    ))}
+                    )}
                 </Grid>
             </TabPanel>
             <TabPanel value={index} index="future">
                 <Grid container spacing={3}>
-                    {futureInterviews && futureInterviews.length > 0 ? (
+                    {futureInterviews && futureInterviews?.length > 0 ? (
                         futureInterviews?.map((interview) => (
                             <Grid item md={6} key={interview.id}>
                                 <InterviewCard interview={interview} />
@@ -36,7 +44,7 @@ function InterviewList({ interviews }) {
                     ) : (
                         <Grid item>
                             <Typography variant="body1" align="center">
-                                Semua tahapan interview untuk posisi ini telah diselesaikan
+                                Tidak ada interview mendatang
                             </Typography>
                         </Grid>
                     )}

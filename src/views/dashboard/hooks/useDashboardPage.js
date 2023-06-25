@@ -48,8 +48,8 @@ function useDashboardPage() {
     const fetchAllData = async () => {
         setLoading(true);
         try {
-            getCandidates();
-            getInterviews();
+            await getCandidates();
+            await getInterviews();
         } catch (error) {
             console.log(error);
         } finally {

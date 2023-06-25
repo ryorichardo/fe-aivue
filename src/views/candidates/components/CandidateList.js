@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { gridSpacing } from 'configs/constant';
 import CandidateCard from './CandidateCard';
 
 function CandidateList({ data, onDelete }) {
+    if (!data || data?.length === 0) {
+        return (
+            <Grid item xs={12}>
+                <Typography variant="h4">
+                    Belum ada interview yang pernah dilakukan. Tekan tombol "Tambah Kandidat" untuk mulai menambahkan kandidat untuk
+                    diinterview
+                </Typography>
+            </Grid>
+        );
+    }
     return (
         <Grid container spacing={gridSpacing}>
             {data.map((candidate) => (
@@ -16,7 +26,8 @@ function CandidateList({ data, onDelete }) {
 }
 
 CandidateList.propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
+    onDelete: PropTypes.func
 };
 
 export default CandidateList;

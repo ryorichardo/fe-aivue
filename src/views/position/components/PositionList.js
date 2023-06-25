@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { gridSpacing } from 'configs/constant';
 import PositionCard from './PositionCard';
 
 function PositionList({ data, handleDelete }) {
+    if (!data || data?.length === 0) {
+        <Grid item xs={12}>
+            <Typography variant="h4">
+                Tidak ada posisi pekerjaan yang dibuka. Tekan tombol "Tambah Posisi" untuk mulai tambahkan posisi baru
+            </Typography>
+        </Grid>;
+    }
     return (
         <Grid container spacing={gridSpacing}>
             {data.map((pos) => (

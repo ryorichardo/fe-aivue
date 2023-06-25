@@ -1,4 +1,4 @@
-import { Button, Grid, Pagination, Typography } from '@mui/material';
+import { Button, Grid, Pagination } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { gridSpacing } from 'configs/constant';
 import InterviewKitList from './components/InterviewKitList';
@@ -8,10 +8,12 @@ import SearchSection from 'components/Search';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
+import CircularLoader from 'components/CircularLoader';
 
 function InterviewKitPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
 
     const [interviewKits, setInterviewKits] = useState([]);
     const [refetch, setRefetch] = useState(false);
@@ -19,12 +21,14 @@ function InterviewKitPage() {
     const [search, setSearch] = useState('');
 
     const getAllInterviewKits = async () => {
+        setLoading(true);
         try {
-            // TODO - add loading mechanism
             const { data } = await getInterviewKits();
             setInterviewKits(data);
         } catch (error) {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -68,12 +72,8 @@ function InterviewKitPage() {
             <Grid item xs={12}>
                 <SearchSection noFilter value={search} onSearch={(e) => setSearch(e.target.value)} />
             </Grid>
-            {!interviewKits || interviewKits.length === 0 ? (
-                <Grid item xs={12}>
-                    <Typography variant="h4">
-                        Interview kit Anda masih kosong, tekan tombol "Tambah Interview Kit" untuk mulai tambahkan interview kit
-                    </Typography>
-                </Grid>
+            {loading ? (
+                <CircularLoader />
             ) : (
                 <>
                     <Grid item xs={12}>
@@ -81,7 +81,7 @@ function InterviewKitPage() {
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justifyContent="flex-end">
-                            <Pagination count={10} color="primary" shape="rounded" />
+                            <Pagination count={1} color="primary" shape="rounded" />
                         </Grid>
                     </Grid>
                 </>

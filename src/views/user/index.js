@@ -34,8 +34,8 @@ function UserPage() {
     });
 
     const getUsers = async () => {
+        setLoading(true);
         try {
-            setLoading(true);
             const { data } = await getAllUsers();
             setUsers(data);
         } catch (error) {
@@ -96,7 +96,6 @@ function UserPage() {
     };
     return (
         <>
-            {loading ? <CircularLoader /> : null}
             <Grid container spacing={gridSpacing}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="flex-end">
@@ -108,12 +107,8 @@ function UserPage() {
                 <Grid item xs={12}>
                     <SearchSection noFilter value={search} onSearch={(e) => setSearch(e.target.value)} />
                 </Grid>
-                {!loading && (!users || users.length === 0) ? (
-                    <Grid item xs={12}>
-                        <Typography variant="h4">
-                            Belum ada user AIVue di perusahaan Anda. Mulai tambahkan akun untuk memudahkan pekerjaan Anda.
-                        </Typography>
-                    </Grid>
+                {loading ? (
+                    <CircularLoader />
                 ) : (
                     <>
                         <Grid item xs={12} className="list-container-list-page">
@@ -121,7 +116,7 @@ function UserPage() {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container justifyContent="flex-end">
-                                <Pagination count={10} color="primary" shape="rounded" />
+                                <Pagination count={1} color="primary" shape="rounded" />
                             </Grid>
                         </Grid>
                     </>

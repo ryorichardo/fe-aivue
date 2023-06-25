@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
     Button,
     Card,
@@ -28,12 +28,15 @@ import { createPosition, getPositionById, updatePositionById } from 'utils/api/p
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
+import CircularLoader from 'components/CircularLoader';
 
 function FormPositionPage() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const [currentData, setCurrentData] = useState(null);
     const [interviewKitList, setInterviewKitList] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const {
         handleSubmit,
@@ -48,7 +51,6 @@ function FormPositionPage() {
 
     const getPositionDetail = async (id) => {
         try {
-            // TODO - add loading mechanism
             const { data } = await getPositionById(id);
             setCurrentData(data);
         } catch (error) {
@@ -58,7 +60,6 @@ function FormPositionPage() {
 
     const getInterviewKitList = async () => {
         try {
-            // TODO - add loading mechanism
             const { data } = await getInterviewKits();
             setInterviewKitList(data);
         } catch (error) {
@@ -84,6 +85,7 @@ function FormPositionPage() {
     }, [currentData, setValue]);
 
     const onSubmit = async ({ title, level, desc, interviewKits }) => {
+        setLoading(true);
         try {
             const payload = {
                 title,
@@ -101,11 +103,15 @@ function FormPositionPage() {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(res) });
         } catch (error) {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        } finally {
+            setLoading(false);
+            navigate('/position');
         }
     };
 
     return (
         <form id="positionForm" noValidate onSubmit={handleSubmit(onSubmit)}>
+            {loading ? <CircularLoader disabledBg /> : null}
             <Grid container spacing={gridSpacing} justifyContent="flex-start">
                 <Grid item sm={10}>
                     <Stack spacing={2}>

@@ -1,4 +1,4 @@
-import { Button, Grid, Pagination, Typography } from '@mui/material';
+import { Button, Grid, Pagination } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { LEVEL_OPTIONS, gridSpacing } from 'configs/constant';
 import { useState, useEffect } from 'react';
@@ -8,11 +8,13 @@ import SearchSection from 'components/Search';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
+import CircularLoader from 'components/CircularLoader';
 
 function PositionPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [positions, setPositions] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [refetch, setRefetch] = useState(false);
     const [search, setSearch] = useState('');
@@ -38,12 +40,14 @@ function PositionPage() {
     };
 
     const getPositions = async () => {
+        setLoading(true);
         try {
-            // TODO - add loading mechanism
             const { data } = await getAllPositions();
             setPositions(data);
         } catch (error) {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -90,12 +94,8 @@ function PositionPage() {
                     applyFilterHandler={applyFilter}
                 />
             </Grid>
-            {!positions || positions.length === 0 ? (
-                <Grid item xs={12}>
-                    <Typography variant="h4">
-                        Tidak ada posisi pekerjaan yang dibuka. Tekan tombol "Tambah Posisi" untuk mulai tambahkan posisi baru
-                    </Typography>
-                </Grid>
+            {loading ? (
+                <CircularLoader />
             ) : (
                 <>
                     <Grid item xs={12} className="list-container-list-page">
@@ -103,7 +103,7 @@ function PositionPage() {
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justifyContent="flex-end">
-                            <Pagination count={10} color="primary" shape="rounded" />
+                            <Pagination count={1} color="primary" shape="rounded" />
                         </Grid>
                     </Grid>
                 </>

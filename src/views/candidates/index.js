@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
-import { Button, Grid, Pagination, Typography } from '@mui/material';
+import { Button, Grid, Pagination } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { INTERVIEW_RESULT, INTERVIEW_STATUS, gridSpacing } from 'configs/constant';
-import CandidateList from './components/CandidateList';
 import { deleteCandidate, getAllCandidates } from 'utils/api/candidate';
 import SearchSection from 'components/Search';
 import { useDispatch } from 'react-redux';
 import { SET_NOTIFICATION } from 'store/actions';
 import { generateNotification } from 'utils/notification';
 import { getAllUsers } from 'utils/api/user';
+import CircularLoader from 'components/CircularLoader';
+import CandidateList from './components/CandidateList';
 
 function CandidatePage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [candidates, setCandidates] = useState([]);
     const [pics, setPics] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [refetch, setRefetch] = useState(false);
     const [search, setSearch] = useState('');
@@ -58,7 +60,6 @@ function CandidatePage() {
 
     const getCandidates = async () => {
         try {
-            // TODO - add loading mechanism
             const { data } = await getAllCandidates();
 
             // TODO- have proper filter mechanism
@@ -81,7 +82,6 @@ function CandidatePage() {
 
     const getPics = async () => {
         try {
-            // TODO - add loading mechanism
             const { data } = await getAllUsers();
             setPics(data);
         } catch (error) {
@@ -99,14 +99,25 @@ function CandidatePage() {
         }
     };
 
+    const fetchAllData = async () => {
+        setLoading(true);
+        try {
+            await getCandidates();
+            await getPics();
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        getCandidates();
-        getPics();
+        fetchAllData();
     }, []);
 
     useEffect(() => {
         if (refetch) {
-            getCandidates();
+            fetchAllData();
         }
         return () => {
             setRefetch(false);
@@ -136,13 +147,8 @@ function CandidatePage() {
                     applyFilterHandler={applyFilter}
                 />
             </Grid>
-            {!candidates || candidates.length === 0 ? (
-                <Grid item xs={12}>
-                    <Typography variant="h4">
-                        Belum ada interview yang pernah dilakukan. Tekan tombol "Tambah Kandidat" untuk mulai menambahkan kandidat untuk
-                        diinterview
-                    </Typography>
-                </Grid>
+            {loading ? (
+                <CircularLoader />
             ) : (
                 <>
                     <Grid item xs={12} className="list-container-list-page">
@@ -150,7 +156,7 @@ function CandidatePage() {
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justifyContent="flex-end">
-                            <Pagination count={10} color="primary" shape="rounded" />
+                            <Pagination count={1} color="primary" shape="rounded" />
                         </Grid>
                     </Grid>
                 </>
