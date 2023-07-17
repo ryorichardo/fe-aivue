@@ -34,7 +34,7 @@ function useDashboardPage() {
     };
 
     const getCandidates = async () => {
-        const { data, pagination_info } = await getAllCandidates({
+        const { data } = await getAllCandidates({
             limit: MAX_LIMIT
         });
         setCandidates({
@@ -42,7 +42,7 @@ function useDashboardPage() {
             onhold: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.ONHOLD)?.length,
             rejected: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.REJECTED)?.length,
             selected: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.SELECTED)?.length,
-            total: pagination_info?.total_data
+            total: data?.length
         });
         setNeedReview(data?.filter((candidate) => candidate?.active_interview?.status === INTERVIEW_STATUS.WAITING_REVIEW));
     };
