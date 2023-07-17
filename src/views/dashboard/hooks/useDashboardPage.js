@@ -39,7 +39,7 @@ function useDashboardPage() {
             pending: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.PENDING)?.length,
             onhold: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.ONHOLD)?.length,
             rejected: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.REJECTED)?.length,
-            selected: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.selected)?.length,
+            selected: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.SELECTED)?.length,
             total: pagination_info?.total_data
         });
         setNeedReview(data?.filter((candidate) => candidate?.active_interview?.status === INTERVIEW_STATUS.WAITING_REVIEW));
