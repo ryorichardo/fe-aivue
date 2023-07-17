@@ -78,10 +78,14 @@ function AnswerPage() {
     useEffect(() => {
         if (questionId && interviewQuestions) setCurrentQuestion(interviewQuestions.filter((q) => q.question_id === questionId)?.[0]);
         if (recordWebcam) {
-            if (recordWebcam.status === CAMERA_STATUS.PREVIEW) {
-                recordWebcam.retake();
-            } else {
-                recordWebcam.open();
+            try {
+                if (recordWebcam.status === CAMERA_STATUS.PREVIEW) {
+                    recordWebcam.retake();
+                } else {
+                    recordWebcam.open();
+                }
+            } catch (error) {
+                console.log(error);
             }
         }
     }, [questionId, interviewQuestions]);

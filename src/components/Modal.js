@@ -1,6 +1,18 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
-function Modal({ open, setOpen, content, negativeAction, dontShowFooter, title, onOk, onCancel, primaryButtonText, secondaryButtonText }) {
+function Modal({
+    style,
+    open,
+    setOpen,
+    content,
+    negativeAction,
+    dontShowFooter,
+    title,
+    onOk,
+    onCancel,
+    primaryButtonText,
+    secondaryButtonText
+}) {
     const handleOk = (e) => {
         e.preventDefault();
         if (!!onOk) {
@@ -18,7 +30,7 @@ function Modal({ open, setOpen, content, negativeAction, dontShowFooter, title, 
     };
 
     return (
-        <Dialog open={open} onClose={() => setOpen(false)}>
+        <Dialog sx={style} open={open} onClose={() => setOpen(false)}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>{content}</DialogContent>
             {dontShowFooter ? (
@@ -26,10 +38,10 @@ function Modal({ open, setOpen, content, negativeAction, dontShowFooter, title, 
             ) : (
                 <DialogActions>
                     <Button variant="outlined" onClick={handleCancel}>
-                        {secondaryButtonText || 'Cancel'}
+                        {secondaryButtonText || 'Kembali'}
                     </Button>
                     <Button color={negativeAction ? 'error' : 'primary'} variant="contained" onClick={handleOk}>
-                        {primaryButtonText || 'OK'}
+                        {primaryButtonText || 'Lanjutkan'}
                     </Button>
                 </DialogActions>
             )}

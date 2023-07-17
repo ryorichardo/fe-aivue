@@ -100,7 +100,7 @@ function CandidateReviewPage() {
     const handleClickSelect = () => {
         setModalAction({
             open: true,
-            onOk: () => handleSubmitRating(mapAnswer, undefined),
+            onOk: () => handleSubmitRating(mapAnswer, 'Dipilih'),
             title: 'Pilih Kandidat',
             message: `Apakah Anda yakin ingin memilih kandidat ${candidate?.name} untuk posisi ${candidate?.position}? Email penerimaan kandidat akan dikirim secara otomatis oleh sistem ke email kandidat.`,
             confirmDelete: false
@@ -198,7 +198,7 @@ function CandidateReviewPage() {
                                 />
                             </Grid>
                             <Grid item>
-                                <EmotionDetail emotion={currentPredictions} />
+                                <EmotionDetail emotion={mapAnswer?.[currentQuestionId]} />
                             </Grid>
                             <Grid item>
                                 <Grid container direction="row" spacing={3}>

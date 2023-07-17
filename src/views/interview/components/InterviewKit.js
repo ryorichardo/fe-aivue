@@ -6,7 +6,7 @@ import { useState } from 'react';
 import ModalConfirm from 'components/ModalConfirm';
 
 function InterviewKit({ kit, handleDelete }) {
-    const { id, title, description, num_of_questions, total_duration, updated_at, created_at } = kit;
+    const { id, title, last_updated_by, num_of_questions, total_duration, updated_at, created_at } = kit;
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const handleClickNavigateEdit = () => {
@@ -78,7 +78,9 @@ function InterviewKit({ kit, handleDelete }) {
                                     <Typography variant="caption">Terakhir diupdate</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography variant="body2">{updated_at?.toLocaleString('en-GB')}</Typography>
+                                    <Typography variant="body2">
+                                        {updated_at?.toLocaleString('en-GB')} oleh {last_updated_by?.name ?? ''}
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { gridSpacing } from 'configs/constant';
 import QuestionCard from '../components/QuestionCard';
 import AnswerRecorderPractice from '../components/AnswerRecorderPractice';
@@ -29,6 +29,11 @@ function PracticePage() {
     }
     return (
         <Grid container justifyContent="center" spacing={gridSpacing}>
+            <Grid item xs={12}>
+                <Typography textAlign="center" variant="h1">
+                    Simulasi Wawancara
+                </Typography>
+            </Grid>
             <Grid item xs={4}>
                 <QuestionCard
                     currentQuestion={{ question: 'Perkenalkan dirimu dalam Bahasa Inggris', duration: 1 }}
@@ -44,7 +49,10 @@ function PracticePage() {
                             onSubmit={() => {
                                 dispatch({
                                     type: SET_NOTIFICATION,
-                                    notification: { type: 'success', message: 'Latihan interview berhasil, silahkan mulai interview' }
+                                    notification: {
+                                        type: 'success',
+                                        message: 'Latihan interview berhasil, silahkan kembali ke halaman utama untuk memulai wawancara'
+                                    }
                                 });
                                 setShowNextButton(true);
                             }}
@@ -53,11 +61,11 @@ function PracticePage() {
                     {showNextButton ? (
                         <Grid item>
                             <Grid container direction="row" spacing={1}>
-                                <Grid item>
+                                {/* <Grid item>
                                     <Button variant="contained" onClick={handleClickStartInterview}>
                                         Mulai Interview
                                     </Button>
-                                </Grid>
+                                </Grid> */}
                                 <Grid item>
                                     <Button variant="outlined" onClick={handleBack}>
                                         Kembali

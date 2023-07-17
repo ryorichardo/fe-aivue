@@ -9,7 +9,7 @@ import { SET_NOTIFICATION } from 'store/actions';
 
 function ButtonInterviewResult({ onClickSelect, onClickReject, onClickOnHold }) {
     return (
-        <Grid container direction="row" spacing={1}>
+        <Grid Grid container direction="row" spacing={1}>
             <Grid item xs={12} md={4}>
                 <Button size="large" variant="contained" color="error" fullWidth onClick={onClickReject}>
                     Tolak
@@ -22,7 +22,7 @@ function ButtonInterviewResult({ onClickSelect, onClickReject, onClickOnHold }) 
             </Grid>
             <Grid item xs={12} md={4}>
                 <Button size="large" variant="contained" color="primary" fullWidth onClick={onClickSelect}>
-                    Lanjutkan
+                    Pilih
                 </Button>
             </Grid>
         </Grid>

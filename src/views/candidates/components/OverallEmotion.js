@@ -1,4 +1,5 @@
 import { Stack, Typography, Card } from '@mui/material';
+import { EMOTION_LABEL_MAP } from 'configs/constant';
 import React from 'react';
 import Chart from 'react-apexcharts';
 
@@ -46,7 +47,7 @@ const EmotionChart = ({ data }) => {
     };
 
     const series = Object.keys(data?.[0]?.emotion_data ?? {}).map((emotion) => ({
-        name: emotion,
+        name: EMOTION_LABEL_MAP[emotion],
         data: data?.map((item) => item?.emotion_data?.[emotion])
     }));
 

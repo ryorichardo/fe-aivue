@@ -23,3 +23,15 @@ export const USER_ROLE = {
     ADMIN: 'admin',
     SUPERADMIN: 'super admin'
 };
+
+export const EMOTION_LABEL_MAP = {
+    angry: 'Marah',
+    annoyed: 'Terganggu',
+    bored: 'Bosan',
+    confused: 'Bingung',
+    fear: 'Takut',
+    happy: 'Senang',
+    neutral: 'Netral',
+    sad: 'Sedih',
+    surprise: 'Terkejut'
+};

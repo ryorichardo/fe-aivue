@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import { Button, Card, Grid, IconButton, Stack, Typography } from '@mui/material';
 import { IconTrash } from '@tabler/icons';
-import StarIcon from '@mui/icons-material/Star';
 import CandidateStatusLabel from './CandidateStatusLabel';
-import { INTERVIEW_STATUS } from 'configs/constant';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import ModalConfirm from 'components/ModalConfirm';
@@ -29,7 +27,7 @@ function CandidateCard({ candidate, handleDelete }) {
                                 <Typography variant="caption">{email}</Typography>
                             </Stack>
                         </Grid>
-                        <Grid item xs={'auto'}>
+                        {/* <Grid item xs={'auto'}>
                             {status === INTERVIEW_STATUS.EXPIRED ? (
                                 <IconButton size="small" color="error">
                                     <IconTrash size={18} />
@@ -40,7 +38,7 @@ function CandidateCard({ candidate, handleDelete }) {
                                     <Typography variant="body1">{rating || 0}</Typography>
                                 </Stack>
                             )}
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>

@@ -74,10 +74,14 @@ function AnswerRecorderPractice({ question, onSubmit }) {
 
     useEffect(() => {
         if (recordWebcam) {
-            if (recordWebcam.status === CAMERA_STATUS.PREVIEW) {
-                recordWebcam.retake();
-            } else {
-                recordWebcam.open();
+            try {
+                if (recordWebcam.status === CAMERA_STATUS.PREVIEW) {
+                    recordWebcam.retake();
+                } else {
+                    recordWebcam.open();
+                }
+            } catch (error) {
+                console.log('error bang');
             }
         }
     }, []);

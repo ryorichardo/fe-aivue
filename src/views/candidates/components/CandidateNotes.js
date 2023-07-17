@@ -53,6 +53,8 @@ function CandidateNotes({ interviewId }) {
             setRefetch(true);
         } catch (error) {
             dispatch({ type: SET_NOTIFICATION, notification: generateNotification(error) });
+        } finally {
+            setValue('');
         }
     };
 
@@ -106,7 +108,7 @@ function CandidateNotes({ interviewId }) {
                                     >
                                         <ListItemAvatar>
                                             {/* TODO - handle profile picture */}
-                                            <Avatar>{note.sender.img ? <div></div> : 'R'}</Avatar>
+                                            <Avatar>{note.sender.img ? <div></div> : 'SA'}</Avatar>
                                         </ListItemAvatar>
                                         <ListItemText
                                             primary={<Typography variant="body1">{note.text}</Typography>}
