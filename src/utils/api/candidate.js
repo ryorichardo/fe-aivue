@@ -1,7 +1,7 @@
-import { apiGet, apiGetWithPagination, apiPostFormData, apiDelete, apiPost } from '.';
+import { apiGet, apiPostFormData, apiDelete, apiPost } from '.';
 
 export const getAllCandidates = () => {
-    return apiGetWithPagination('/candidates');
+    return apiGet('/candidates');
 };
 
 export const getCandidateById = (id) => {
