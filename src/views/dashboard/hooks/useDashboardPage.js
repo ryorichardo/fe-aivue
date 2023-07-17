@@ -22,21 +22,17 @@ function useDashboardPage() {
     });
 
     const getInterviews = async () => {
-        const { data, pagination_info } = await getAllInterviews({
-            limit: MAX_LIMIT
-        });
+        const { data } = await getAllInterviews();
         setTotalInterview({
             completed: data?.filter((interview) => interview?.is_completed)?.length,
             ongoing: data?.filter((interview) => !interview?.is_completed)?.length,
             expired: data?.filter((interview) => interview?.status === INTERVIEW_STATUS.EXPIRED)?.length,
-            total: pagination_info?.total_data
+            total: data?.length
         });
     };
 
     const getCandidates = async () => {
-        const { data } = await getAllCandidates({
-            limit: MAX_LIMIT
-        });
+        const { data } = await getAllCandidates();
         setCandidates({
             pending: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.PENDING)?.length,
             onhold: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.ONHOLD)?.length,
