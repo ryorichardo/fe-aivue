@@ -34,7 +34,9 @@ function useDashboardPage() {
     };
 
     const getCandidates = async () => {
-        const { data, pagination_info } = await getAllCandidates();
+        const { data, pagination_info } = await getAllCandidates({
+            limit: MAX_LIMIT
+        });
         setCandidates({
             pending: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.PENDING)?.length,
             onhold: data?.filter((candidate) => candidate?.result === INTERVIEW_RESULT.ONHOLD)?.length,
